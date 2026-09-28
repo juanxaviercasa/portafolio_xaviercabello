@@ -28,18 +28,18 @@ export function ProjectDirectoryTable({
   }
 
   return (
-    <div className="overflow-x-auto rounded-2xl border border-zinc-800/80 bg-zinc-900/40 backdrop-blur-sm">
+    <div className="overflow-x-auto rounded-2xl border border-white/[0.08] bg-[#0d0e11] shadow-bevel">
       <table className="w-full text-left text-sm text-zinc-300">
-        <thead className="border-b border-zinc-800 bg-zinc-950/70 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+        <thead className="border-b border-white/[0.08] bg-[#121316] text-[11px] font-mono uppercase tracking-wider text-zinc-400">
           <tr>
-            <th scope="col" className="py-4 pl-6 pr-3 font-mono">Año</th>
-            <th scope="col" className="px-4 py-4">Proyecto / Subdominio</th>
-            <th scope="col" className="hidden sm:table-cell px-4 py-4">Categoría</th>
-            <th scope="col" className="hidden md:table-cell px-4 py-4">Stack Tecnológico</th>
-            <th scope="col" className="py-4 pl-3 pr-6 text-right">Destino</th>
+            <th scope="col" className="py-3.5 pl-6 pr-3 font-mono">Año</th>
+            <th scope="col" className="px-4 py-3.5">Aplicación / Subdominio</th>
+            <th scope="col" className="hidden sm:table-cell px-4 py-3.5">Categoría</th>
+            <th scope="col" className="hidden md:table-cell px-4 py-3.5">Stack Tecnológico</th>
+            <th scope="col" className="py-3.5 pl-3 pr-6 text-right">Lanzamiento</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-zinc-800/60 font-normal">
+        <tbody className="divide-y divide-white/[0.04] font-normal">
           {projects.map((project) => {
             const isCustomDomain = !project.liveUrl.includes('github.com');
             const displayUrl = isCustomDomain
@@ -49,21 +49,21 @@ export function ProjectDirectoryTable({
             return (
               <tr
                 key={project.id}
-                className="group transition-colors hover:bg-zinc-800/30"
+                className="group transition-colors hover:bg-white/[0.02]"
               >
                 {/* Year */}
-                <td className="whitespace-nowrap py-4 pl-6 pr-3 font-mono text-xs text-zinc-500">
+                <td className="whitespace-nowrap py-3.5 pl-6 pr-3 font-mono text-xs text-zinc-500 tabular-nums">
                   {project.year ?? '—'}
                 </td>
 
                 {/* Title & Subdomain */}
-                <td className="px-4 py-4">
+                <td className="px-4 py-3.5">
                   <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-zinc-100 hover:text-emerald-400 transition-colors block"
-                    title={isCustomDomain ? `Lanzar ${project.title}` : `Ver en GitHub: ${project.title}`}
+                    className="font-semibold text-[#f7f8f8] hover:text-emerald-400 transition-colors block text-sm"
+                    title={`Lanzar ${project.title}`}
                   >
                     {project.title}
                   </a>
@@ -71,35 +71,30 @@ export function ProjectDirectoryTable({
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1.5 text-xs font-mono mt-0.5 transition-colors ${
-                      isCustomDomain
-                        ? 'text-emerald-400 hover:underline'
-                        : 'text-zinc-400 hover:text-zinc-200'
-                    }`}
+                    className="inline-flex items-center gap-1.5 text-[11px] font-mono mt-0.5 text-zinc-400 hover:text-emerald-400 transition-colors"
                   >
-                    <span
-                      className={`h-1.5 w-1.5 rounded-full ${
-                        isCustomDomain ? 'bg-emerald-500' : 'bg-zinc-500'
-                      }`}
-                    />
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                    </span>
                     <span>{displayUrl}</span>
                   </a>
                 </td>
 
                 {/* Category */}
-                <td className="hidden sm:table-cell px-4 py-4">
-                  <span className="inline-block rounded-md bg-zinc-800/80 px-2 py-0.5 text-xs font-medium uppercase tracking-wider text-zinc-300">
+                <td className="hidden sm:table-cell px-4 py-3.5">
+                  <span className="inline-block rounded border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 text-[11px] font-mono text-zinc-300">
                     {project.category}
                   </span>
                 </td>
 
                 {/* Tech Badges */}
-                <td className="hidden md:table-cell px-4 py-4">
+                <td className="hidden md:table-cell px-4 py-3.5">
                   <div className="flex flex-wrap gap-1 max-w-sm">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded bg-zinc-800/50 px-1.5 py-0.5 text-[11px] text-zinc-400"
+                        className="rounded border border-white/[0.05] bg-white/[0.02] px-1.5 py-0.5 font-mono text-[10px] text-zinc-400"
                       >
                         {tag}
                       </span>
@@ -108,43 +103,29 @@ export function ProjectDirectoryTable({
                 </td>
 
                 {/* Action Links */}
-                <td className="whitespace-nowrap py-4 pl-3 pr-6 text-right">
+                <td className="whitespace-nowrap py-3.5 pl-3 pr-6 text-right">
                   <div className="flex items-center justify-end gap-2">
-                    {onPreviewClick && isCustomDomain && (
+                    {onPreviewClick && (
                       <button
                         type="button"
                         onClick={() => onPreviewClick(project)}
-                        className="rounded-lg p-2 text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                        className="rounded-lg border border-white/[0.08] bg-white/[0.02] p-1.5 text-zinc-400 shadow-bevel hover:bg-white/[0.06] hover:text-[#f7f8f8] transition-colors"
                         title="Vista previa rápida"
                       >
-                        <Eye className="h-4 w-4" />
+                        <Eye className="h-3.5 w-3.5" />
                       </button>
                     )}
 
-                    {isCustomDomain ? (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500 px-3.5 py-1.5 text-xs font-bold text-zinc-950 hover:bg-emerald-400 transition-colors shadow-sm"
-                        title={`Lanzar ${project.title}`}
-                      >
-                        <span>Lanzar App</span>
-                        <ExternalLink className="h-3 w-3 stroke-[2.5]" />
-                      </a>
-                    ) : (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs font-medium text-zinc-300 hover:border-zinc-700 hover:text-white transition-colors"
-                        title="Ruta de respaldo: Ver en GitHub"
-                      >
-                        <Github className="h-3.5 w-3.5" />
-                        <span>GitHub</span>
-                        <ExternalLink className="h-3 w-3 opacity-60" />
-                      </a>
-                    )}
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-bold text-[#08090a] hover:bg-emerald-400 transition-all shadow-bevel active:scale-95"
+                      title={`Lanzar ${project.title}`}
+                    >
+                      <span>Lanzar App</span>
+                      <ExternalLink className="h-3 w-3 stroke-[2.5]" />
+                    </a>
                   </div>
                 </td>
               </tr>

@@ -48,22 +48,28 @@ export function ProjectPreviewModal({ project, onClose }: ProjectPreviewModalPro
 
         {/* Modal Window Container */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 16 }}
+          initial={{ opacity: 0, scale: 0.96, y: 12 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 16 }}
-          transition={{ type: 'spring', duration: 0.3, bounce: 0 }}
-          className="relative z-10 flex flex-col max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900 shadow-2xl shadow-black/80"
+          exit={{ opacity: 0, scale: 0.96, y: 12 }}
+          transition={{ type: 'spring', duration: 0.25, bounce: 0 }}
+          className="relative z-10 flex flex-col max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-2xl border border-white/[0.12] bg-[#0e0f12] shadow-2xl shadow-black"
         >
-          {/* Modal Header */}
-          <div className="flex items-center justify-between border-b border-zinc-800 bg-zinc-950/80 px-6 py-4">
+          {/* Modal Header with Traffic Lights & Address Bar */}
+          <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#121316] px-5 py-3.5">
             <div className="flex items-center gap-3">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              {/* Window dots */}
+              <div className="hidden sm:flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
+              </div>
+
               <div>
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base font-bold text-zinc-100 hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
+                  className="text-sm sm:text-base font-bold text-[#f7f8f8] hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5"
                 >
                   <span>{project.title}</span>
                   <ExternalLink className="h-3.5 w-3.5 text-zinc-400" />
@@ -72,7 +78,7 @@ export function ProjectPreviewModal({ project, onClose }: ProjectPreviewModalPro
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-xs text-zinc-400 hover:text-emerald-400 transition-colors block"
+                  className="font-mono text-[11px] text-zinc-400 hover:text-emerald-400 transition-colors block"
                 >
                   https://{displayUrl}
                 </a>
@@ -81,17 +87,17 @@ export function ProjectPreviewModal({ project, onClose }: ProjectPreviewModalPro
 
             <div className="flex items-center gap-2">
               {/* Tab Selector: Screenshot vs Live IFrame */}
-              <div className="flex rounded-lg border border-zinc-800 bg-zinc-900 p-0.5">
+              <div className="flex rounded-lg border border-white/[0.08] bg-black/40 p-0.5">
                 <button
                   type="button"
                   onClick={() => setActiveTab('image')}
                   className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                     activeTab === 'image'
-                      ? 'bg-zinc-800 text-emerald-400'
+                      ? 'bg-white/[0.1] text-[#f7f8f8] shadow-bevel'
                       : 'text-zinc-400 hover:text-zinc-200'
                   }`}
                 >
-                  <ImageIcon className="h-3.5 w-3.5" />
+                  <ImageIcon className="h-3.5 w-3.5 text-emerald-400" />
                   <span>Captura</span>
                 </button>
                 <button
@@ -99,11 +105,11 @@ export function ProjectPreviewModal({ project, onClose }: ProjectPreviewModalPro
                   onClick={() => setActiveTab('iframe')}
                   className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors ${
                     activeTab === 'iframe'
-                      ? 'bg-zinc-800 text-emerald-400'
+                      ? 'bg-white/[0.1] text-[#f7f8f8] shadow-bevel'
                       : 'text-zinc-400 hover:text-zinc-200'
                   }`}
                 >
-                  <Monitor className="h-3.5 w-3.5" />
+                  <Monitor className="h-3.5 w-3.5 text-blue-400" />
                   <span>Sandbox</span>
                 </button>
               </div>
@@ -112,16 +118,16 @@ export function ProjectPreviewModal({ project, onClose }: ProjectPreviewModalPro
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-lg p-1.5 text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100"
+                className="rounded-lg p-1.5 text-zinc-400 hover:bg-white/[0.08] hover:text-[#f7f8f8] transition-colors"
                 title="Cerrar modal (Esc)"
               >
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4" />
               </button>
             </div>
           </div>
 
           {/* Modal Media Area */}
-          <div className="relative aspect-video w-full bg-zinc-950 border-b border-zinc-800 overflow-hidden">
+          <div className="relative aspect-video w-full bg-[#08090a] border-b border-white/[0.08] overflow-hidden">
             {activeTab === 'image' ? (
               <div className="relative h-full w-full">
                 <Image
@@ -146,30 +152,30 @@ export function ProjectPreviewModal({ project, onClose }: ProjectPreviewModalPro
           </div>
 
           {/* Modal Content Details */}
-          <div className="p-6 bg-zinc-900/90 overflow-y-auto">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-3">
+          <div className="p-6 bg-[#0e0f12] overflow-y-auto">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div className="flex items-center gap-2">
-                <Badge variant="success" className="uppercase tracking-wider font-semibold">
+                <Badge variant="success" className="uppercase tracking-wider font-semibold font-mono text-[11px]">
                   {project.category}
                 </Badge>
                 {project.year && (
-                  <Badge variant="outline" className="font-mono text-zinc-400">
+                  <Badge variant="outline" className="font-mono text-zinc-400 text-[11px]">
                     {project.year}
                   </Badge>
                 )}
                 {project.metrics && (
-                  <span className="text-xs text-zinc-400">· {project.metrics}</span>
+                  <span className="text-xs text-zinc-400 font-mono">· {project.metrics}</span>
                 )}
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 {project.githubUrl && (
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-800/80 px-3.5 py-2 text-xs font-medium text-zinc-200 transition-colors hover:bg-zinc-700"
+                    className="flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3.5 py-2 text-xs font-medium text-zinc-300 shadow-bevel transition-all hover:border-white/[0.18] hover:bg-white/[0.06] hover:text-[#f7f8f8]"
                   >
                     <Github className="h-4 w-4" />
                     <span>Ver Código</span>
@@ -179,25 +185,25 @@ export function ProjectPreviewModal({ project, onClose }: ProjectPreviewModalPro
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 rounded-lg bg-emerald-500 px-4 py-2 text-xs font-semibold text-zinc-950 transition-all hover:bg-emerald-400 shadow-md shadow-emerald-500/20"
+                  className="flex items-center gap-1.5 rounded-lg bg-emerald-500 px-4 py-2 text-xs font-bold text-[#08090a] shadow-bevel transition-all hover:bg-emerald-400 active:scale-95"
                 >
-                  <span>Abrir Subdominio Completo</span>
+                  <span>Lanzar Subdominio</span>
                   <ExternalLink className="h-3.5 w-3.5 stroke-[2.5]" />
                 </a>
               </div>
             </div>
 
-            <p className="text-sm text-zinc-300 leading-relaxed mb-4">
+            <p className="text-sm text-[#d0d6e0] leading-relaxed mb-4">
               {project.description}
             </p>
 
             <div>
-              <span className="text-xs font-semibold text-zinc-400 block mb-2 uppercase tracking-wider">
+              <span className="text-[11px] font-mono text-zinc-500 block mb-2 uppercase tracking-wider">
                 Tecnologías y librerías utilizadas:
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {project.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary">
+                  <Badge key={tag} variant="secondary" className="border border-white/[0.06] bg-white/[0.02]">
                     {tag}
                   </Badge>
                 ))}

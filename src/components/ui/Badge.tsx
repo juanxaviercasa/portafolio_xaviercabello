@@ -13,16 +13,16 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variants = {
-    default: 'bg-zinc-800/80 text-zinc-300 border-zinc-700/60',
-    outline: 'bg-transparent text-zinc-400 border-zinc-800',
-    success: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
-    secondary: 'bg-zinc-800 text-zinc-200 border-transparent',
+    default: 'bg-white/[0.04] text-zinc-300 border-white/[0.08] shadow-bevel font-mono text-[11px]',
+    outline: 'bg-transparent text-zinc-400 border-white/[0.06] font-mono text-[11px]',
+    success: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25 font-mono text-[11px]',
+    secondary: 'bg-white/[0.03] text-zinc-300 border-transparent text-[11px]',
   };
 
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-medium transition-colors',
+        'inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-medium transition-colors',
         variants[variant],
         className
       )}

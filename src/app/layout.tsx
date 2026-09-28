@@ -44,22 +44,31 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className="dark scroll-smooth">
-      <body className="min-h-screen bg-zinc-950 font-sans text-zinc-100 antialiased selection:bg-emerald-500/20 selection:text-emerald-300">
-        <div className="relative flex min-h-screen flex-col">
+      <body className="min-h-screen bg-canvas font-sans text-[#d0d6e0] antialiased selection:bg-brand-500/20 selection:text-brand-300 relative">
+        {/* Subtle dot-matrix engineered texture */}
+        <div
+          className="pointer-events-none fixed inset-0 bg-dot-matrix opacity-40 z-0"
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 flex min-h-screen flex-col">
           <Header />
           <div className="flex-1">{children}</div>
-          <footer className="border-t border-zinc-800/80 bg-zinc-950 py-8 text-center text-xs text-zinc-500">
+          <footer className="border-t border-white/[0.06] bg-canvas py-8 text-center text-xs text-zinc-500">
             <div className="mx-auto max-w-7xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div>
-                © {new Date().getFullYear()} {portfolioConfig.owner.name}. Todos los derechos reservados.
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-zinc-400">© {new Date().getFullYear()}</span>
+                <span className="text-zinc-300 font-medium">{portfolioConfig.owner.name}</span>
+                <span className="text-zinc-600">·</span>
+                <span className="text-zinc-500 font-mono text-[11px]">Directorio de 21 Aplicaciones</span>
               </div>
-              <div className="flex items-center gap-4 text-zinc-400">
+              <div className="flex items-center gap-3 text-zinc-400 font-mono text-[11px]">
                 <span className="flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                  Arquitectura Data-Driven
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-emerald-400">100% Despliegues Verificados</span>
                 </span>
-                <span>·</span>
-                <span>Optimizado con Next.js & Tailwind CSS</span>
+                <span className="text-zinc-700">·</span>
+                <span>Open Design Linear Spec</span>
               </div>
             </div>
           </footer>

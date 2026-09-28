@@ -9,8 +9,8 @@ export const portfolioConfig: PortfolioConfig = {
     socials: {
       github: 'https://github.com/juanxaviercasa',
       linkedin: 'https://www.linkedin.com/in/xaviercabello/',
-      email: 'mailto:josefcalefbaldur@gmail.com',
-      tiktok: 'https://www.tiktok.com/@academiazenit',
+      email: 'mailto:xavier@cabellosalirrosas.com',
+      tiktok: 'https://www.tiktok.com/@sistemazenit',
     },
   },
   showcase: {
