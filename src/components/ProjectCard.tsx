@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Eye, Github, Globe, Lock, Sparkles } from 'lucide-react';
+import Link from 'next/link';
+import { ExternalLink, BookOpen, Github, Globe, Lock } from 'lucide-react';
 import { Project } from '@/types/project';
 import { SpotlightCard } from '@/components/ui/SpotlightCard';
 import { Badge } from '@/components/ui/Badge';
@@ -14,10 +15,11 @@ interface ProjectCardProps {
 }
 
 /**
-  * Tarjeta de Lanzamiento de Aplicación Web (Open Design Linear Specification)
-  * Chrome de navegador, indicador SSL en vivo, tipografía de alta precisión y micro-interacciones.
-  */
-export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
+ * Tarjeta de Lanzamiento de Aplicación Web (Open Design Linear Specification)
+ * El clic en la tarjeta o título abre la ficha técnica y pedagógica detallada en su propia pestaña completa.
+ * La navegación externa directa al sitio web está reservada exclusivamente al botón "Ver Web App".
+ */
+export function ProjectCard({ project }: ProjectCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
@@ -26,9 +28,18 @@ export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
     ? getDisplayUrl(project.liveUrl)
     : `github.com/juanxaviercasa/${project.id}`;
 
+  const detailUrl = `/proyectos/${project.id}`;
+
   return (
     <SpotlightCard className="group flex h-full flex-col justify-between">
-      <div>
+      {/* Clickable Area: Opens full dedicated project page in a new tab */}
+      <Link
+        href={detailUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block flex-1 cursor-pointer"
+        title={`Ver ficha completa de ${project.title}`}
+      >
         {/* Browser Chrome Header (Open Design Signature Viewport) */}
         <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#0d0e11] px-3.5 py-2">
           {/* Traffic light dots */}
@@ -39,16 +50,13 @@ export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
           </div>
 
           {/* Subdomain address bar with SSL lock */}
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded border border-white/[0.06] bg-black/40 px-2 py-0.5 font-mono text-[10px] text-zinc-400 transition-colors hover:border-emerald-500/40 hover:text-emerald-400 truncate max-w-[200px]"
-            title={`Abrir https://${displayUrl}`}
+          <div
+            className="flex items-center gap-1.5 rounded border border-white/[0.06] bg-black/40 px-2 py-0.5 font-mono text-[10px] text-zinc-400 transition-colors group-hover:border-emerald-500/30 group-hover:text-emerald-400 truncate max-w-[200px]"
+            title={`Ficha técnica de ${displayUrl}`}
           >
             <Lock className="h-2.5 w-2.5 text-emerald-400 shrink-0" />
             <span className="truncate">{displayUrl}</span>
-          </a>
+          </div>
 
           {/* Live Ping Indicator */}
           <div className="flex items-center gap-1">
@@ -61,19 +69,12 @@ export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
 
         {/* Card Header: Clickable Preview Image Container */}
         <div className="relative aspect-video w-full overflow-hidden bg-[#08090a]">
-          {/* Skeleton placeholder while loading */}
           {!imageLoaded && !imageError && (
             <div className="absolute inset-0 animate-pulse bg-white/[0.03]" />
           )}
 
-          {/* Direct link on the image itself */}
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block h-full w-full"
-            title={`Abrir aplicación: ${displayUrl}`}
-          >
+          {/* Image display */}
+          <div className="block h-full w-full">
             <Image
               src={imageError ? '/placeholders/project-mockup.svg' : project.image}
               alt={`Captura de ${project.title}`}
@@ -89,7 +90,7 @@ export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
                 setImageLoaded(true);
               }}
             />
-          </a>
+          </div>
 
           {/* Featured Badge if applicable */}
           {project.featured && (
@@ -101,27 +102,11 @@ export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
           )}
 
           {/* Quick Action Overlay on hover */}
-          <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center gap-2 bg-black/50 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pointer-events-auto flex items-center gap-1.5 rounded-lg bg-emerald-500 px-3.5 py-1.5 text-xs font-bold text-[#08090a] shadow-bevel transition-all hover:bg-emerald-400 active:scale-95"
-            >
-              <span>Abrir App</span>
-              <ExternalLink className="h-3.5 w-3.5 stroke-[2.5]" />
-            </a>
-
-            {onPreviewClick && (
-              <button
-                type="button"
-                onClick={() => onPreviewClick(project)}
-                className="pointer-events-auto flex items-center gap-1.5 rounded-lg border border-white/[0.15] bg-[#121316]/90 px-3 py-1.5 text-xs font-semibold text-[#f7f8f8] shadow-bevel hover:bg-white/[0.1] transition-colors"
-                title="Vista previa rápida en ventana"
-              >
-                <Eye className="h-3.5 w-3.5" />
-              </button>
-            )}
+          <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center gap-2 bg-black/60 opacity-0 backdrop-blur-[2px] transition-opacity duration-200 group-hover:opacity-100">
+            <span className="pointer-events-auto inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/40 bg-[#121316]/95 px-3.5 py-1.5 text-xs font-semibold text-[#f7f8f8] shadow-bevel transition-all hover:bg-emerald-500 hover:text-[#08090a]">
+              <BookOpen className="h-3.5 w-3.5 text-emerald-400" />
+              <span>Ver Ficha Completa</span>
+            </span>
           </div>
         </div>
 
@@ -139,17 +124,9 @@ export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
             )}
           </div>
 
-          {/* Project Title (Direct link to destination) */}
+          {/* Project Title */}
           <h3 className="text-base sm:text-lg font-bold tracking-tight text-[#f7f8f8] transition-colors group-hover:text-emerald-400">
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="focus:outline-none focus:underline"
-              title={`Lanzar: ${project.title}`}
-            >
-              {project.title}
-            </a>
+            {project.title}
           </h3>
 
           {/* Project Description */}
@@ -179,7 +156,7 @@ export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
             </div>
           )}
         </div>
-      </div>
+      </Link>
 
       {/* Card Footer: Fast App Launcher / Fallback */}
       <div className="border-t border-white/[0.06] p-3.5 flex items-center justify-between gap-2.5 bg-[#0e0f12]">
@@ -200,14 +177,14 @@ export function ProjectCard({ project, onPreviewClick }: ProjectCardProps) {
           </span>
         )}
 
-        {/* PRIMARY CTA: Custom Subdomain Direct Launcher */}
+        {/* PRIMARY CTA: Custom Subdomain Direct Launcher - Exclusively opens the live web app */}
         <a
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-emerald-500 px-3.5 py-2 text-xs font-bold text-[#08090a] shadow-bevel transition-all duration-150 hover:bg-emerald-400 active:scale-[0.98]"
         >
-          <span>Lanzar Aplicación</span>
+          <span>Ver Web App</span>
           <ExternalLink className="h-3.5 w-3.5 stroke-[2.5]" />
         </a>
       </div>

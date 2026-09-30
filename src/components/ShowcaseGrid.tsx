@@ -8,7 +8,6 @@ import { portfolioConfig, CATEGORIES } from '@/data/portfolio.config';
 import { FilterBar } from '@/components/FilterBar';
 import { ProjectCard } from '@/components/ProjectCard';
 import { ProjectDirectoryTable } from '@/components/ProjectDirectoryTable';
-import { ProjectPreviewModal } from '@/components/ProjectPreviewModal';
 
 interface ShowcaseGridProps {
   initialProjects: Project[];
@@ -19,7 +18,6 @@ export function ShowcaseGrid({ initialProjects }: ShowcaseGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>(portfolioConfig.showcase.defaultView);
   const [visibleCount, setVisibleCount] = useState(portfolioConfig.showcase.itemsPerPage);
-  const [previewProject, setPreviewProject] = useState<Project | null>(null);
 
   // Compute category counts for the filter badges
   const categoryCounts = useMemo(() => {
@@ -110,11 +108,6 @@ export function ShowcaseGrid({ initialProjects }: ShowcaseGridProps) {
                   >
                     <ProjectCard
                       project={project}
-                      onPreviewClick={
-                        portfolioConfig.showcase.enableQuickModalPreview
-                          ? setPreviewProject
-                          : undefined
-                      }
                     />
                   </motion.div>
                 ))}
@@ -163,19 +156,8 @@ export function ShowcaseGrid({ initialProjects }: ShowcaseGridProps) {
         /* Alternative Brittany Chiang Table/Directory View */
         <ProjectDirectoryTable
           projects={filteredProjects}
-          onPreviewClick={
-            portfolioConfig.showcase.enableQuickModalPreview
-              ? setPreviewProject
-              : undefined
-          }
         />
       )}
-
-      {/* Interactive Quick Preview Modal (Precedent style) */}
-      <ProjectPreviewModal
-        project={previewProject}
-        onClose={() => setPreviewProject(null)}
-      />
     </section>
   );
 }

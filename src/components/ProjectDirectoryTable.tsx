@@ -49,36 +49,35 @@ export function ProjectDirectoryTable({
             return (
               <tr
                 key={project.id}
-                className="group transition-colors hover:bg-white/[0.02]"
+                onClick={() => window.open(`/proyectos/${project.id}`, '_blank')}
+                className="group cursor-pointer transition-colors hover:bg-white/[0.03]"
               >
                 {/* Year */}
                 <td className="whitespace-nowrap py-3.5 pl-6 pr-3 font-mono text-xs text-zinc-500 tabular-nums">
                   {project.year ?? '—'}
                 </td>
 
-                {/* Title & Subdomain */}
+                {/* Title & Subdomain (Opens dedicated project page in new tab) */}
                 <td className="px-4 py-3.5">
                   <a
-                    href={project.liveUrl}
+                    href={`/proyectos/${project.id}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-semibold text-[#f7f8f8] hover:text-emerald-400 transition-colors block text-sm"
-                    title={`Lanzar ${project.title}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="font-semibold text-[#f7f8f8] group-hover:text-emerald-400 transition-colors block text-sm"
+                    title={`Ver ficha completa de ${project.title}`}
                   >
                     {project.title}
                   </a>
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-[11px] font-mono mt-0.5 text-zinc-400 hover:text-emerald-400 transition-colors"
+                  <div
+                    className="inline-flex items-center gap-1.5 text-[11px] font-mono mt-0.5 text-zinc-400 group-hover:text-emerald-400/90 transition-colors"
                   >
                     <span className="relative flex h-1.5 w-1.5">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
                     </span>
                     <span>{displayUrl}</span>
-                  </a>
+                  </div>
                 </td>
 
                 {/* Category */}
@@ -105,25 +104,26 @@ export function ProjectDirectoryTable({
                 {/* Action Links */}
                 <td className="whitespace-nowrap py-3.5 pl-3 pr-6 text-right">
                   <div className="flex items-center justify-end gap-2">
-                    {onPreviewClick && (
-                      <button
-                        type="button"
-                        onClick={() => onPreviewClick(project)}
-                        className="rounded-lg border border-white/[0.08] bg-white/[0.02] p-1.5 text-zinc-400 shadow-bevel hover:bg-white/[0.06] hover:text-[#f7f8f8] transition-colors"
-                        title="Vista previa rápida"
-                      >
-                        <Eye className="h-3.5 w-3.5" />
-                      </button>
-                    )}
+                    <a
+                      href={`/proyectos/${project.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="rounded-lg border border-white/[0.08] bg-white/[0.02] p-1.5 text-zinc-400 shadow-bevel hover:border-emerald-500/40 hover:bg-white/[0.06] hover:text-[#f7f8f8] transition-colors"
+                      title="Ver ficha técnica completa"
+                    >
+                      <Eye className="h-3.5 w-3.5" />
+                    </a>
 
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-bold text-[#08090a] hover:bg-emerald-400 transition-all shadow-bevel active:scale-95"
-                      title={`Lanzar ${project.title}`}
+                      title={`Lanzar aplicación ${project.title}`}
                     >
-                      <span>Lanzar App</span>
+                      <span>Ver Web App</span>
                       <ExternalLink className="h-3 w-3 stroke-[2.5]" />
                     </a>
                   </div>
