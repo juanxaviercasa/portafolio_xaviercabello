@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgFunc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#150a2e"/>
+      <stop offset="50%" stop-color="#090514"/>
+      <stop offset="100%" stop-color="#1d0d3f"/>
+    </linearGradient>
+    <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="50%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bgFunc)"/>
+  
+  <!-- Coordinate Grid -->
+  <g stroke="#3b1d6e" stroke-width="1" opacity="0.4">
+    <line x1="80" y1="50" x2="720" y2="50"/>
+    <line x1="80" y1="110" x2="720" y2="110"/>
+    <line x1="80" y1="170" x2="720" y2="170"/>
+    <line x1="80" y1="230" x2="720" y2="230" stroke="#7c3aed" stroke-width="2" opacity="0.8"/>
+    <line x1="80" y1="290" x2="720" y2="290"/>
+    <line x1="80" y1="350" x2="720" y2="350"/>
+    <line x1="400" y1="40" x2="400" y2="380" stroke="#7c3aed" stroke-width="2" opacity="0.8"/>
+  </g>
+  
+  <!-- Dynamic Function Curve f(x) -->
+  <path d="M 120 330 C 240 330, 280 130, 400 130 C 520 130, 560 330, 680 330" fill="none" stroke="url(#curveGrad)" stroke-width="6" stroke-linecap="round"/>
+  
+  <circle cx="400" cy="130" r="7" fill="#fbbf24" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="280" cy="230" r="6" fill="#ec4899" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="520" cy="230" r="6" fill="#a855f7" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Formula Card -->
+  <rect x="250" y="55" width="300" height="45" rx="10" fill="#1e103c" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="400" y="83" text-anchor="middle" fill="#fdf4ff" font-family="monospace" font-size="16" font-weight="bold">
+    f(x) = A · sin(ωx + φ) + k
+  </text>
+
+  <!-- Title Badge -->
+  <text x="400" y="415" text-anchor="middle" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="18" font-weight="800">
+    FUNCIONES LAB · CÁLCULO VISUAL INTERACTIVO
+  </text>
+</svg>

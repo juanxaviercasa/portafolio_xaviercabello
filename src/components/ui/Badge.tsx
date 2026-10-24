@@ -13,16 +13,16 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variants = {
-    default: 'bg-white/[0.04] text-zinc-300 border-white/[0.08] shadow-bevel font-mono text-[11px]',
-    outline: 'bg-transparent text-zinc-400 border-white/[0.06] font-mono text-[11px]',
-    success: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/25 font-mono text-[11px]',
-    secondary: 'bg-white/[0.03] text-zinc-300 border-transparent text-[11px]',
+    default: 'bg-purple-100 dark:bg-purple-950/40 text-purple-900 dark:text-purple-200 border-purple-200 dark:border-purple-800/40 font-mono text-xs font-semibold',
+    outline: 'bg-transparent text-purple-700 dark:text-purple-300 border-purple-200/80 dark:border-purple-800/50 font-mono text-xs font-semibold',
+    success: 'bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border-amber-300/80 dark:border-amber-500/30 font-mono text-xs font-bold',
+    secondary: 'bg-purple-50 dark:bg-purple-950/20 text-purple-800 dark:text-purple-200 border-transparent text-xs',
   };
 
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-medium transition-colors',
+        'inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-0.5 font-medium transition-colors',
         variants[variant],
         className
       )}

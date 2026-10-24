@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgAi" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c071e"/>
+      <stop offset="50%" stop-color="#140a33"/>
+      <stop offset="100%" stop-color="#080314"/>
+    </linearGradient>
+    <linearGradient id="brainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="50%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <filter id="glowAi" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bgAi)"/>
+
+  <!-- Top Badge -->
+  <rect x="230" y="30" width="340" height="32" rx="16" fill="#180e38" stroke="#a855f7" stroke-width="1"/>
+  <text x="400" y="51" text-anchor="middle" fill="#d8b4fe" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="1.5">
+    RETRIEVAL-AUGMENTED GENERATION (RAG)
+  </text>
+
+  <!-- Neural Knowledge Nodes Network -->
+  <g stroke="#6366f1" stroke-width="1.5" opacity="0.6">
+    <line x1="200" y1="180" x2="300" y2="140"/>
+    <line x1="200" y1="180" x2="300" y2="220"/>
+    <line x1="300" y1="140" x2="400" y2="180"/>
+    <line x1="300" y1="220" x2="400" y2="180"/>
+    <line x1="400" y1="180" x2="500" y2="140"/>
+    <line x1="400" y1="180" x2="500" y2="220"/>
+    <line x1="500" y1="140" x2="600" y2="180"/>
+    <line x1="500" y1="220" x2="600" y2="180"/>
+  </g>
+
+  <!-- Neural Nodes -->
+  <circle cx="200" cy="180" r="16" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+  <text x="200" y="185" text-anchor="middle" fill="#c7d2fe" font-family="monospace" font-size="10" font-weight="bold">DOCS</text>
+
+  <circle cx="300" cy="140" r="14" fill="#31104b" stroke="#c084fc" stroke-width="2"/>
+  <text x="300" y="144" text-anchor="middle" fill="#f3e8ff" font-family="monospace" font-size="9" font-weight="bold">EMBED</text>
+
+  <circle cx="300" cy="220" r="14" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+  <text x="300" y="224" text-anchor="middle" fill="#d1fae5" font-family="monospace" font-size="9" font-weight="bold">FAISS</text>
+
+  <!-- Central AI Core -->
+  <g transform="translate(400, 180)" filter="url(#glowAi)">
+    <circle cx="0" cy="0" r="42" fill="#170c38" stroke="url(#brainGrad)" stroke-width="3"/>
+    <circle cx="0" cy="0" r="32" fill="#241252" stroke="#fbbf24" stroke-width="1.5"/>
+    <text x="0" y="6" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="18" font-weight="900">IA</text>
+  </g>
+
+  <circle cx="500" cy="140" r="14" fill="#1e3a8a" stroke="#60a5fa" stroke-width="2"/>
+  <text x="500" y="144" text-anchor="middle" fill="#dbeafe" font-family="monospace" font-size="9" font-weight="bold">CITAS</text>
+
+  <circle cx="500" cy="220" r="14" fill="#701a75" stroke="#f472b6" stroke-width="2"/>
+  <text x="500" y="224" text-anchor="middle" fill="#fce7f3" font-family="monospace" font-size="9" font-weight="bold">FastAPI</text>
+
+  <circle cx="600" cy="180" r="16" fill="#14532d" stroke="#4ade80" stroke-width="2"/>
+  <text x="600" y="185" text-anchor="middle" fill="#bbf7d0" font-family="monospace" font-size="10" font-weight="bold">TUTOR</text>
+
+  <!-- Conversation Preview Card -->
+  <g transform="translate(200, 270)">
+    <rect x="0" y="0" width="400" height="58" rx="12" fill="#130b2c" stroke="#8b5cf6" stroke-width="1.5"/>
+    <text x="18" y="24" fill="#fbbf24" font-family="sans-serif" font-size="11" font-weight="bold">Zenit AI Tutor [Cálculo &amp; Álgebra]:</text>
+    <text x="18" y="44" fill="#e9d5ff" font-family="monospace" font-size="12">
+      "El límite lim_{x→0} sin(x)/x = 1 demostrable por sandwich [Ref. Teorema 4.2]"
+    </text>
+  </g>
+
+  <!-- Title Bottom -->
+  <text x="400" y="380" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="22" font-weight="900">
+    ZENIT AI TUTOR (RAG PIPELINE)
+  </text>
+  <text x="400" y="405" text-anchor="middle" fill="#a855f7" font-family="monospace" font-size="13" font-weight="bold">
+    FastAPI Microservices · Citas Verificables · Enseñanza Adaptativa
+  </text>
+</svg>

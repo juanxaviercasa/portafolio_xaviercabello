@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgRaleDoc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bgRaleDoc)"/>
+  
+  <!-- Crest shield outline -->
+  <path d="M 400 120 Q 480 120 490 200 Q 500 290 400 340 Q 300 290 310 200 Q 320 120 400 120 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="3" opacity="0.8"/>
+  <circle cx="400" cy="220" r="40" fill="#0284c7" opacity="0.2"/>
+  
+  <!-- Graduation / Mentor Icon -->
+  <polygon points="400,195 440,215 400,235 360,215" fill="#38bdf8"/>
+  <rect x="385" y="235" width="30" height="20" rx="3" fill="#0284c7"/>
+
+  <!-- Badges -->
+  <rect x="250" y="60" width="300" height="36" rx="8" fill="#0369a1" opacity="0.3" stroke="#38bdf8" stroke-width="1"/>
+  <text x="400" y="84" text-anchor="middle" fill="#7dd3fc" font-family="monospace" font-size="13" font-weight="bold">
+    CONVOCATORIA &amp; PASANTÍAS AD HONOREM 2026
+  </text>
+
+  <text x="400" y="380" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="22" font-weight="800">
+    SEMILLERO DOCENTE · RALE PREMILITAR
+  </text>
+  <text x="400" y="410" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="13">
+    Prácticas Pre-Profesionales Universitarias en FFAA &amp; PNP
+  </text>
+</svg>

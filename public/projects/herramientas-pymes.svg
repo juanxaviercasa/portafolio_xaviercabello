@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgSuite" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080e22"/>
+      <stop offset="50%" stop-color="#0a1538"/>
+      <stop offset="100%" stop-color="#140b2a"/>
+    </linearGradient>
+    <linearGradient id="cyanPill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="amberPill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bgSuite)"/>
+
+  <!-- Top Badge -->
+  <rect x="250" y="30" width="300" height="32" rx="16" fill="#0d1b3e" stroke="#06b6d4" stroke-width="1"/>
+  <text x="400" y="51" text-anchor="middle" fill="#7dd3fc" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="1.5">
+    PROGRESSIVE WEB APP · 100% OFFLINE
+  </text>
+
+  <!-- 3x2 Grid of Micro-Tools inside PWA Shell -->
+  <g transform="translate(100, 85)">
+    <!-- Window Frame -->
+    <rect x="0" y="0" width="600" height="260" rx="16" fill="#0a122c" stroke="#1e293b" stroke-width="2"/>
+    <rect x="0" y="0" width="600" height="36" rx="16" fill="#0f172a"/>
+    <circle cx="20" cy="18" r="5" fill="#ef4444"/>
+    <circle cx="36" cy="18" r="5" fill="#f59e0b"/>
+    <circle cx="52" cy="18" r="5" fill="#10b981"/>
+    <text x="300" y="23" text-anchor="middle" fill="#64748b" font-family="monospace" font-size="11">herramientas-pymes.local (22 Apps Listas)</text>
+
+    <!-- Mini Cards Grid -->
+    <!-- Tool 1: Finanzas & Facturas -->
+    <rect x="25" y="55" width="165" height="85" rx="10" fill="#131e42" stroke="#2563eb" stroke-width="1"/>
+    <circle cx="50" cy="80" r="14" fill="#1e3a8a"/>
+    <text x="50" y="85" text-anchor="middle" fill="#60a5fa" font-size="14">💰</text>
+    <text x="75" y="82" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold">Calculadora IGV</text>
+    <text x="75" y="98" fill="#94a3b8" font-family="sans-serif" font-size="10">Detracciones &amp; Renta</text>
+
+    <!-- Tool 2: Generador de QR & Barcodes -->
+    <rect x="215" y="55" width="165" height="85" rx="10" fill="#131e42" stroke="#06b6d4" stroke-width="1"/>
+    <circle cx="240" cy="80" r="14" fill="#0e7490"/>
+    <text x="240" y="85" text-anchor="middle" fill="#67e8f9" font-size="14">📱</text>
+    <text x="265" y="82" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold">Generador QR</text>
+    <text x="265" y="98" fill="#94a3b8" font-family="sans-serif" font-size="10">Yape, Plin &amp; WiFi</text>
+
+    <!-- Tool 3: Minificador & SEO -->
+    <rect x="405" y="55" width="165" height="85" rx="10" fill="#131e42" stroke="#8b5cf6" stroke-width="1"/>
+    <circle cx="430" cy="80" r="14" fill="#5b21b6"/>
+    <text x="430" y="85" text-anchor="middle" fill="#c4b5fd" font-size="14">⚡</text>
+    <text x="455" y="82" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold">Auditor SEO</text>
+    <text x="455" y="98" fill="#94a3b8" font-family="sans-serif" font-size="10">Metadatos &amp; OpenGraph</text>
+
+    <!-- Tool 4: Contratos & Legal -->
+    <rect x="25" y="155" width="165" height="85" rx="10" fill="#131e42" stroke="#10b981" stroke-width="1"/>
+    <circle cx="50" cy="180" r="14" fill="#065f46"/>
+    <text x="50" y="185" text-anchor="middle" fill="#6ee7b7" font-size="14">📄</text>
+    <text x="75" y="182" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold">Plantillas NDA</text>
+    <text x="75" y="198" fill="#94a3b8" font-family="sans-serif" font-size="10">Contratos de Servicio</text>
+
+    <!-- Tool 5: Editor de Imágenes / WebP -->
+    <rect x="215" y="155" width="165" height="85" rx="10" fill="#131e42" stroke="#f59e0b" stroke-width="1"/>
+    <circle cx="240" cy="180" r="14" fill="#92400e"/>
+    <text x="240" y="185" text-anchor="middle" fill="#fde68a" font-size="14">🖼️</text>
+    <text x="265" y="182" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold">Conversor WebP</text>
+    <text x="265" y="198" fill="#94a3b8" font-family="sans-serif" font-size="10">Compresión sin servidor</text>
+
+    <!-- Tool 6: Generador de Hash & UUID -->
+    <rect x="405" y="155" width="165" height="85" rx="10" fill="#131e42" stroke="#ec4899" stroke-width="1"/>
+    <circle cx="430" cy="180" r="14" fill="#9d174d"/>
+    <text x="430" y="185" text-anchor="middle" fill="#fbcfe8" font-size="14">🔑</text>
+    <text x="455" y="182" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold">Bóveda &amp; UUID</text>
+    <text x="455" y="198" fill="#94a3b8" font-family="sans-serif" font-size="10">Cripto en navegador</text>
+  </g>
+
+  <!-- Title Bottom -->
+  <text x="400" y="385" text-anchor="middle" fill="#ffffff" font-family="sans-serif" font-size="22" font-weight="900">
+    HERRAMIENTAS PYMES (SUITE 22-IN-1)
+  </text>
+  <text x="400" y="410" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="13" font-weight="bold">
+    PWA Sin Servidor · Cero Dependencias · 100% Offline
+  </text>
+</svg>

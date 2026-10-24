@@ -2,30 +2,41 @@ import { PortfolioConfig, ProjectCategory } from '@/types/project';
 
 export const portfolioConfig: PortfolioConfig = {
   owner: {
-    name: 'Juan Xavier Cabello',
-    role: 'Full-Stack Web Developer · Educador · Constructor de Productos Digitales',
-    tagline: 'Construyo aplicaciones full-stack, plataformas de aprendizaje interactivo, herramientas para PyMEs y soluciones con IA aplicada que convierten ideas complejas en experiencias claras y verificables.',
-    subdomainDomain: 'todolima.com',
+    name: 'Xavier Cabello',
+    alias: 'Fénix 357',
+    role: 'Instructor de vibecoding con IA · Desarrollo y educación',
+    tagline:
+      'Desarrollador full stack y licenciado en Educación Matemática. Creo plataformas educativas, simuladores, herramientas para negocios y sistemas con IA aplicada.',
+    siteUrl: 'https://xavier.cabellosalirrosas.com',
+    brandMark: '/images/phoenix-brand-mark.png',
     socials: {
       github: 'https://github.com/juanxaviercasa',
       linkedin: 'https://www.linkedin.com/in/xaviercabello/',
       email: 'mailto:xavier@cabellosalirrosas.com',
       tiktok: 'https://www.tiktok.com/@sistemazenit',
+      whatsapp:
+        'https://wa.me/51925475034?text=' +
+        encodeURIComponent('Hola Xavier, quiero aprender a crear aplicaciones con IA. Me interesa conocer tu taller.'),
     },
   },
   showcase: {
-    itemsPerPage: 12,
+    itemsPerPage: 6,
     defaultView: 'grid',
-    enableQuickModalPreview: true,
+  },
+  training: {
+    url: '/taller-fenix/',
   },
 };
 
 export const CATEGORIES: ProjectCategory[] = [
-  { id: 'all', label: 'Todos los Proyectos', description: 'Catálogo consolidado de proyectos en producción' },
-  { id: 'pymes', label: 'Herramientas para PyMEs', description: 'Calculadoras, directorios urbanos, analítica y utilidades comerciales' },
-  { id: 'edtech', label: 'Productos Educativos', description: 'Plataformas de preparación académica, matemáticas renderizadas y simuladores' },
-  { id: 'tools', label: 'Seguridad & DevTools', description: 'Bóvedas Zero-Knowledge, entornos de datos y laboratorios técnicos' },
-  { id: 'automation', label: 'IA Aplicada & Automatización', description: 'Tutores con IA verificable, generación procedural y agentes 24/7' },
-  { id: 'culture', label: 'Cultura, Bienestar & WebGL', description: 'Mundos simulados, genealogía, psicología interactiva y shaders 3D' },
-  { id: 'templates', label: 'Arquitectura Web & Templates', description: 'Fábrica de sitios ultra-rápidos con Astro 5 + Tailwind 4 y UI kits' },
+  { id: 'all', label: 'Todos', description: 'Todos los proyectos' },
+  { id: 'webapp', label: 'Web apps', description: 'Aplicaciones interactivas y simuladores' },
+  { id: 'web', label: 'Sitios web', description: 'Sitios, landings y portales' },
+  { id: 'mobile', label: 'Móvil', description: 'Experiencias para smartphone y PWA' },
+  { id: 'ai', label: 'IA y seguridad', description: 'Inteligencia artificial, cifrado y automatización' },
+  { id: 'edtech', label: 'Educación', description: 'Matemáticas, ciencias y preparación preuniversitaria' },
+  { id: 'pymes', label: 'Negocios', description: 'Herramientas y directorios para pequeñas empresas' },
+  { id: 'tools', label: 'Herramientas', description: 'Utilidades técnicas y de productividad' },
+  { id: 'templates', label: 'Diseño UI', description: 'Interfaces y prototipos en Figma' },
+  { id: 'leisure', label: 'Personales', description: 'Proyectos personales y de bienestar' },
 ];

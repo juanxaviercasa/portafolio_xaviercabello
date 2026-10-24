@@ -1,163 +1,148 @@
 'use client';
-
-import React, { useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowDown, Layers, Sparkles } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { ArrowDown } from 'lucide-react';
 import { Project, ProjectCategoryId } from '@/types/project';
 import { portfolioConfig, CATEGORIES } from '@/data/portfolio.config';
 import { FilterBar } from '@/components/FilterBar';
 import { ProjectCard } from '@/components/ProjectCard';
 import { ProjectDirectoryTable } from '@/components/ProjectDirectoryTable';
+import { normalizeSearch } from '@/lib/utils';
 
-interface ShowcaseGridProps {
-  initialProjects: Project[];
-}
+const PAGE_SIZE = portfolioConfig.showcase.itemsPerPage;
+const DEFAULT_VIEW = portfolioConfig.showcase.defaultView;
 
-export function ShowcaseGrid({ initialProjects }: ShowcaseGridProps) {
+export function ShowcaseGrid({ initialProjects }: { initialProjects: Project[] }) {
   const [activeCategory, setActiveCategory] = useState<ProjectCategoryId>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState<'grid' | 'table'>(portfolioConfig.showcase.defaultView);
-  const [visibleCount, setVisibleCount] = useState(portfolioConfig.showcase.itemsPerPage);
+  const [viewMode, setViewMode] = useState<'grid' | 'table'>(DEFAULT_VIEW);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const [ready, setReady] = useState(false);
 
-  // Compute category counts for the filter badges
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: initialProjects.length };
-    CATEGORIES.forEach((cat) => {
-      if (cat.id !== 'all') {
-        counts[cat.id] = initialProjects.filter((p) => p.category === cat.id).length;
-      }
-    });
-    return counts as Record<ProjectCategoryId, number>;
-  }, [initialProjects]);
+  // Restaura filtros desde la URL (enlaces compartibles y botón atrás).
+  useEffect(() => {
+    const restore = () => {
+      const params = new URLSearchParams(window.location.search);
+      const category = params.get('categoria');
+      setActiveCategory(
+        CATEGORIES.some((c) => c.id === category) ? (category as ProjectCategoryId) : 'all',
+      );
+      setSearchQuery(params.get('q') || '');
+      setViewMode(params.get('vista') === 'table' ? 'table' : DEFAULT_VIEW);
+      setVisibleCount(PAGE_SIZE);
+      setReady(true);
+    };
+    restore();
+    window.addEventListener('popstate', restore);
+    return () => window.removeEventListener('popstate', restore);
+  }, []);
 
-  // Filter projects by category and real-time search query
+  // Sincroniza filtros con la URL.
+  useEffect(() => {
+    if (!ready) return;
+    const url = new URL(window.location.href);
+    const values = {
+      q: searchQuery,
+      categoria: activeCategory === 'all' ? '' : activeCategory,
+      vista: viewMode === DEFAULT_VIEW ? '' : viewMode,
+    };
+    Object.entries(values).forEach(([key, value]) =>
+      value ? url.searchParams.set(key, value) : url.searchParams.delete(key),
+    );
+    url.searchParams.delete('estado'); // filtro retirado; limpia enlaces antiguos
+    window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+  }, [ready, searchQuery, activeCategory, viewMode]);
+
+  const categoryCounts = useMemo(
+    () =>
+      Object.fromEntries(
+        CATEGORIES.map((c) => [
+          c.id,
+          c.id === 'all'
+            ? initialProjects.length
+            : initialProjects.filter((p) => p.category === c.id || p.categories?.includes(c.id)).length,
+        ]),
+      ) as Record<ProjectCategoryId, number>,
+    [initialProjects],
+  );
+
   const filteredProjects = useMemo(() => {
-    const query = searchQuery.trim().toLowerCase();
-
+    const query = normalizeSearch(searchQuery);
     return initialProjects.filter((project) => {
-      const matchesCategory = activeCategory === 'all' || project.category === activeCategory;
-      if (!matchesCategory) return false;
-
-      if (!query) return true;
-
-      const titleMatch = project.title.toLowerCase().includes(query);
-      const descMatch = project.description.toLowerCase().includes(query);
-      const subdomainMatch = project.subdomain.toLowerCase().includes(query);
-      const tagMatch = project.tags.some((t) => t.toLowerCase().includes(query));
-
-      return titleMatch || descMatch || subdomainMatch || tagMatch;
+      if (
+        activeCategory !== 'all' &&
+        project.category !== activeCategory &&
+        !project.categories?.includes(activeCategory)
+      )
+        return false;
+      return (
+        !query ||
+        [project.title, project.description, project.subdomain, project.subcategory || '', ...project.tags].some(
+          (text) => normalizeSearch(text).includes(query),
+        )
+      );
     });
   }, [initialProjects, activeCategory, searchQuery]);
 
-  // Sliced projects for pagination / progressive loading
-  const displayedProjects = useMemo(() => {
-    if (viewMode === 'table') {
-      // Show full list in table directory view
-      return filteredProjects;
-    }
-    return filteredProjects.slice(0, visibleCount);
-  }, [filteredProjects, visibleCount, viewMode]);
+  const displayed = filteredProjects.slice(0, visibleCount);
+  const remaining = filteredProjects.length - visibleCount;
 
-  const hasMore = viewMode === 'grid' && visibleCount < filteredProjects.length;
-
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + portfolioConfig.showcase.itemsPerPage);
-  };
-
-  const handleCategoryChange = (category: ProjectCategoryId) => {
-    setActiveCategory(category);
-    setVisibleCount(portfolioConfig.showcase.itemsPerPage); // reset pagination when category changes
-  };
-
-  const handleSearchChange = (query: string) => {
-    setSearchQuery(query);
-    setVisibleCount(portfolioConfig.showcase.itemsPerPage); // reset pagination when query changes
+  const reset = () => {
+    setActiveCategory('all');
+    setSearchQuery('');
+    setVisibleCount(PAGE_SIZE);
   };
 
   return (
-    <section className="space-y-8" id="catalogo">
-      {/* Interactive Filter and Search Controller */}
+    <div>
       <FilterBar
         activeCategory={activeCategory}
-        onCategoryChange={handleCategoryChange}
+        onCategoryChange={(category) => {
+          setActiveCategory(category);
+          setVisibleCount(PAGE_SIZE);
+        }}
         searchQuery={searchQuery}
-        onSearchChange={handleSearchChange}
+        onSearchChange={(value) => {
+          setSearchQuery(value);
+          setVisibleCount(PAGE_SIZE);
+        }}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         categoryCounts={categoryCounts}
         totalResults={filteredProjects.length}
       />
 
-      {/* Main Content Area: Grid View or Table View */}
-      {viewMode === 'grid' ? (
-        <>
-          {displayedProjects.length > 0 ? (
-            <motion.div
-              layout
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            >
-              <AnimatePresence mode="popLayout">
-                {displayedProjects.map((project) => (
-                  <motion.div
-                    key={project.id}
-                    layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <ProjectCard
-                      project={project}
-                    />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          ) : (
-            <div className="rounded-2xl border border-white/[0.08] bg-[#0f1012] p-12 text-center shadow-bevel">
-              <Sparkles className="mx-auto h-7 w-7 text-zinc-600 mb-3" />
-              <h3 className="text-base font-semibold text-[#f7f8f8]">
-                No se encontraron proyectos
-              </h3>
-              <p className="mt-1 text-sm text-zinc-500">
-                Intenta ajustar tu búsqueda o selecciona otra categoría.
-              </p>
-              <button
-                type="button"
-                onClick={() => {
-                  setActiveCategory('all');
-                  setSearchQuery('');
-                }}
-                className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-4 py-2 text-xs font-semibold text-emerald-400 shadow-bevel hover:bg-white/[0.08] transition-colors"
-              >
-                Restablecer catálogo
-              </button>
+      <div id="project-results" aria-label="Resultados del catálogo">
+        {filteredProjects.length === 0 ? (
+          <div className="rounded-2xl border border-[var(--line)] bg-[var(--soft)]/40 p-10 text-center">
+            <h3 className="text-xl font-bold text-[var(--text)]">Sin resultados</h3>
+            <p className="mt-2 text-sm text-[var(--muted)]">Prueba con otra palabra, como «React», «IA» o «PWA».</p>
+            <button type="button" onClick={reset} className="button-secondary mt-5">
+              Ver todos los proyectos
+            </button>
+          </div>
+        ) : viewMode === 'table' ? (
+          <ProjectDirectoryTable projects={filteredProjects} />
+        ) : (
+          <>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {displayed.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
             </div>
-          )}
-
-          {/* Load More Button / Pagination for Scalability */}
-          {hasMore && (
-            <div className="flex flex-col items-center justify-center gap-3 pt-6 pb-4">
-              <p className="text-xs text-zinc-500 font-mono tabular-nums">
-                Mostrando {displayedProjects.length} de {filteredProjects.length} proyectos en vivo
-              </p>
-              <button
-                type="button"
-                onClick={handleLoadMore}
-                className="group flex items-center gap-2 rounded-xl border border-white/[0.08] bg-[#141518] px-6 py-2.5 text-xs font-semibold text-zinc-200 shadow-bevel transition-all duration-150 hover:border-white/[0.18] hover:bg-[#18191d] hover:text-[#f7f8f8] active:scale-95"
-              >
-                <span>Cargar más proyectos (+{portfolioConfig.showcase.itemsPerPage})</span>
-                <ArrowDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
-              </button>
-            </div>
-          )}
-        </>
-      ) : (
-        /* Alternative Brittany Chiang Table/Directory View */
-        <ProjectDirectoryTable
-          projects={filteredProjects}
-        />
-      )}
-    </section>
+            {remaining > 0 && (
+              <div className="mt-8 flex justify-center">
+                <button
+                  type="button"
+                  className="button-secondary"
+                  onClick={() => setVisibleCount((value) => value + PAGE_SIZE)}
+                >
+                  Ver más ({remaining}) <ArrowDown size={16} aria-hidden="true" />
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </div>
   );
 }

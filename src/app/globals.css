@@ -3,78 +3,530 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: light;
+  --bg: #f5f3ff;
+  --panel: #ffffff;
+  --surface: rgba(255, 255, 255, 0.94);
+  --soft: #eeedff;
+  --text: #1f1235;
+  --muted: #5e4778;
+  --line: rgba(109, 82, 190, 0.20);
+  --accent: #6d28d9;
+  --accent-soft: rgba(251, 146, 60, 0.16);
+  --amber: #d97706;
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.dark {
   color-scheme: dark;
-  --bg-canvas: #08090a;
-  --bg-panel: #0f1012;
-  --bg-surface: #141518;
-  --bg-surface-elevated: #191b20;
-  --fg-primary: #f7f8f8;
-  --fg-secondary: #d0d6e0;
-  --fg-muted: #8a8f98;
-  --fg-meta: #62666d;
-  --border-hairline: rgba(255, 255, 255, 0.08);
-  --border-soft: rgba(255, 255, 255, 0.04);
+  /* Amatista Real Luminoso + Brasa de Fuego Fénix */
+  --bg: #251346;
+  --panel: #331b5e;
+  --surface: rgba(54, 29, 98, 0.90);
+  --soft: rgba(74, 40, 128, 0.78);
+  --text: #fff8f0;
+  --muted: #e6d8fa;
+  --line: rgba(251, 146, 60, 0.38);
+  --accent: #ff7b29;
+  --accent-soft: rgba(255, 123, 41, 0.24);
+  --amber: #fbbf24;
 }
 
-body {
-  background-color: #08090a;
-  color: #d0d6e0;
-  font-feature-settings: "cv01", "ss03", "cv02", "cv11";
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.14) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(147, 51, 234, 0.12) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, rgba(245, 158, 11, 0.12) 0px, transparent 55%);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  .dark body {
+    background-color: #251346;
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(255, 107, 43, 0.34) 0px, transparent 42%),
+      radial-gradient(circle at 88% 12%, rgba(251, 191, 36, 0.26) 0px, transparent 40%),
+      radial-gradient(circle at 50% 45%, rgba(168, 85, 247, 0.32) 0px, transparent 58%),
+      radial-gradient(circle at 85% 85%, rgba(249, 115, 22, 0.24) 0px, transparent 48%),
+      linear-gradient(160deg, #29154e 0%, #381d68 50%, #2a144d 100%);
+    background-attachment: fixed;
+  }
+
+  a, button, input {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  button, input {
+    font: inherit;
+  }
+
+  button, a {
+    touch-action: manipulation;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  ::selection {
+    background: #f97316;
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  section[id] {
+    scroll-margin-top: 96px;
+  }
 }
 
-/* Open Design Subtle Dot Matrix Background (Clean, No AI-Slop Blobs) */
-.bg-dot-matrix {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 28px 28px;
+/* ==========================================================================
+   PHOENIX 3D MOTION, FIRE SHADERS & SCROLL-REVEAL EFFECTS
+   ========================================================================== */
+
+/* Escenario 3D del Hero: SIEMPRE en Amatista Real & Fuego (Cero velo blanco) */
+.hero-stage-3d {
+  background: linear-gradient(135deg, #2a1450 0%, #3b1c6e 50%, #5c2248 100%);
+  box-shadow:
+    0 24px 60px -12px rgba(24, 9, 48, 0.65),
+    0 0 50px -10px rgba(249, 115, 22, 0.35),
+    inset 0 1px 0 0 rgba(254, 215, 170, 0.35);
 }
 
-/* Hairline border utilities */
-.border-hairline {
-  border-color: rgba(255, 255, 255, 0.08);
+.text-phoenix-gradient {
+  background: linear-gradient(135deg, #ea580c 0%, #d97706 42%, #9333ea 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.border-hairline-soft {
-  border-color: rgba(255, 255, 255, 0.04);
+.dark .text-phoenix-gradient,
+.hero-stage-3d .text-phoenix-gradient {
+  background: linear-gradient(135deg, #fef08a 0%, #fb923c 45%, #f97316 75%, #e879f9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-/* Inset bevel highlight for cards and controls */
 .shadow-bevel {
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 24px -6px rgba(234, 88, 12, 0.12),
+    0 4px 12px -2px rgba(147, 51, 234, 0.08),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.85);
+}
+
+.dark .shadow-bevel {
+  box-shadow:
+    0 12px 32px -8px rgba(20, 8, 40, 0.55),
+    0 0 28px -8px rgba(251, 146, 60, 0.22),
+    inset 0 1px 0 0 rgba(255, 200, 150, 0.20);
 }
 
 .shadow-bevel-elevated {
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.12), 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 20px 50px -12px rgba(234, 88, 12, 0.15),
+    0 8px 24px -6px rgba(147, 51, 234, 0.12),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
 }
 
-/* Custom modern dark scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+.dark .shadow-bevel-elevated {
+  box-shadow:
+    0 22px 55px -12px rgba(18, 7, 38, 0.65),
+    0 0 45px -10px rgba(249, 115, 22, 0.30),
+    0 0 35px -12px rgba(192, 132, 252, 0.25),
+    inset 0 1px 0 0 rgba(255, 210, 160, 0.24);
 }
 
-::-webkit-scrollbar-track {
-  background: #08090a;
+/* Movimiento 3D continuo de vuelo y respiración del Ave Fénix sin distorsión de escala */
+@keyframes phoenix3dFlight {
+  0%, 100% {
+    filter: saturate(1.35) brightness(1.04);
+  }
+  50% {
+    filter: saturate(1.50) brightness(1.12);
+  }
 }
 
-::-webkit-scrollbar-thumb {
-  background: #202227;
-  border-radius: 9999px;
+@keyframes phoenixWingFire {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12) rotate(2deg);
+  }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #32353d;
+@keyframes phoenixAura {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
 }
 
-/* Tabular numerals for stats and timestamps */
-.tabular-nums {
-  font-variant-numeric: tabular-nums;
+@keyframes phoenixShimmer {
+  0% {
+    transform: translateX(-120%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(220%) skewX(-18deg);
+  }
 }
 
-/* Selection highlight */
-::selection {
-  background-color: rgba(16, 185, 129, 0.25);
+@keyframes phoenixSparkle {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(0.8) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25) rotate(15deg);
+  }
+}
+
+.animate-phoenix-3d-flight {
+  animation: phoenix3dFlight 9s ease-in-out infinite;
+}
+
+.animate-phoenix-wing-fire {
+  animation: phoenixWingFire 4.5s ease-in-out infinite;
+}
+
+.animate-phoenix-aura {
+  animation: phoenixAura 6s ease-in-out infinite;
+}
+
+.animate-phoenix-shimmer {
+  animation: phoenixShimmer 7s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-phoenix-sparkle {
+  animation: phoenixSparkle 3.2s ease-in-out infinite;
+}
+
+.animate-phoenix-sparkle-delayed {
+  animation: phoenixSparkle 3.8s ease-in-out 1.6s infinite;
+}
+
+/* ==========================================================================
+   PORTAL CINEMÁTICO 3D FLUIDO (MOVIMIENTO ONDULAR TIPO AGUA HACIA LOS LADOS)
+   ========================================================================== */
+
+.perspective-stage {
+  perspective: 1500px;
+}
+
+/* Ondulación fluida 3D: movimiento orgánico de agua hacia ambos lados */
+@keyframes portalWaterWave {
+  0% {
+    transform: perspective(1500px) rotateY(-6deg) rotateX(2.5deg) rotateZ(-1deg) translateY(0px) translateX(-6px);
+  }
+  25% {
+    transform: perspective(1500px) rotateY(-1deg) rotateX(1deg) rotateZ(0.5deg) translateY(-8px) translateX(0px);
+  }
+  50% {
+    transform: perspective(1500px) rotateY(6deg) rotateX(2.5deg) rotateZ(1deg) translateY(0px) translateX(6px);
+  }
+  75% {
+    transform: perspective(1500px) rotateY(1deg) rotateX(3.5deg) rotateZ(-0.5deg) translateY(7px) translateX(0px);
+  }
+  100% {
+    transform: perspective(1500px) rotateY(-6deg) rotateX(2.5deg) rotateZ(-1deg) translateY(0px) translateX(-6px);
+  }
+}
+
+/* Respiración y flujo líquido del halo ambiental Ambilight */
+@keyframes waterAuraFlow {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(0.96) translateX(-10px) translateY(0px);
+  }
+  35% {
+    opacity: 0.88;
+    transform: scale(1.05) translateX(0px) translateY(-6px);
+  }
+  70% {
+    opacity: 0.75;
+    transform: scale(1.02) translateX(10px) translateY(4px);
+  }
+}
+
+/* Flujo de la sombra líquida en el piso */
+@keyframes waterShadowFlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scaleX(0.92) translateX(-12px);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scaleX(1.06) translateX(12px);
+  }
+}
+
+.portal-3d-fluid {
+  transform-style: preserve-3d;
+  box-shadow:
+    0 22px 65px -15px rgba(15, 6, 32, 0.85),
+    0 0 55px -10px rgba(249, 115, 22, 0.45),
+    inset 0 1px 1px 0 rgba(254, 240, 138, 0.4);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.portal-water-motion {
+  animation: portalWaterWave 9s ease-in-out infinite;
+}
+
+.portal-3d-fluid:hover {
+  box-shadow:
+    0 28px 80px -12px rgba(15, 6, 32, 0.95),
+    0 0 75px -8px rgba(251, 146, 60, 0.65),
+    inset 0 1px 1px 0 rgba(254, 240, 138, 0.6);
+}
+
+.ambilight-water {
+  animation: waterAuraFlow 9s ease-in-out infinite;
+}
+
+.shadow-water {
+  animation: waterShadowFlow 9s ease-in-out infinite;
+}
+
+@media (max-width: 1023px) {
+  .portal-3d-fluid {
+    transform: perspective(1500px) rotateY(0deg) rotateX(0deg) rotateZ(0deg) !important;
+  }
+  .portal-water-motion {
+    animation: none;
+  }
+  .portal-3d-fluid:hover {
+    transform: scale3d(1.01, 1.01, 1.01) !important;
+  }
+}
+
+/* Transición cinética dimensional entre escenas del Fénix */
+@keyframes portalKineticSweep {
+  0% {
+    transform: translateX(-100%) skewX(-20deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.animate-kinetic-sweep {
+  animation: portalKineticSweep 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Efectos de despliegue 3D al hacer scroll en las secciones */
+.section-3d-reveal {
+  opacity: 0.92;
+  transform: perspective(1200px) translateY(22px) rotateX(2.5deg) scale(0.985);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s ease;
+}
+
+.section-3d-reveal.section-3d-visible {
+  opacity: 1;
+  transform: perspective(1200px) translateY(0) rotateX(0deg) scale(1);
+}
+
+/* ==========================================================================
+   LAYOUT & NAVIGATION CONTAINERS
+   ========================================================================== */
+
+.page-width {
+  width: min(1280px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+@media (max-width: 640px) {
+  .page-width {
+    width: calc(100% - 28px);
+  }
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 20px;
+  z-index: 100;
+  background: var(--panel);
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: var(--text);
+  border: 2px solid var(--accent);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--line);
+  background: rgba(250, 249, 255, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.dark .site-header {
+  background: rgba(40, 21, 76, 0.90);
+  border-bottom: 1px solid rgba(251, 146, 60, 0.32);
+}
+
+/* ==========================================================================
+   SHARED BUTTONS & TYPOGRAPHY HELPERS
+   ========================================================================== */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.button-primary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 800;
   color: #ffffff;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 48%, #9333ea 100%);
+  border: 1px solid rgba(251, 191, 36, 0.65);
+  box-shadow: 0 8px 24px -4px rgba(249, 115, 22, 0.50);
+  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dark .button-primary,
+.hero-stage-3d .button-primary {
+  color: #1f0d3d;
+  background: linear-gradient(135deg, #fde047 0%, #fb923c 50%, #f97316 100%);
+  border: 1px solid rgba(254, 240, 138, 0.85);
+  box-shadow: 0 8px 26px -4px rgba(251, 146, 60, 0.60);
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -4px rgba(249, 115, 22, 0.72);
+  filter: brightness(1.06);
+}
+
+.button-secondary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+
+.button-secondary:hover {
+  border-color: var(--accent);
+  background: var(--soft);
+  transform: translateY(-1px);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  transition: all 0.2s ease;
+}
+
+.text-link:hover {
+  color: var(--amber);
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Fénix luminoso: lavanda, azul y calor naranja; el fondo acompaña al contenido. */
+.hero-stage-3d {
+ background: radial-gradient(ellipse at 95% 95%, rgba(255,185,115,.24), transparent 48%), linear-gradient(125deg,#f0eaff 0%,#e8efff 58%,#f8f5ff 100%);
+ border-color: rgba(139,92,246,.38);
+ box-shadow: 0 22px 65px -28px rgba(96,65,165,.28), inset 0 1px 0 #fff;
+}
+.hero-stage-3d .text-phoenix-gradient {
+ background: linear-gradient(115deg,#6d28d9 0%,#4f46c4 48%,#c25414 100%);
+ -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.hero-stage-3d .button-primary {
+ color:#fff; background:linear-gradient(115deg,#7132ba 0%,#5657c8 52%,#c85b1b 100%);
+ border-color:rgba(109,40,217,.25); box-shadow:0 8px 22px -8px rgba(109,40,217,.4);
 }

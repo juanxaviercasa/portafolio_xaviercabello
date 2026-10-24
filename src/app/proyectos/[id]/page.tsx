@@ -1,444 +1,435 @@
-import React from 'react';
-import Image from 'next/image';
+import { ProjectPreview } from '@/components/ProjectPreview';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import {
   ArrowLeft,
   ArrowRight,
-  ExternalLink,
+  ArrowUpRight,
   Github,
-  Lock,
-  Sparkles,
-  Lightbulb,
-  GraduationCap,
-  Cpu,
-  CheckCircle2,
-  Calendar,
   Layers,
-  Globe,
-  Home,
-  Info,
+  CheckCircle2,
+  Cpu,
+  GraduationCap,
+  Sparkles,
+  Figma,
 } from 'lucide-react';
 import { PROJECTS_DATA } from '@/data/projects';
-import { Badge } from '@/components/ui/Badge';
-import { getDisplayUrl } from '@/lib/utils';
-import type { Metadata } from 'next';
+import { CASE_STUDIES } from '@/data/case-studies';
+import { portfolioConfig } from '@/data/portfolio.config';
+import {
+  assetPath,
+  getCategoryLabel,
+  getAvailabilityLabel,
+  getHostingLabel,
+} from '@/lib/utils';
 
 interface ProjectPageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
 }
 
 export function generateStaticParams() {
-  return PROJECTS_DATA.map((project) => ({
-    id: project.id,
-  }));
+  return PROJECTS_DATA.map((project) => ({ id: project.id }));
 }
 
 export function generateMetadata({ params }: ProjectPageProps): Metadata {
   const project = PROJECTS_DATA.find((p) => p.id === params.id);
-  if (!project) {
-    return { title: 'Proyecto no encontrado' };
-  }
+  if (!project) return { title: 'Proyecto no encontrado', robots: { index: false } };
+  const projectUrl = `${portfolioConfig.owner.siteUrl}/proyectos/${project.id}`;
+  const imageUrl = project.image || null;
   return {
-    title: `${project.title} | Ficha Técnica & Aprendizajes · Xavier Cabello`,
-    description: project.about || project.description,
+    title: `${project.title.split(' — ')[0]} | Proyecto y arquitectura`,
+    description: project.description,
+    alternates: { canonical: projectUrl },
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      type: 'article',
+      url: projectUrl,
+      images: imageUrl ? [{ url: imageUrl, alt: project.title }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: project.title,
+      description: project.description,
+      images: imageUrl ? [imageUrl] : [],
+    },
   };
 }
 
 export default function ProjectDetailPage({ params }: ProjectPageProps) {
-  const currentIndex = PROJECTS_DATA.findIndex((p) => p.id === params.id);
-  if (currentIndex === -1) {
-    notFound();
-  }
+  const index = PROJECTS_DATA.findIndex((p) => p.id === params.id);
+  if (index < 0) notFound();
+  const project = PROJECTS_DATA[index];
+  const study = CASE_STUDIES.find((s) => s.projectId === project.id);
+  const prev = PROJECTS_DATA[index - 1];
+  const next = PROJECTS_DATA[index + 1];
+  const site = portfolioConfig.owner.siteUrl;
 
-  const project = PROJECTS_DATA[currentIndex];
-  const prevProject = currentIndex > 0 ? PROJECTS_DATA[currentIndex - 1] : null;
-  const nextProject =
-    currentIndex < PROJECTS_DATA.length - 1 ? PROJECTS_DATA[currentIndex + 1] : null;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: site },
+      { '@type': 'ListItem', position: 2, name: 'Proyectos', item: `${site}/#catalogo` },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: project.title,
+        item: `${site}/proyectos/${project.id}`,
+      },
+    ],
+  };
 
-  const isCustomDomain = !project.liveUrl.includes('github.com');
-  const displayUrl = isCustomDomain
-    ? getDisplayUrl(project.liveUrl)
-    : `github.com/juanxaviercasa/${project.id}`;
+  const facts = study
+    ? [
+        ['Problema', study.problem],
+        ['Solución', study.contribution],
+        ['Arquitectura', study.decision],
+        ['Resultado', study.outcome],
+        ['Alcance del proyecto', study.limitation],
+      ]
+    : [];
 
   return (
-    <div className="min-h-screen bg-canvas text-[#d0d6e0] pb-24">
-      {/* Top Floating Control Bar */}
-      <div className="sticky top-0 z-40 border-b border-white/[0.08] bg-[#09090b]/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-          {/* Back to Home / Catalogue */}
-          <Link
-            href="/#catalogo"
-            className="group inline-flex items-center gap-2 rounded-lg border border-white/[0.1] bg-white/[0.03] px-3.5 py-1.5 text-xs font-semibold text-zinc-300 shadow-bevel transition-all hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:text-emerald-400"
-          >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-            <span>Volver a la pantalla principal</span>
-          </Link>
+    <main id="contenido" className="page-width my-8 sm:my-12 space-y-10">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
 
-          {/* Breadcrumb / Title Snippet */}
-          <div className="hidden md:flex items-center gap-2 font-mono text-xs text-zinc-400">
-            <Link href="/" className="hover:text-zinc-200 transition-colors">
-              Inicio
-            </Link>
-            <span>/</span>
-            <span className="text-zinc-500">Proyectos</span>
-            <span>/</span>
-            <span className="text-emerald-400 font-medium truncate max-w-[240px]">
-              {project.title}
+      {/* Navegación superior */}
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <Link
+          href="/#catalogo"
+          className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-xs font-bold text-[var(--text)] hover:border-amber-500/40 hover:text-amber-500 transition-colors"
+        >
+          <ArrowLeft size={15} aria-hidden="true" />
+          Volver a proyectos
+        </Link>
+        <span className="font-mono text-xs text-[var(--muted)]">
+          {index + 1} de {PROJECTS_DATA.length} · {project.subdomain}
+        </span>
+      </div>
+
+      {/* Cabecera del Caso de Estudio */}
+      <header className="relative overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-10 lg:p-12 shadow-bevel backdrop-blur-md">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl"
+        />
+        <div className="relative z-10">
+          <div className="flex flex-wrap items-center gap-2.5 mb-4">
+            <span className="eyebrow">
+              {getCategoryLabel(project.category)} · {project.year}
             </span>
+            <span className="inline-flex items-center rounded-full border border-[var(--line)] bg-[var(--soft)] px-3 py-0.5 text-xs font-medium text-[var(--muted)]">
+              {getAvailabilityLabel(project)}
+            </span>
+            {getHostingLabel(project) && (
+              <span className="inline-flex items-center rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-0.5 text-xs font-semibold text-purple-600 dark:text-purple-300">
+                {getHostingLabel(project)}
+              </span>
+            )}
+            {project.figmaUrl && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 px-3 py-0.5 text-xs font-semibold text-purple-600 dark:text-purple-300">
+                <Figma size={13} aria-hidden="true" /> Maquetado en Figma
+              </span>
+            )}
           </div>
 
-          {/* Quick Actions */}
-          <div className="flex items-center gap-2.5">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[var(--text)] leading-[1.12]">
+            {project.title}
+          </h1>
+
+          <p className="mt-4 max-w-3xl text-base sm:text-lg leading-relaxed text-[var(--muted)]">
+            {study?.summary || project.description}</p><p className="mt-3 text-sm text-[var(--muted)]">{project.repositoryReview?.verified ? 'Repositorio público comprobado · Último push: ' + project.repositoryReview.label + (project.repositoryReview.archived ? ' · Archivado' : '') : 'Repositorio no verificable con el acceso disponible. Contenido del catálogo local.'}
+          </p>
+
+          <div className="mt-7 flex flex-wrap items-center gap-3.5">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="button-primary"
+            >
+              {project.preview?.kind === 'live' ? 'Visitar sitio' : 'Ver código del proyecto'} <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+            {project.figmaUrl && (
+              <a
+                href={project.figmaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl border border-purple-500/40 bg-purple-500/10 px-4 py-2.5 text-xs font-bold text-purple-700 dark:text-purple-300 hover:bg-purple-500/20 transition-colors shadow-sm"
+              >
+                <Figma size={17} aria-hidden="true" /> Diseño en Figma
+              </a>
+            )}
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-zinc-300 shadow-bevel transition-all hover:border-white/[0.18] hover:text-[#f7f8f8]"
+                className="button-secondary"
               >
-                <Github className="h-3.5 w-3.5" />
-                <span>Código</span>
+                <Github size={17} aria-hidden="true" /> Ver código
               </a>
             )}
-
-            {/* Direct Web App Launcher */}
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500 px-4 py-1.5 text-xs font-bold text-[#08090a] shadow-bevel transition-all hover:bg-emerald-400 active:scale-95"
-            >
-              <span>Ver Web App</span>
-              <ExternalLink className="h-3.5 w-3.5 stroke-[2.5]" />
-            </a>
           </div>
+        </div>
+      </header>
+
+      {project.preview && <aside className="rounded-2xl border border-[var(--line)] p-5 text-sm leading-relaxed text-[var(--muted)]">
+        <strong>{project.preview.kind === 'local' ? 'Vista previa local' : project.preview.kind === 'live' ? 'Captura real del sitio publicado' : 'Demo no verificada'}</strong>
+        <p className="mt-2">{project.preview.note}</p>
+        {project.preview.dateLabel && <p className="mt-1">Capturada el {project.preview.dateLabel}. La imagen documenta ese momento, sin garantizar disponibilidad continua.</p>}
+        {project.evidence && <div className="mt-3 flex flex-wrap gap-4 text-xs underline">
+          {project.evidence.readmeUrl && <a href={project.evidence.readmeUrl} target="_blank" rel="noopener noreferrer">Documentación consultada</a>}
+          {project.evidence.manifestUrl && <a href={project.evidence.manifestUrl} target="_blank" rel="noopener noreferrer">Tecnologías comprobadas</a>}
+          <a href={project.evidence.latestCommitUrl} target="_blank" rel="noopener noreferrer">Commit consultado</a>
+        </div>}
+      </aside>}
+
+      {/* Vista previa visual del proyecto */}
+      <div className="overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[#0f0a1c] shadow-bevel">
+        <div className="relative aspect-[16/9] w-full">
+          <ProjectPreview project={project} sizes="(max-width: 1200px) 100vw, 1200px" priority />
         </div>
       </div>
 
-      {/* Main Page Container */}
-      <main className="mx-auto max-w-6xl px-4 pt-8 sm:px-6 space-y-10">
-        {/* Project Header Summary */}
-        <section className="space-y-4">
-          <div className="flex flex-wrap items-center gap-2.5 text-xs">
-            <Badge variant="success" className="font-mono uppercase tracking-wider text-[11px]">
-              {project.category}
-            </Badge>
-
-            {project.year && (
-              <Badge variant="outline" className="font-mono text-zinc-400 text-[11px]">
-                Año {project.year}
-              </Badge>
-            )}
-
-            {/* SSL Subdomain badge */}
-            <div className="inline-flex items-center gap-1.5 rounded-md border border-white/[0.08] bg-black/40 px-2.5 py-1 font-mono text-[11px] text-zinc-300">
-              <Lock className="h-3 w-3 text-emerald-400" />
-              <span>https://{displayUrl}</span>
-            </div>
-
-            {project.metrics && (
-              <span className="font-mono text-[11px] text-zinc-500">
-                · {project.metrics}
-              </span>
-            )}
-          </div>
-
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#f7f8f8] leading-tight">
-            {project.title}
-          </h1>
-
-          <p className="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-4xl">
-            {project.description}
-          </p>
-        </section>
-
-        {/* High-Resolution Project Showcase Container (Open Design Browser Frame) */}
-        <section className="overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0d0e11] shadow-2xl shadow-black">
-          {/* Browser Chrome Bar */}
-          <div className="flex items-center justify-between border-b border-white/[0.08] bg-[#121316] px-4 py-2.5">
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
-            </div>
-
-            <div className="flex items-center gap-2 rounded border border-white/[0.06] bg-black/60 px-3 py-1 font-mono text-xs text-zinc-300">
-              <Lock className="h-3 w-3 text-emerald-400 shrink-0" />
-              <span>https://{displayUrl}</span>
-            </div>
-
-            <div className="flex items-center gap-1.5">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span className="hidden sm:inline font-mono text-[10px] text-emerald-400">En Vivo</span>
-            </div>
-          </div>
-
-          {/* Full High-Resolution Visual Showcase (Direct image view, no sandbox iframe) */}
-          <div className="relative aspect-video w-full bg-[#08090a]">
-            <Image
-              src={project.image}
-              alt={`Vista en producción de ${project.title}`}
-              fill
-              priority
-              className="object-cover object-top"
-              sizes="(max-width: 1200px) 100vw, 1152px"
-            />
-          </div>
-
-          {/* Showcase Banner / Action Strip */}
-          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.08] bg-[#121316] p-4 sm:px-6">
-            <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
-              <span className="inline-block h-2 w-2 rounded-full bg-emerald-400" />
-              <span>Despliegue verificado en producción</span>
-            </div>
-
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-5 py-2.5 text-xs font-bold text-[#08090a] shadow-bevel transition-all hover:bg-emerald-400 active:scale-95"
+      {/* Grilla de Arquitectura, Caso de Estudio y Aprendizajes */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        {/* Caso de estudio o Contexto Principal (12 columnas) */}
+        {study ? (
+          <section
+            aria-labelledby="case-title"
+            className="lg:col-span-12 rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-9 shadow-bevel"
+          >
+            <p className="eyebrow mb-2">ANÁLISIS DEL PROYECTO</p>
+            <h2
+              id="case-title"
+              className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text)] mb-6"
             >
-              <span>Ver en vivo</span>
-              <ExternalLink className="h-4 w-4 stroke-[2.5]" />
-            </a>
-          </div>
-        </section>
-
-        {/* Detailed Sections: About & Pedagogical Value */}
-        <section className="space-y-6">
-          {/* 1. ¿De qué trata el proyecto? */}
-          <div className="rounded-2xl border border-white/[0.08] bg-[#0f1013] p-6 sm:p-8 space-y-4">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 font-semibold">
-              <Sparkles className="h-4 w-4" />
-              <span>¿De qué trata este proyecto?</span>
-            </div>
-
-            <p className="text-base sm:text-lg text-zinc-200 leading-relaxed">
+              {study.title}
+            </h2>
+            <dl className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {facts.map(([label, value]) => (
+                <div
+                  key={label}
+                  className="rounded-2xl border border-[var(--line)] bg-[var(--soft)]/45 p-5"
+                >
+                  <dt className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2">
+                    {label}
+                  </dt>
+                  <dd className="text-sm leading-relaxed text-[var(--text)]/90">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ) : (
+          <section className="lg:col-span-12 rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-9 shadow-bevel">
+            <p className="eyebrow mb-2">SOBRE EL PROYECTO</p>
+            <h2 className="font-serif text-2xl font-bold text-[var(--text)] mb-4">
+              Contexto y propósito
+            </h2>
+            <p className="text-base leading-relaxed text-[var(--muted)]">
               {project.about || project.description}
             </p>
-
-            {/* Explicación Sencilla */}
             {project.simpleExplanation && (
-              <div className="mt-6 rounded-xl border border-blue-500/20 bg-blue-500/5 p-5">
-                <div className="flex items-center gap-2 mb-3 text-sm font-bold text-blue-400">
-                  <Info className="h-4 w-4" />
-                  <span>En palabras sencillas</span>
-                </div>
-                <p className="text-sm sm:text-base text-blue-100/90 leading-relaxed">
-                  {project.simpleExplanation}
-                </p>
+              <div className="mt-5 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-4 text-sm leading-relaxed text-[var(--text)]">
+                <strong className="text-amber-600 dark:text-amber-400">En resumen: </strong>
+                {project.simpleExplanation}
               </div>
             )}
+          </section>
+        )}
 
-            {/* Cómo aplicarlo a tu negocio */}
-            {project.howToApply && project.howToApply.length > 0 && (
-              <div className="mt-4 rounded-xl border border-purple-500/20 bg-purple-500/5 p-5">
-                <div className="flex items-center gap-2 mb-3 text-sm font-bold text-purple-400">
-                  <Lightbulb className="h-4 w-4" />
-                  <span>Ideas para aplicarlo en tu negocio</span>
-                </div>
-                <ul className="space-y-2">
-                  {project.howToApply.map((idea, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm sm:text-base text-purple-100/90 leading-relaxed">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-purple-400 shrink-0" />
-                      <span>{idea}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {/* Highlights Chips */}
-            {project.highlights && project.highlights.length > 0 && (
-              <div className="pt-4 border-t border-white/[0.06] flex flex-wrap gap-2.5">
-                {project.highlights.map((highlight, idx) => (
-                  <span
-                    key={idx}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-3 py-1 font-mono text-xs text-emerald-300"
-                  >
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                    <span>{highlight}</span>
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* 2. Qué aprendí como desarrollador & Qué puedo enseñar a los estudiantes */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Card A: Qué aprendí como desarrollador */}
-            <div className="rounded-2xl border border-amber-500/20 bg-gradient-to-b from-amber-500/[0.05] via-[#0f1013] to-[#0f1013] p-6 sm:p-7 space-y-4 shadow-bevel">
-              <div className="flex items-center gap-3">
-                <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 text-amber-400">
-                  <Lightbulb className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 className="text-base sm:text-lg font-bold text-[#f7f8f8]">
-                    Qué aprendí como desarrollador
-                  </h2>
-                  <span className="font-mono text-xs text-amber-400/80">
-                    Retos técnicos, arquitectura y buenas prácticas
-                  </span>
-                </div>
-              </div>
-
-              <ul className="space-y-3 pt-2">
-                {project.whatILearned && project.whatILearned.length > 0 ? (
-                  project.whatILearned.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))
-                ) : (
-                  <li className="text-sm text-zinc-400">
-                    Diseño e implementación de arquitectura full-stack optimizada para producción.
-                  </li>
-                )}
-              </ul>
-            </div>
-
-            {/* Card B: Qué puedo enseñar a los estudiantes */}
-            <div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-b from-indigo-500/[0.05] via-[#0f1013] to-[#0f1013] p-6 sm:p-7 space-y-4 shadow-bevel">
-              <div className="flex items-center gap-3">
-                <div className="rounded-xl border border-indigo-500/30 bg-indigo-500/10 p-2.5 text-indigo-400">
-                  <GraduationCap className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 className="text-base sm:text-lg font-bold text-[#f7f8f8]">
-                    Qué puedo enseñar a los estudiantes
-                  </h2>
-                  <span className="font-mono text-xs text-indigo-400/80">
-                    Habilidades prácticas, Vibe Coding y monetización
-                  </span>
-                </div>
-              </div>
-
-              <ul className="space-y-3 pt-2">
-                {project.whatITeach && project.whatITeach.length > 0 ? (
-                  project.whatITeach.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-indigo-400 shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))
-                ) : (
-                  <li className="text-sm text-zinc-400">
-                    Metodologías de desarrollo rápido y publicación con costo cero de infraestructura.
-                  </li>
-                )}
-              </ul>
-            </div>
-          </div>
-
-          {/* 3. Arquitectura Técnica & Tecnologías */}
-          <div className="rounded-2xl border border-white/[0.08] bg-[#0f1013] p-6 sm:p-7 space-y-5">
-            {project.architecture && (
-              <div>
-                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-emerald-400 mb-2 font-semibold">
-                  <Cpu className="h-4 w-4" />
-                  <span>Arquitectura Técnica & Despliegue</span>
-                </div>
-                <div className="rounded-xl border border-white/[0.06] bg-black/50 p-4 font-mono text-xs sm:text-sm text-zinc-300 leading-relaxed">
-                  {project.architecture}
-                </div>
-              </div>
-            )}
-
-            <div>
-              <span className="block font-mono text-xs uppercase tracking-wider text-zinc-400 mb-2.5 font-semibold">
-                Tecnologías y Librerías Utilizadas:
+        {/* Qué hace / Highlights (6 columnas) */}
+        {project.highlights && project.highlights.length > 0 && (
+          <section className="lg:col-span-6 rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-8 shadow-bevel flex flex-col">
+            <div className="flex items-center gap-2.5 mb-4">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-500">
+                <Sparkles size={18} />
               </span>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <Badge
-                    key={tag}
-                    variant="secondary"
-                    className="border border-white/[0.08] bg-white/[0.03] px-3 py-1 font-mono text-xs text-zinc-200 hover:border-emerald-500/30 transition-colors"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
+              <h2 className="font-serif text-xl font-bold text-[var(--text)]">
+                Funcionalidades principales
+              </h2>
             </div>
-          </div>
-        </section>
+            <ul className="space-y-3 mt-2">
+              {project.highlights.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2.5 text-sm leading-relaxed text-[var(--muted)]"
+                >
+                  <CheckCircle2
+                    size={16}
+                    className="mt-0.5 shrink-0 text-amber-500"
+                    aria-hidden="true"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
 
-        {/* Adjacent Navigation: Prev & Next Project */}
-        <section className="border-t border-white/[0.08] pt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {prevProject ? (
-              <Link
-                href={`/proyectos/${prevProject.id}`}
-                className="group flex flex-col justify-between rounded-xl border border-white/[0.08] bg-[#0e0f12] p-4 hover:border-emerald-500/40 hover:bg-white/[0.02] transition-all"
-              >
-                <span className="flex items-center gap-1 font-mono text-xs text-zinc-500 group-hover:text-emerald-400 transition-colors">
-                  <ArrowLeft className="h-3.5 w-3.5" />
-                  <span>Proyecto Anterior</span>
-                </span>
-                <span className="mt-2 text-sm font-bold text-[#f7f8f8] truncate">
-                  {prevProject.title}
-                </span>
-              </Link>
-            ) : (
-              <div className="hidden sm:block" />
-            )}
-
-            {nextProject && (
-              <Link
-                href={`/proyectos/${nextProject.id}`}
-                className="group flex flex-col justify-between items-end rounded-xl border border-white/[0.08] bg-[#0e0f12] p-4 hover:border-emerald-500/40 hover:bg-white/[0.02] transition-all text-right"
-              >
-                <span className="flex items-center gap-1 font-mono text-xs text-zinc-500 group-hover:text-emerald-400 transition-colors">
-                  <span>Siguiente Proyecto</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </span>
-                <span className="mt-2 text-sm font-bold text-[#f7f8f8] truncate">
-                  {nextProject.title}
-                </span>
-              </Link>
-            )}
-          </div>
-        </section>
-
-        {/* Bottom Return Banner */}
-        <section className="rounded-2xl border border-white/[0.08] bg-gradient-to-r from-emerald-500/[0.08] via-transparent to-indigo-500/[0.08] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        {/* Cómo está construido / Arquitectura (6 columnas) */}
+        <section
+          className={`${
+            project.highlights && project.highlights.length > 0
+              ? 'lg:col-span-6'
+              : 'lg:col-span-12'
+          } rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-8 shadow-bevel flex flex-col justify-between`}
+        >
           <div>
-            <h3 className="text-lg font-bold text-[#f7f8f8]">
-              ¿Quieres explorar el resto de proyectos?
-            </h3>
-            <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-              Catálogo completo con 21 aplicaciones verificadas en producción.
+            <div className="flex items-center gap-2.5 mb-4">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-purple-500/30 bg-purple-500/10 text-purple-400">
+                <Cpu size={18} />
+              </span>
+              <h2 className="font-serif text-xl font-bold text-[var(--text)]">
+                Arquitectura y stack
+              </h2>
+            </div>
+            <p className="text-sm leading-relaxed text-[var(--muted)] mb-6">
+              {project.architecture ||
+                'Arquitectura modular optimizada para despliegue continuo, baja latencia y mantenibilidad de código.'}
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link
-              href="/#catalogo"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/[0.12] bg-[#121316] px-4 py-2.5 text-xs font-semibold text-[#f7f8f8] shadow-bevel hover:bg-white/[0.08] transition-colors"
-            >
-              <Home className="h-4 w-4" />
-              <span>Volver a la pantalla principal</span>
-            </Link>
-
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-5 py-2.5 text-xs font-bold text-[#08090a] shadow-bevel hover:bg-emerald-400 transition-all"
-            >
-              <span>Ver Web App</span>
-              <ExternalLink className="h-3.5 w-3.5 stroke-[2.5]" />
-            </a>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-[var(--muted)] mb-2.5">
+              Tecnologías y etiquetas del catálogo
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-lg border border-purple-500/25 bg-purple-500/10 px-3 py-1 text-xs font-semibold text-[var(--text)]"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </section>
-      </main>
-    </div>
+
+        {/* Aprendizajes y retos técnicos */}
+        {project.whatILearned && project.whatILearned.length > 0 && (
+          <section className="lg:col-span-12 rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-8 shadow-bevel">
+            <div className="flex items-center gap-2.5 mb-4">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
+                <Layers size={18} />
+              </span>
+              <h2 className="font-serif text-xl font-bold text-[var(--text)]">
+                Retos técnicos y aprendizajes
+              </h2>
+            </div>
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {project.whatILearned.map((item) => (
+                <li
+                  key={item}
+                  className="rounded-2xl border border-[var(--line)] bg-[var(--soft)]/40 p-4 text-sm leading-relaxed text-[var(--muted)]"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {/* Qué enseño con este proyecto */}
+        {project.whatITeach && project.whatITeach.length > 0 && (
+          <details className="lg:col-span-12 group rounded-3xl border border-[var(--line)] bg-[var(--surface)] p-6 sm:p-8 shadow-bevel">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-serif text-lg font-bold text-[var(--text)]">
+              <span className="flex items-center gap-2.5">
+                <GraduationCap size={20} className="text-amber-500" />
+                <span>Aprende a crear un proyecto como este en el Taller Fénix</span>
+              </span>
+              <span className="rounded-full border border-[var(--line)] bg-[var(--soft)] px-3 py-1 font-sans text-xs font-semibold text-[var(--muted)] group-open:bg-amber-500/15 group-open:text-amber-400">
+                Ver temas formativos
+              </span>
+            </summary>
+            <p className="mt-4 text-sm text-[var(--muted)]">
+              Estos conceptos forman parte de mis sesiones prácticas de desarrollo web y arquitectura:
+            </p>
+            <ul className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              {project.whatITeach.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-2 text-sm text-[var(--text)]/90"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-amber-400" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5">
+              <Link href="/#formacion" className="text-link">
+                Conocer Taller Fénix <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
+          </details>
+        )}
+      </div>
+
+      {/* CTA de cierre */}
+      <section className="rounded-[2rem] border border-amber-500/30 bg-gradient-to-br from-purple-950/35 via-[var(--surface)] to-amber-950/20 p-6 sm:p-10 text-center shadow-bevel">
+        <p className="eyebrow justify-center mb-2">CONTACTO</p>
+        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text)]">
+          Conversemos sobre tu proyecto.
+        </h2>
+        <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-base text-[var(--muted)]">
+          ¿Necesitas una plataforma como esta para tu negocio o tu comunidad? Cuéntame quién la usará y qué debe permitirle hacer. Podemos definirla y construirla juntos.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3.5">
+          <a
+            href={portfolioConfig.owner.socials.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button-primary"
+          >
+            Hablemos por WhatsApp <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
+          <Link href="/#catalogo" className="button-secondary">
+            Ver todos los proyectos
+          </Link>
+        </div>
+      </section>
+
+      {/* Paginación entre proyectos */}
+      <nav
+        aria-label="Otros proyectos"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+      >
+        {prev ? (
+          <Link
+            href={`/proyectos/${prev.id}`}
+            className="group rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 hover:border-amber-500/40 transition-all"
+          >
+            <span className="block text-xs font-bold uppercase tracking-wider text-[var(--muted)] group-hover:text-amber-500">
+              ← Proyecto anterior
+            </span>
+            <span className="mt-1 block font-serif text-lg font-bold text-[var(--text)]">
+              {prev.title.split(' — ')[0]}
+            </span>
+          </Link>
+        ) : (
+          <div />
+        )}
+        {next && (
+          <Link
+            href={`/proyectos/${next.id}`}
+            className="group rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 text-right hover:border-amber-500/40 transition-all"
+          >
+            <span className="block text-xs font-bold uppercase tracking-wider text-[var(--muted)] group-hover:text-amber-500">
+              Siguiente proyecto →
+            </span>
+            <span className="mt-1 block font-serif text-lg font-bold text-[var(--text)]">
+              {next.title.split(' — ')[0]}
+            </span>
+          </Link>
+        )}
+      </nav>
+    </main>
   );
 }

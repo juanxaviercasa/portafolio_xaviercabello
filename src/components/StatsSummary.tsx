@@ -1,147 +1,87 @@
-import React from 'react';
-import { Globe, Layers, ShieldCheck, Zap, Activity } from 'lucide-react';
+'use client';
+
+import { ArrowRight, MapPin } from 'lucide-react';
 import { portfolioConfig } from '@/data/portfolio.config';
+import { Phoenix3DScene } from '@/components/Phoenix3DScene';
 
 interface StatsSummaryProps {
   totalProjects: number;
-  totalCategories: number;
+  totalCategories?: number;
 }
 
-export function StatsSummary({ totalProjects, totalCategories }: StatsSummaryProps) {
+/**
+ * Hero principal: propuesta clara, métricas verificables y escenario 3D cinematográfico en 16:9.
+ * La secuencia visual del Ave Fénix corre en bucle sin recortes (cenizas -> vuelo cósmico).
+ */
+export function StatsSummary({ totalProjects }: StatsSummaryProps) {
   const { owner } = portfolioConfig;
 
+  const proof = [
+    { value: `${totalProjects}`, label: 'proyectos en el portafolio' },
+    { value: 'Educación', label: 'experiencia docente aplicada' },
+    { value: 'IA aplicada', label: 'al desarrollo de productos' },
+  ];
+
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0d0e12] p-6 sm:p-8 shadow-bevel-elevated transition-colors">
-      {/* Precision top status strip */}
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.06] pb-4">
-        <div className="flex items-center gap-2.5">
-          <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-mono font-medium text-emerald-400">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-            </span>
-            <span>SYSTEM STATUS: OPERATIONAL</span>
-          </span>
-          <span className="text-xs text-zinc-600">·</span>
-          <span className="text-xs font-mono text-zinc-400">
-            Despliegues Verificados: <strong className="text-zinc-200">{totalProjects}</strong>
-          </span>
-        </div>
-
-        <div className="hidden sm:flex items-center gap-3 text-[11px] font-mono text-zinc-500">
-          <span className="flex items-center gap-1">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-            <span>SSL A+ Verified</span>
-          </span>
-          <span>·</span>
-          <span className="flex items-center gap-1">
-            <Zap className="h-3.5 w-3.5 text-amber-400" />
-            <span>Edge CDN Latency &lt; 50ms</span>
-          </span>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-        {/* Left: Punchy title & purpose */}
-        <div className="max-w-2xl space-y-3">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#f7f8f8] leading-tight">
-            Directorio de Aplicaciones Web y Ecosistemas en Vivo
-          </h1>
-
-          <p className="text-sm sm:text-base text-zinc-400 leading-relaxed">
-            {owner.tagline}
+    <section
+      id="inicio"
+      aria-labelledby="hero-title"
+      className="hero-stage-3d relative overflow-hidden rounded-[2rem] border-2 border-orange-400/75 p-6 sm:p-8 lg:p-10 shadow-bevel-elevated"
+    >
+      <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-10">
+        {/* Columna Izquierda: Mensaje, llamada a la acción y métricas */}
+        <div className="space-y-5 sm:space-y-6 lg:col-span-5">
+          <p className="inline-flex items-center gap-2 rounded-full border border-violet-300/70 bg-white/75 px-3.5 py-1.5 font-mono text-xs font-bold text-violet-900 backdrop-blur-md">
+            <MapPin className="h-3.5 w-3.5 text-violet-600" aria-hidden="true" />
+            Instructor de vibecoding con IA · Lima, Perú
           </p>
 
-          {/* Quick Domain Anchors */}
-          <div className="flex flex-wrap items-center gap-1.5 pt-2 text-xs">
-            <span className="text-zinc-500 font-mono text-[11px] mr-1">Ecosistemas:</span>
-            <a
-              href="https://xavier.cabellosalirrosas.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-zinc-300 shadow-bevel hover:border-emerald-500/40 hover:bg-white/[0.05] hover:text-emerald-400 transition-all"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              <span>cabellosalirrosas.com</span>
+          <h1
+            id="hero-title"
+            className="text-3xl font-black leading-[1.12] tracking-tight text-indigo-950 sm:text-4xl xl:text-5xl"
+          >
+            Aprende a convertir ideas en software{' '}
+            <span className="text-phoenix-gradient">con IA, criterio y práctica.</span>
+          </h1>
+
+          <p className="text-sm sm:text-base font-medium leading-relaxed text-slate-700">
+            Soy Xavier Cabello, desarrollador full stack y licenciado en Educación Matemática.
+            Creo plataformas educativas, simuladores y herramientas para negocios con IA aplicada.
+            Enseño el proceso: definir el problema, construir con IA, revisar el código y publicar. Explora mis proyectos para conocer qué puedes aprender conmigo.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            <a href="#catalogo" className="button-primary">
+              <span>Explorar proyectos</span>
+              <ArrowRight size={17} aria-hidden="true" />
             </a>
             <a
-              href="https://cepreuni.sistemazenit.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-zinc-300 shadow-bevel hover:border-emerald-500/40 hover:bg-white/[0.05] hover:text-emerald-400 transition-all"
+              href="#formacion"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-violet-300/80 bg-white/80 px-5 py-3 text-sm font-extrabold text-violet-950 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-amber-300 shadow-sm"
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              <span>sistemazenit.com</span>
-            </a>
-            <a
-              href="https://todolima.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-zinc-300 shadow-bevel hover:border-emerald-500/40 hover:bg-white/[0.05] hover:text-emerald-400 transition-all"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              <span>todolima.com</span>
-            </a>
-            <a
-              href="https://nubeparapymes.online"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-zinc-300 shadow-bevel hover:border-emerald-500/40 hover:bg-white/[0.05] hover:text-emerald-400 transition-all"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-              <span>nubeparapymes.online</span>
-            </a>
-            <a
-              href="https://mundossimulados.online"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-zinc-300 shadow-bevel hover:border-emerald-500/40 hover:bg-white/[0.05] hover:text-emerald-400 transition-all"
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-              <span>mundossimulados.online</span>
+              Conocer el taller
             </a>
           </div>
+
+          <ul className="grid grid-cols-3 gap-3 border-t border-violet-300/60 pt-5">
+            {proof.map((item) => (
+              <li key={item.label}>
+                <p className="font-mono text-xl sm:text-2xl font-black text-indigo-950">
+                  {item.value}
+                </p>
+                <p className="mt-1 text-[11px] sm:text-xs text-violet-800 leading-tight">{item.label}</p>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Right: Metric Telemetry Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-2.5 shrink-0">
-          <div className="rounded-xl border border-white/[0.07] bg-[#141518] p-3.5 shadow-bevel">
-            <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
-              <Globe className="h-3.5 w-3.5 text-emerald-400" />
-              <span className="font-medium">Despliegues</span>
-            </div>
-            <div className="text-2xl font-bold text-[#f7f8f8] font-mono tabular-nums">{totalProjects}</div>
-            <div className="text-[10px] text-zinc-500 font-mono">100% en vivo</div>
-          </div>
-
-          <div className="rounded-xl border border-white/[0.07] bg-[#141518] p-3.5 shadow-bevel">
-            <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
-              <Layers className="h-3.5 w-3.5 text-blue-400" />
-              <span className="font-medium">Categorías</span>
-            </div>
-            <div className="text-2xl font-bold text-[#f7f8f8] font-mono tabular-nums">{totalCategories}</div>
-            <div className="text-[10px] text-zinc-500 font-mono">Especialidades</div>
-          </div>
-
-          <div className="rounded-xl border border-white/[0.07] bg-[#141518] p-3.5 shadow-bevel">
-            <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-              <span className="font-medium">Seguridad</span>
-            </div>
-            <div className="text-2xl font-bold text-[#f7f8f8] font-mono tabular-nums">HTTPS</div>
-            <div className="text-[10px] text-zinc-500 font-mono">Certificado SSL</div>
-          </div>
-
-          <div className="rounded-xl border border-white/[0.07] bg-[#141518] p-3.5 shadow-bevel">
-            <div className="flex items-center gap-1.5 text-zinc-400 text-xs mb-1">
-              <Activity className="h-3.5 w-3.5 text-purple-400" />
-              <span className="font-medium">Uptime</span>
-            </div>
-            <div className="text-2xl font-bold text-emerald-400 font-mono tabular-nums">99.9%</div>
-            <div className="text-[10px] text-zinc-500 font-mono">Producción</div>
+        {/* Columna Derecha: Escenario Cinemático Ave Fénix con Espacio Flotante Seguro */}
+        <div className="lg:col-span-7 xl:col-span-7 flex items-center justify-center p-1 sm:p-3 lg:p-5">
+          <div className="w-full max-w-[640px] mx-auto">
+            <Phoenix3DScene />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

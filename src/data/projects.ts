@@ -1,828 +1,1389 @@
-import { Project } from '@/types/project';
-
-/**
- * Catálogo exclusivo de proyectos con despliegue en producción y enlaces personalizados verificados.
- * 
- * - Todos los elementos listados cuentan con dominio, subdominio o URL interactiva en vivo.
- * - No incluye repositorios sin entorno de producción desplegado.
- */
+import type { Project } from '@/types/project';
 export const PROJECTS_DATA: Project[] = [
   {
-    "id": "todo-lima",
-    "title": "Todo Lima — Guía Comercial y Directorio Urbano",
-    "description": "Guía digital interactiva y directorio web de comercios, servicios y cultura de la ciudad de Lima Metropolitana, con geolocalización y búsqueda comercial.",
-    "category": "pymes",
-    "subdomain": "todolima.com",
-    "liveUrl": "https://todolima.com/",
-    "githubUrl": "https://github.com/juanxaviercasa/todo_lima",
-    "image": "/todo_lima.jpg",
+    "id": "funciones-lab",
+    "summary": "Explora gráficas, recorre lecciones y practica funciones con pistas y progreso guardado.",
+    "developmentState": "completed",
+    "title": "Funciones Lab — Aprendizaje visual de funciones",
+    "description": "Explora gráficas, recorre lecciones y practica funciones con pistas y progreso guardado.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "edtech",
+      "mobile"
+    ],
+    "subcategory": "Matemáticas · Cálculo Visual & UI",
+    "subdomain": "funciones.sistemazenit.com",
+    "liveUrl": "https://funciones.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/funciones",
+    "image": "/projects/captures/funciones-lab.webp",
     "tags": [
-      "JavaScript",
-      "Directorio Web",
-      "Geolocalización",
-      "Pymes Lima",
-      "SEO"
+      "React",
+      "Vite",
+      "TypeScript",
+      "KaTeX",
+      "Supabase",
+      "Zod"
     ],
     "featured": true,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "todolima.com · Dominio Oficial",
-    "about": "Directorio comercial y guía urbana interactiva para la ciudad de Lima Metropolitana. Conecta a usuarios con comercios locales clasificados por distritos y rubros, integrando geolocalización, búsqueda instantánea y fichas comerciales optimizadas para conversión móvil.",
-    "whatILearned": [
-      "Estructuración de datos geográficos y filtrado multidistrital en cliente sin depender de bases de datos pesadas.",
-      "Implementación de arquitectura Jamstack ultrarrápida con renderizado estático y puntuación perfecta en Core Web Vitals.",
-      "Patrones de SEO local y metadatos dinámicos Open Graph para indexación orgánica en motores de búsqueda.",
-      "Diseño de interfaz con Tailwind CSS garantizando ergonomía táctil en smartphones de gama media y baja."
-],
-    "whatITeach": [
-      "Cómo modelar un directorio comercial local con IA dictando la taxonomía y categorías en lenguaje natural.",
-      "Estrategias para monetizar espacios destacados y cobrar a comercios por fichas premium.",
-      "Despliegue a costo cero en servidores perimetrales (Edge) sin pagar cuotas de mantenimiento mensual.",
-      "Diseño centrado en conversión móvil para mercados emergentes sin saturar el consumo de datos."
-],
-    "architecture": "Vanilla JS / TypeScript + Tailwind CSS + Despliegue distribuido Edge (Costo $0/mes)",
+    "year": 2026,
+    "about": "Explora gráficas, recorre lecciones y practica funciones con pistas y progreso guardado.",
     "highlights": [
-      "Búsqueda instantánea multi-distrito",
-      "Fichas de comercios locales",
-      "Optimizado para 4G móvil"
-],
-    "simpleExplanation": "Imagínate un directorio como las Páginas Amarillas, pero rápido y en tu teléfono. Es una página donde cualquier persona puede entrar a buscar negocios locales en Lima (como restaurantes, talleres o tiendas) clasificados por zonas, y funciona muy rápido sin necesidad de descargar nada.",
-    "howToApply": [
-      "Si eres profesor o coach, podrías crear un directorio de recursos útiles o libros recomendados para tus alumnos.",
-      "Si ofreces servicios, podrías crear una guía con tus trabajos anteriores clasificados por área o tipo de servicio.",
-      "Puedes monetizar cobrando a empresas por aparecer destacadas en los primeros resultados."
-    ]
-  },
-  {
-    "id": "nube-para-pymes",
-    "title": "Nube Para PyMEs — Portal de Software & Recursos",
-    "description": "Centro de recursos, guías prácticas y suite de herramientas web que se ejecutan 100% en el navegador, sin instalaciones ni barreras para pequeñas empresas.",
-    "category": "pymes",
-    "subdomain": "nubeparapymes.online",
-    "liveUrl": "https://nubeparapymes.online/",
-    "githubUrl": "https://github.com/juanxaviercasa/nube-para-pymes",
-    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "HTML5",
-      "Tailwind CSS",
-      "Web Tools",
-      "Productividad",
-      "SEO"
+      "Separar la lógica matemática de una interfaz React.",
+      "Diseñar práctica con retroalimentación."
     ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "nubeparapymes.online · En Vivo",
-    "about": "Plataforma centralizada de recursos, plantillas y herramientas web diseñadas específicamente para micro y pequeñas empresas. Opera 100% en el navegador, eliminando la necesidad de instalaciones complejas o software de pago.",
-    "whatILearned": [
-      "Construcción de un centro de recursos desacoplado con tiempos de respuesta instantáneos.",
-      "Arquitectura de componentes modulares reutilizables para catálogos de software sin CMS tradicional.",
-      "Estrategias de enrutamiento estático y precarga inteligente de recursos estáticos.",
-      "Optimización de tipografía y accesibilidad para dueños de pymes no técnicos."
-],
     "whatITeach": [
-      "Cómo crear portales de recursos para clientes o comunidades educativas sin gastar en hosting.",
-      "Técnicas de Vibe Coding para iterar módulos de contenido y descargables en minutos.",
-      "Estructura de landing pages informativas que transmiten autoridad y seguridad digital.",
-      "Independencia tecnológica frente a CMS pesados como WordPress."
-],
-    "architecture": "HTML5 Semántico + Tailwind CSS + Cloudflare Pages / Vercel",
-    "highlights": [
-      "100% en navegador sin instalaciones",
-      "Catálogo modular para pymes",
-      "Rendimiento instantáneo"
-],
-    "simpleExplanation": "Imagínate un cajón de herramientas digitales gratuito. Es un portal donde pequeñas empresas pueden encontrar recursos, plantillas y herramientas útiles que funcionan directamente en su navegador web sin tener que instalar nada.",
-    "howToApply": [
-      "Como dueño de negocio, puedes usarlo para organizar y optimizar tus tareas diarias.",
-      "Si ofreces consultoría, puedes compartir este portal con tus clientes como un recurso de valor agregado.",
-      "Puedes crear una plataforma similar para reunir los recursos más útiles de tu propio sector o industria."
-    ]
-  },{
-    "id": "hazlo-crecer",
-    "title": "Hazlo Crecer — Ecosistemas Digitales & IA",
-    "description": "Framework de ecosistemas digitales, automatización de prospección comercial y agentes de IA enfocados en conversión predecible para empresas.",
-    "category": "pymes",
-    "subdomain": "hazlocrecer.com",
-    "liveUrl": "https://hazlocrecer.com",
-    "githubUrl": "https://github.com/juanxaviercasa/hazlo-crecer",
-    "image": "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "JavaScript",
-      "Agentes IA",
-      "Automatización",
-      "Conversión"
+      "Separar la lógica matemática de una interfaz React.",
+      "Diseñar práctica con retroalimentación."
     ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "hazlocrecer.com · Dominio Oficial",
-    "about": "Plataforma de consultoría y metodologías para el despliegue de ecosistemas digitales, automatización de prospección comercial y agentes de IA enfocados en conversión predecible para empresas B2B.",
-    "whatILearned": [
-      "Diseño de interfaces con tipografía refinada (Dark Mode & Bento Grid) inspiradas en estándares Linear/Vercel.",
-      "Micro-animaciones fluidas con Framer Motion sin penalizar la velocidad de carga móvil.",
-      "Estructuración de embudos de conversión y copy persuasivo con gatillos psicológicos B2B.",
-      "Optimización de componentes UI para transmitir alto valor percibido y credibilidad corporativa."
-],
-    "whatITeach": [
-      "Cómo diseñar landing pages 'High Ticket' para servicios de consultoría o agencias.",
-      "Redacción orientada a conversión usando IA para desmantelar objeciones de clientes empresariales.",
-      "Despliegue y configuración de dominios corporativos con certificados SSL automáticos.",
-      "Automatización de captura de leads cualificados hacia CRM o WhatsApp."
-],
-    "architecture": "Next.js / React + Tailwind CSS + Framer Motion + Vercel Edge",
-    "highlights": [
-      "Diseño Bento Grid de alta gama",
-      "Micro-interacciones cinemáticas",
-      "Copywriting de alta conversión"
-],
-    "simpleExplanation": "Es una plataforma que te enseña a armar sistemas automáticos para conseguir clientes. Te muestra cómo construir páginas atractivas y usar inteligencia artificial para que tu negocio trabaje de forma más inteligente y predecible.",
-    "howToApply": [
-      "Puedes aplicar sus metodologías para rediseñar la página de ventas de tu empresa y aumentar tus conversiones.",
-      "Si ofreces servicios profesionales, te ayuda a automatizar el proceso de agendar reuniones con prospectos.",
-      "Puedes usar sus conceptos de IA para responder dudas de clientes 24/7 sin contratar más personal."
-    ]
-  },
-  {
-    "id": "rale-premilitar",
-    "title": "RALE Premilitar & Prepolicial de Élite — Admisión Oficial 2026",
-    "description": "Preparación física de élite, piscina semiolímpica propia temperada, simulador psicotécnico con IA y prechequeo médico para las 8 escuelas matrices del Perú: EO-PNP, ETS, EMCH, ETE, ESNA, CITEN, EOFAP y ESOFA.",
-    "category": "edtech",
-    "subdomain": "rale.sistemazenit.com",
-    "liveUrl": "https://rale.sistemazenit.com",
-    "githubUrl": "https://github.com/juanxaviercasa/sistema-zenit",
-    "image": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Astro",
-      "Tailwind CSS",
-      "Simulador Psicotécnico IA",
-      "Preparación Premilitar",
-      "Admisión PNP & FFAA"
-    ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "rale.sistemazenit.com · Oficial",
-    "about": "Landing page y plataforma institucional de alta conversión para academia de preparación física, académica y psicotécnica orientada a postulantes de las Fuerzas Armadas y Policía Nacional del Perú (FFAA & PNP).",
-    "whatILearned": [
-      "Arquitectura de landing page con más del 10% de tasa de conversión con tráfico frío.",
-      "Integración de prueba social dinámica (casos de éxito, testimonios y estadísticas de ingreso).",
-      "Optimización de formularios directos a WhatsApp para reducir la fricción en ventas telefónicas.",
-      "Diseño visual de alto impacto con paleta institucional sobria y contrastes accesibles."
-],
-    "whatITeach": [
-      "Cómo estructurar páginas de venta para academias presenciales y cursos intensivos.",
-      "Uso de ganchos de urgencia y autoridad para multiplicar la conversión de anuncios publicitarios.",
-      "Cómo evitar costos de agencias creando páginas de matrícula autogestionables en un fin de semana.",
-      "Canalización de prospectos directo a WhatsApp con mensajes pre-redactados."
-],
-    "architecture": "HTML5 + Tailwind CSS + Cloudflare Pages + Integración WhatsApp API",
-    "highlights": [
-      "Embudos de admisión 2026",
-      "Integración directa con WhatsApp",
-      "Carga ultra-rápida en 4G"
-],
-    "simpleExplanation": "Es la página oficial de una academia de preparación física y mental para jóvenes que quieren ingresar a las Fuerzas Armadas o Policía. La página está diseñada para convencer al visitante de matricularse, mostrando testimonios y facilitando el contacto por WhatsApp.",
-    "howToApply": [
-      "Si tienes una escuela o academia, puedes copiar esta estructura para multiplicar el número de alumnos inscritos.",
-      "Puedes agregar botones directos a WhatsApp en tu propio negocio para cerrar ventas más rápido.",
-      "Te sirve como ejemplo de cómo mostrar tus casos de éxito y testimonios para dar confianza a tus clientes."
-    ]
-  },
-  {
-    "id": "rale-test-vocacional",
-    "title": "Test Vocacional Militar — RALE Premilitar · FFAA & PNP",
-    "description": "Plataforma oficial de evaluación y orientación vocacional militar interactiva de RALE Premilitar para las 8 escuelas matrices del Perú: EMCH, ETE, ENP, CITEN, EOFAP, ESOFA, EO-PNP y EESTP.",
-    "category": "edtech",
-    "subdomain": "raletest.sistemazenit.com",
-    "liveUrl": "https://raletest.sistemazenit.com",
-    "githubUrl": "https://github.com/juanxaviercasa/sistema-zenit",
-    "image": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "JavaScript",
-      "Evaluación Vocacional",
-      "Simulador Psicotécnico",
-      "Orientación Militar",
-      "FFAA & PNP"
-    ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "raletest.sistemazenit.com · Test Vocacional",
-    "about": "Aplicación interactiva de evaluación vocacional adaptativa con algoritmo de puntuación en tiempo real para orientar a jóvenes hacia la escuela militar o policial que mejor se ajusta a su perfil psicofísico.",
-    "whatILearned": [
-      "Diseño de algoritmos de puntuación y ponderación multivariable ejecutados en el navegador.",
-      "Manejo de estado complejo en tests paso a paso (stepper) sin perder respuestas previas.",
-      "Generación dinámica de informes diagnósticos personalizados al finalizar la evaluación.",
-      "Implementación de gating de resultados para captación de leads con alta intención de compra."
-],
-    "whatITeach": [
-      "Cómo programar tests interactivos y diagnósticos con IA para cualificar a tus estudiantes.",
-      "Técnicas de 'Lead Magnet' interactivo para multiplicar por 5 la captura de contactos frente a un PDF.",
-      "Cálculo de percentiles y perfiles personalizados con lógica condicional en JavaScript.",
-      "Uso de tests interactivos para justificar programas formativos personalizados de mayor ticket."
-],
-    "architecture": "JavaScript / TypeScript + Tailwind CSS + GitHub Pages",
-    "highlights": [
-      "Algoritmo vocacional de 5 ramas",
-      "Diagnóstico personalizado inmediato",
-      "Lead magnet interactivo"
-],
-    "simpleExplanation": "Es un examen interactivo en línea que ayuda a los jóvenes a descubrir para qué rama de las Fuerzas Armadas tienen mayor aptitud. El usuario responde preguntas y el sistema le da un perfil y recomendación al final.",
-    "howToApply": [
-      "Puedes crear un cuestionario similar para recomendar a tus clientes cuál de tus productos o servicios es el ideal para ellos.",
-      "Si eres profesor o psicólogo, puedes adaptar este test para hacer evaluaciones automatizadas a tus pacientes o alumnos.",
-      "Puedes usarlo como gancho en redes sociales: ofrece un test gratuito a cambio del correo electrónico de los interesados."
-    ]
-  },
-  {
-    "id": "estudio-uni",
-    "title": "Núcleo UNI — Plataforma de Preparación CEPRE-UNI",
-    "description": "Plataforma interactiva de entrenamiento de alto rendimiento y simulacros cronometrados con resolución metódica para el examen de admisión CEPRE-UNI.",
-    "category": "edtech",
-    "subdomain": "cepreuni.sistemazenit.com",
-    "liveUrl": "https://cepreuni.sistemazenit.com/",
-    "githubUrl": "https://github.com/juanxaviercasa/estudio_uni",
-    "image": "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "HTML5",
-      "CSS3",
-      "JavaScript",
-      "Matemáticas",
-      "CEPRE-UNI"
-    ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "cepreuni.sistemazenit.com · Oficial",
-    "about": "Plataforma de entrenamiento intensivo y simulación de exámenes de admisión para postulantes a la Universidad Nacional de Ingeniería (UNI). Integra banco de preguntas, cronometrado riguroso y renderizado de fórmulas científicas.",
-    "whatILearned": [
-      "Renderizado de fórmulas matemáticas complejas en tiempo real utilizando KaTeX y MathJax.",
-      "Simulación de entornos de examen con temporizadores estrictos y guardado preventivo en LocalStorage.",
-      "Estructuración de bases de datos de preguntas en formato JSON ligero para acceso instantáneo.",
-      "Métricas de aciertos, fallos y puntajes ponderados según el sistema de admisión UNI."
-],
-    "whatITeach": [
-      "Cómo crear simuladores de exámenes virtuales para tus propios alumnos sin plataformas costosas.",
-      "Manejo de contenido técnico, fórmulas y diagramas en la web sin ralentizar la interfaz.",
-      "Estrategias para que educadores vendan acceso a bancos de preguntas interactivos.",
-      "Arquitectura libre de servidores para alojar exámenes con cientos de estudiantes en simultáneo."
-],
-    "architecture": "React / Vanilla JS + KaTeX + Tailwind CSS + Vercel",
-    "highlights": [
-      "Renderizado KaTeX de fórmulas UNI",
-      "Temporizador de examen estricto",
-      "Puntaje ponderado real"
-],
-    "simpleExplanation": "Es un simulador de exámenes de alta dificultad para estudiantes que postulan a la universidad. Les permite tomar pruebas con tiempo límite y luego ver cómo se resuelve paso a paso cada pregunta en la que se equivocaron.",
-    "howToApply": [
-      "Si enseñas cualquier materia, puedes crear exámenes cronometrados para que tus alumnos practiquen desde casa.",
-      "Puedes usar este sistema para capacitar a tu personal o medir sus conocimientos técnicos de forma automatizada.",
-      "Te permite vender simulacros virtuales y crear una nueva línea de ingresos sin depender de aulas físicas."
-    ]
-  },
-  {
-    "id": "rumbo-san-marcos",
-    "title": "Rumbo San Marcos — Diagnóstico Adaptativo UNMSM",
-    "description": "Plataforma web de evaluación diagnóstica adaptativa, simulacros DECO y preparación especializada para postulantes de la Universidad Nacional Mayor de San Marcos.",
-    "category": "edtech",
-    "subdomain": "sanmarcos.sistemazenit.com",
-    "liveUrl": "https://sanmarcos.sistemazenit.com/",
-    "githubUrl": "https://github.com/juanxaviercasa/rumbo-san-marcos",
-    "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "HTML5",
-      "PocketBase",
-      "Pedagogía Adaptativa",
-      "UNMSM DECO"
-    ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "sanmarcos.sistemazenit.com · Oficial",
-    "about": "Simulador y analizador adaptativo para postulantes a la Universidad Nacional Mayor de San Marcos (UNMSM). Clasifica por áreas (Ingenierías, Ciencias de la Salud, Letras), diagnosticando debilidades por temas específicos.",
-    "whatILearned": [
-      "Clasificación multidimensional de preguntas con ponderaciones distintas por área académica.",
-      "Visualización gráfica de fortalezas y debilidades temáticas con charts SVG interactivos.",
-      "Diseño de UX adaptativo para adolescentes y jóvenes en dispositivos móviles.",
-      "Prevención de trampas y optimización de carga diferida de imágenes explicativas."
-],
-    "whatITeach": [
-      "Cómo estructurar simuladores adaptativos que personalizan la experiencia de aprendizaje.",
-      "Creación de tableros de resultados visuales que motivan a los alumnos a estudiar más.",
-      "Uso de IA para generar cientos de preguntas con explicaciones detalladas en minutos.",
-      "Monetización de herramientas diagnósticas como puerta de entrada a cursos de pago."
-],
-    "architecture": "TypeScript + Tailwind CSS + Charting SVG + Cloudflare Pages",
-    "highlights": [
-      "Diagnóstico por áreas A, B, C, D, E",
-      "Radar de debilidades temáticas",
-      "Banco DECO interactivo"
-],
-    "simpleExplanation": "Es una plataforma de práctica para el examen de ingreso a la universidad San Marcos. A medida que el alumno responde, el sistema detecta sus puntos débiles y le recomienda estudiar temas específicos.",
-    "howToApply": [
-      "Puedes usar este modelo para crear cursos de nivelación donde el sistema se adapte automáticamente al ritmo de cada alumno.",
-      "Si vendes infoproductos, puedes ofrecer un diagnóstico inicial para recomendar el curso exacto que el cliente necesita.",
-      "Sirve como base para crear juegos de preguntas y respuestas educativas para cualquier área temática."
-    ]
+    "architecture": "Tecnologías identificadas en package.json: React, Vite, TypeScript, KaTeX, Supabase, Zod.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-09T05:00:42Z",
+      "label": "9 oct. 2026",
+      "language": "TypeScript",
+      "archived": false,
+      "description": "Laboratorio interactivo visual de funciones matemáticas con graficador reactivo, arte visual y tests con Vitest y Playwright."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/funciones",
+      "readmeUrl": "https://github.com/juanxaviercasa/funciones/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/funciones/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/funciones/commit/521e0251be218aedc812a90be71d6362057886de",
+      "minimumCommits": 2,
+      "codeFileCount": 56
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://funciones.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:23.033Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
   },
   {
     "id": "transformaciones-geometricas",
-    "title": "Transformaciones Geométricas Interactivas (2D / 3D)",
-    "description": "Visualizador matemático interactivo para exploración de transformaciones lineales, homotecias, autovalores, rotaciones y traslaciones matriciales en tiempo real.",
-    "category": "edtech",
+    "summary": "Construye figuras y explora traslaciones, simetrías, rotaciones y homotecias en una pizarra 2D.",
+    "developmentState": "in_progress",
+    "title": "GeoTransform Pro — Laboratorio de geometría dinámica 2D",
+    "description": "Construye figuras y explora traslaciones, simetrías, rotaciones y homotecias en una pizarra 2D.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "edtech",
+      "mobile"
+    ],
+    "subcategory": "Matemáticas · Geometría",
     "subdomain": "transformacionesgeometricas.sistemazenit.com",
     "liveUrl": "https://transformacionesgeometricas.sistemazenit.com/",
     "githubUrl": "https://github.com/juanxaviercasa/transformaciones_geometricas",
-    "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80",
+    "image": "/projects/captures/transformaciones-geometricas.webp",
     "tags": [
+      "React",
+      "Vite",
       "TypeScript",
-      "Canvas API",
-      "Álgebra Lineal",
-      "WebGL 3D"
+      "Tailwind CSS",
+      "KaTeX",
+      "jsPDF"
     ],
     "featured": true,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "transformacionesgeometricas.sistemazenit.com",
-    "about": "Laboratorio visual y simulador geométrico interactivo para la enseñanza de álgebra lineal y geometría analítica: traslación, rotación, escalado, reflexión y matrices de transformación en tiempo real.",
-    "whatILearned": [
-      "Renderizado por hardware y manipulación matemática de matrices 2D/3D con HTML5 Canvas y WebGL.",
-      "Mapeo de interacciones táctiles (arrastre, pellizco, rotación) sincronizadas a 60 FPS.",
-      "Diseño de interfaz con controles deslizantes e interpolación matemática fluida.",
-      "Optimización de ciclos de dibujado (requestAnimationFrame) para evitar sobrecalentamiento en celulares."
-],
-    "whatITeach": [
-      "Cómo crear herramientas de aprendizaje visual e interactivo para ciencias exactas.",
-      "Generación de simuladores matemáticos mediante Vibe Coding con prompts de geometría analítica.",
-      "Sustitución de pizarras estáticas por software dinámico que asombra a los alumnos.",
-      "Exportación y empaquetado de simuladores para usarse en clase sin conexión a internet."
-],
-    "architecture": "HTML5 Canvas API + WebGL + JavaScript Vectorial + GitHub Pages",
+    "year": 2026,
+    "about": "Construye figuras y explora traslaciones, simetrías, rotaciones y homotecias en una pizarra 2D.",
     "highlights": [
-      "Matrices 2D/3D en tiempo real",
-      "Controles táctiles y sliders reactivos",
-      "60 FPS en móvil"
-],
-    "simpleExplanation": "Es una pizarra matemática virtual donde puedes jugar con figuras geométricas (como estirarlas, rotarlas o moverlas) y ver cómo cambian sus fórmulas matemáticas al instante. Ayuda a entender conceptos difíciles viéndolos en acción.",
-    "howToApply": [
-      "Si eres docente de matemáticas, puedes usarlo proyectándolo en clase para explicar geometría visualmente.",
-      "Si eres diseñador 3D o arquitecto, te sirve para comprender la lógica detrás de los programas de diseño.",
-      "Puedes desarrollar simuladores visuales similares para explicar conceptos complejos de tu propia industria de forma fácil."
-    ]
+      "Conectar coordenadas y transformaciones con Canvas.",
+      "Exportar y recuperar estados de una pizarra."
+    ],
+    "whatITeach": [
+      "Conectar coordenadas y transformaciones con Canvas.",
+      "Exportar y recuperar estados de una pizarra."
+    ],
+    "architecture": "Tecnologías identificadas en package.json: React, Vite, TypeScript, Tailwind CSS, KaTeX, jsPDF.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-14T13:53:40Z",
+      "label": "14 oct. 2026",
+      "language": "TypeScript",
+      "archived": false,
+      "description": "Simulador interactivo de álgebra lineal, transformaciones matriciales, autovalores y proyecciones en R2 y R3."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/transformaciones_geometricas",
+      "readmeUrl": "https://github.com/juanxaviercasa/transformaciones_geometricas/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/transformaciones_geometricas/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/transformaciones_geometricas/commit/c5d28d5ff96c8c5dbdf963629254866aab7ea609",
+      "minimumCommits": 2,
+      "codeFileCount": 34
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://transformacionesgeometricas.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:46:25.721Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "solidos-geometricos",
+    "title": "Sólidos Geométricos — Laboratorio de geometría espacial 3D",
+    "summary": "Gira sólidos, despliega sus caras y explora poliedros, cuerpos redondos y ángulos en el espacio.",
+    "description": "Laboratorio educativo de geometría espacial con modelos 3D, desarrollos planos, fórmulas y actividades interactivas.",
+    "category": "edtech",
+    "categories": [
+      "webapp",
+      "edtech"
+    ],
+    "subcategory": "Matemáticas · Geometría espacial",
+    "subdomain": "solidosgeometricos.sistemazenit.com",
+    "liveUrl": "https://solidosgeometricos.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/solidos-geometricos",
+    "image": "/projects/captures/solidos-geometricos.webp",
+    "tags": [
+      "JavaScript",
+      "Three.js",
+      "HTML",
+      "CSS",
+      "KaTeX"
+    ],
+    "status": "online",
+    "developmentState": "in_progress",
+    "year": 2026,
+    "about": "Una web educativa para relacionar la representación tridimensional de un sólido con sus desarrollos planos y medidas. Reúne poliedros, cuerpos redondos, ángulos en el espacio y exploraciones de revolución y Pappus-Guldin. Las plantillas de impresión requieren validación física de recorte y armado, según su documentación.",
+    "highlights": [
+      "Modelos tridimensionales y desarrollos planos",
+      "Teoría, fórmulas y actividades de geometría espacial",
+      "Exportación de imágenes y plantillas para impresión"
+    ],
+    "whatITeach": [
+      "Conectar una escena Three.js con controles de una aplicación educativa.",
+      "Separar modelos geométricos, fórmulas y desarrollos planos.",
+      "Presentar los límites de las plantillas digitales antes de construir modelos físicos."
+    ],
+    "architecture": "Sitio estático con HTML, CSS y módulos JavaScript en dist/. El importmap de dist/index.html declara Three.js y KaTeX desde CDN. No requiere un proceso de compilación para servir esa carpeta.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-23T17:26:02Z",
+      "label": "23 oct. 2026",
+      "language": null,
+      "archived": false,
+      "description": null
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://solidosgeometricos.sistemazenit.com/",
+      "capturedAt": "2026-10-24T04:07:22.610Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado. La documentación distingue modelos visuales de plantillas que todavía requieren validación física."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/solidos-geometricos",
+      "readmeUrl": "https://github.com/juanxaviercasa/solidos-geometricos/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/solidos-geometricos/blob/main/dist/index.html",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/solidos-geometricos/commit/a7097b06091c9f0e74a5a215294ddb0e8c013f5a",
+      "minimumCommits": 2,
+      "codeFileCount": 31
+    }
+  },
+  {
+    "id": "estadistica-probabilidades",
+    "title": "Estadística y Probabilidades — Laboratorio universitario",
+    "description": "Explora distribuciones, estadística descriptiva, Bayes y combinatoria con modelos interactivos.",
+    "category": "edtech",
+    "categories": [
+      "webapp",
+      "edtech"
+    ],
+    "subdomain": "estadisticaprobabilidades.sistemazenit.com",
+    "liveUrl": "https://estadisticaprobabilidades.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/estadistica-probabilidades",
+    "image": "/projects/captures/estadistica-probabilidades.webp",
+    "tags": [
+      "React",
+      "Vite"
+    ],
+    "developmentState": "in_progress",
+    "status": "online",
+    "year": 2026,
+    "summary": "Explora distribuciones, estadística descriptiva, Bayes y combinatoria con modelos interactivos.",
+    "about": "Explora distribuciones, estadística descriptiva, Bayes y combinatoria con modelos interactivos.",
+    "whatITeach": [
+      "Separar cálculo estadístico y visualización.",
+      "Diseñar explicaciones de fórmulas por pasos."
+    ],
+    "highlights": [
+      "Separar cálculo estadístico y visualización.",
+      "Diseñar explicaciones de fórmulas por pasos."
+    ],
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-24T03:32:55Z",
+      "label": "23 oct. 2026",
+      "language": "JavaScript",
+      "archived": false,
+      "description": null
+    },
+    "architecture": "Tecnologías identificadas en package.json: React, Vite.",
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/estadistica-probabilidades",
+      "readmeUrl": "https://github.com/juanxaviercasa/estadistica-probabilidades/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/estadistica-probabilidades/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/estadistica-probabilidades/commit/2ee8881084e461bfd3b780ee7a69155135fdb2cb",
+      "minimumCommits": 2,
+      "codeFileCount": 37
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://estadisticaprobabilidades.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:45:44.104Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
   },
   {
     "id": "tabla-periodica",
-    "title": "Tabla Periódica Interactiva Pre-UNI",
-    "description": "Aplicación web interactiva para exploración pedagógica de elementos químicos, propiedades atómicas, tendencias periódicas y modelos de capas electrónicas.",
-    "category": "edtech",
+    "summary": "Explora la tabla de 118 elementos y las rutas de práctica de química preuniversitaria.",
+    "developmentState": "in_progress",
+    "title": "38 Elementos — Química y tabla periódica interactiva",
+    "description": "Explora la tabla de 118 elementos y las rutas de práctica de química preuniversitaria.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "edtech",
+      "mobile"
+    ],
+    "subcategory": "Ciencias · Química",
     "subdomain": "tablaperiodica.sistemazenit.com",
     "liveUrl": "https://tablaperiodica.sistemazenit.com/",
     "githubUrl": "https://github.com/juanxaviercasa/tabla-periodica",
-    "image": "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80",
+    "image": "/projects/captures/tabla-periodica.webp",
     "tags": [
-      "JavaScript",
-      "Canvas",
-      "CSS Grid",
-      "Química Pre-UNI"
+      "React",
+      "Vite",
+      "Three.js"
     ],
     "featured": true,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "tablaperiodica.sistemazenit.com",
-    "about": "Aplicación científica interactiva para estudiantes preuniversitarios de química. Proporciona visualización cuántica, propiedades periódicas, electronegatividad, configuraciones electrónicas y búsqueda en vivo.",
-    "whatILearned": [
-      "Modelado de esquemas de datos relacionales ricos en JSON para los 118 elementos químicos.",
-      "Filtrado instantáneo por familias, bloques (s, p, d, f), estados de agregación y electronegatividad.",
-      "Diseño CSS Grid responsivo altamente denso con adaptación móvil mediante zoom cinemático.",
-      "Cálculo algorítmico de pesos moleculares y configuraciones electrónicas por regla de Hund/Aufbau."
-],
-    "whatITeach": [
-      "Cómo transformar tablas de información densa en herramientas interactivas de alto impacto.",
-      "Técnicas de filtrado ultrarrápido en el navegador sin retraso perceptivo.",
-      "Estructuración de datos educativos para convertirlos en herramientas de consulta de cabecera.",
-      "Estrategias de posicionamiento SEO para apps utilitarias educativas con tráfico orgánico constante."
-],
-    "architecture": "CSS Grid Avanzado + JavaScript Moderno + Tailwind + Vercel",
+    "year": 2026,
+    "about": "Explora la tabla de 118 elementos y las rutas de práctica de química preuniversitaria.",
     "highlights": [
-      "118 elementos con datos cuánticos",
-      "Filtros por bloques s, p, d, f",
-      "Calculadora de masa molecular"
-],
-    "simpleExplanation": "Es una tabla periódica digital y colorida donde puedes hacer clic en cualquier elemento químico y ver toda su información y características de forma interactiva, diseñada para ayudar a estudiantes a memorizar mejor.",
-    "howToApply": [
-      "Puedes adaptar esta idea para crear un mapa interactivo de todos los productos que vendes, organizado por categorías.",
-      "Si eres educador, te sirve como material didáctico gamificado que tus alumnos pueden explorar en sus tablets.",
-      "Puedes usar la misma estructura visual para presentar los perfiles del equipo de trabajo de tu empresa."
-    ]
+      "Organizar datos científicos y sus filtros.",
+      "Construir recorridos de estudio interactivos."
+    ],
+    "whatITeach": [
+      "Organizar datos científicos y sus filtros.",
+      "Construir recorridos de estudio interactivos."
+    ],
+    "architecture": "Tecnologías identificadas en package.json: React, Vite, Three.js.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-14T15:43:12Z",
+      "label": "14 oct. 2026",
+      "language": "JavaScript",
+      "archived": false,
+      "description": "Explorador reactivo e interactivo de elementos químicos, orbitales, configuraciones electrónicas y tendencias periódicas."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/tabla-periodica",
+      "readmeUrl": "https://github.com/juanxaviercasa/tabla-periodica/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/tabla-periodica/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/tabla-periodica/commit/a34fb743139d7031e6e6567680f349b3fcd4d0af",
+      "minimumCommits": 2,
+      "codeFileCount": 52
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://tablaperiodica.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:15.975Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
   },
   {
-    "id": "mapas-planos",
-    "title": "Planos y Mapas a Escala — 1.° de Secundaria",
-    "description": "Plataforma web interactiva para la enseñanza y aprendizaje de escalas numéricas, escalas gráficas y manipulación técnica de planos y geometría en el navegador.",
-    "category": "edtech",
-    "subdomain": "mapasplanos.sistemazenit.com",
-    "liveUrl": "https://mapasplanos.sistemazenit.com",
-    "githubUrl": "https://github.com/juanxaviercasa/mapas-planos",
-    "image": "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80",
+    "id": "todo-lima",
+    "summary": "Un directorio para explorar negocios y servicios de Lima por categorías y ubicación.",
+    "developmentState": "completed",
+    "title": "Todo Lima — Directorio de negocios y servicios",
+    "description": "Un directorio para explorar negocios y servicios de Lima por categorías y ubicación.",
+    "category": "pymes",
+    "categories": [
+      "pymes",
+      "web",
+      "webapp",
+      "mobile"
+    ],
+    "subcategory": "Negocios · Directorio Urbano",
+    "subdomain": "todolima.com",
+    "liveUrl": "https://todolima.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/todo_lima",
+    "image": "/projects/captures/todo-lima.webp",
     "tags": [
-      "HTML5",
-      "Canvas",
-      "Geometría",
-      "Escalas",
-      "Secundaria"
+      "JavaScript",
+      "CSS"
     ],
     "featured": true,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "mapasplanos.sistemazenit.com",
-    "about": "Software interactivo para estudiantes de educación secundaria enfocado en la comprensión intuitiva de escalas numéricas y gráficas, cálculo de distancias reales y conversión de medidas cartográficas.",
-    "whatILearned": [
-      "Desarrollo de reglas interactivas y medidores cartográficos con zoom interactivo.",
-      "Gamificación de ejercicios prácticos con validación inmediata de respuestas.",
-      "Diseño pedagógico adaptado a la malla curricular escolar con lenguaje claro.",
-      "Optimización de recursos vectoriales SVG para renderizado nítido en pantallas Retina."
-],
-    "whatITeach": [
-      "Cómo digitalizar ejercicios de libros escolares y convertirlos en simuladores interactivos.",
-      "Implementación de dinámicas de juego (gamificación) que elevan el compromiso del alumno.",
-      "Desarrollo de material educativo interactivo vendible a colegios y docentes particulares.",
-      "Cómo compilar herramientas educativas en archivos únicos portables."
-],
-    "architecture": "SVG Interactivo + Vanilla JS + CSS3 + GitHub Pages",
+    "year": 2026,
+    "about": "Un directorio para explorar negocios y servicios de Lima por categorías y ubicación.",
     "highlights": [
-      "Medidor de escalas interactivo",
-      "Ejercicios autocorregibles",
-      "Diseñado para secundaria"
-],
-    "simpleExplanation": "Es un juego educativo para aprender cómo funcionan las escalas en los mapas (como cuando 1 centímetro en el papel significa 1 kilómetro en la vida real). Permite hacer mediciones directamente en la pantalla.",
-    "howToApply": [
-      "Si trabajas en bienes raíces o construcción, podrías crear una herramienta similar para que tus clientes interactúen con planos de casas.",
-      "Puedes usarlo como actividad práctica en clases de geografía, arquitectura o diseño urbano.",
-      "Sirve de inspiración para desarrollar visualizadores de mapas donde los usuarios midan distancias para despachos o entregas."
-    ]
+      "Organizar fichas de negocios y navegación por categorías.",
+      "Combinar contenidos y búsquedas en Next.js."
+    ],
+    "whatITeach": [
+      "Organizar fichas de negocios y navegación por categorías.",
+      "Combinar contenidos y búsquedas en Next.js."
+    ],
+    "architecture": "Archivos de código comprobados en el repositorio: JavaScript, CSS.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-23T21:55:41Z",
+      "label": "23 oct. 2026",
+      "language": "JavaScript",
+      "archived": false,
+      "description": "Directorio digital interactivo y guía comercial/cultural de Lima con geolocalización, mapa interactivo y PWA."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/todo_lima",
+      "readmeUrl": "https://github.com/juanxaviercasa/todo_lima/blob/main/README.md",
+      "manifestUrl": null,
+      "latestCommitUrl": "https://github.com/juanxaviercasa/todo_lima/commit/b37f19d6f47d49632f81610b6edbbba9bd1e94c7",
+      "minimumCommits": 2,
+      "codeFileCount": 211
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://todolima.com/",
+      "capturedAt": "2026-10-24T03:46:25.711Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "catalogo-recursos",
+    "title": "Índice Drive — Biblioteca de recursos",
+    "description": "Explora recursos por categorías, colecciones y formatos desde una biblioteca web.",
+    "category": "tools",
+    "categories": [
+      "webapp",
+      "tools"
+    ],
+    "subdomain": "files.sistemazenit.com",
+    "liveUrl": "https://files.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/catalogo-recursos",
+    "image": "/projects/captures/catalogo-recursos.webp",
+    "tags": [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Tailwind CSS",
+      "Express",
+      "Wouter",
+      "Framer Motion"
+    ],
+    "developmentState": "in_progress",
+    "status": "online",
+    "year": 2026,
+    "summary": "Explora recursos por categorías, colecciones y formatos desde una biblioteca web.",
+    "about": "Explora recursos por categorías, colecciones y formatos desde una biblioteca web.",
+    "whatITeach": [
+      "Construir filtros y búsqueda para un catálogo.",
+      "Conectar colecciones con sus recursos."
+    ],
+    "highlights": [
+      "Construir filtros y búsqueda para un catálogo.",
+      "Conectar colecciones con sus recursos."
+    ],
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-23T13:01:42Z",
+      "label": "23 oct. 2026",
+      "language": "TypeScript",
+      "archived": false,
+      "description": "Curaduría técnica de APIs, librerías, tipografías, herramientas de UI y utilidades modernas de desarrollo."
+    },
+    "architecture": "Tecnologías identificadas en package.json: React, Vite, TypeScript, Tailwind CSS, Express, Wouter, Framer Motion.",
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/catalogo-recursos",
+      "readmeUrl": "https://github.com/juanxaviercasa/catalogo-recursos/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/catalogo-recursos/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/catalogo-recursos/commit/cddd9f43b47f45b2889b7854d1e542a37c19667e",
+      "minimumCommits": 2,
+      "codeFileCount": 90
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://files.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:45:44.101Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
   },
   {
     "id": "catalogo-cursos",
-    "title": "Catálogo de Cursos & Pipeline de Localización",
-    "description": "Catálogo interactivo y pipeline de localización, traducción y procesamiento multimedia para cursos educativos y contenidos especializados.",
-    "category": "edtech",
+    "summary": "Explora cursos por áreas de aprendizaje en una biblioteca con búsqueda y navegación temática.",
+    "developmentState": "completed",
+    "title": "Ruta de Aprendizaje — Catálogo de cursos",
+    "description": "Explora cursos por áreas de aprendizaje en una biblioteca con búsqueda y navegación temática.",
+    "category": "web",
+    "categories": [
+      "web",
+      "edtech"
+    ],
+    "subcategory": "Educación · Rutas de Aprendizaje",
     "subdomain": "translate.sistemazenit.com",
-    "liveUrl": "https://translate.sistemazenit.com",
+    "liveUrl": "https://translate.sistemazenit.com/",
     "githubUrl": "https://github.com/juanxaviercasa/catalogo-cursos",
-    "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80",
+    "image": "/projects/captures/catalogo-cursos.webp",
     "tags": [
-      "TypeScript",
       "React",
-      "Localización",
-      "Traducción Multimedia"
-    ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "translate.sistemazenit.com",
-    "about": "Plataforma de catálogo formativo con arquitectura de internacionalización y localización dinámica. Permite explorar programas académicos, filtrar por niveles y previsualizar mallas curriculares.",
-    "whatILearned": [
-      "Implementación de arquitectura multi-idioma e internacionalización (i18n) en cliente.",
-      "Filtrado facetado complejo por habilidades, duración, instructor y prerrequisitos.",
-      "Diseño de tarjetas de cursos de alta densidad de información con modales de temarios.",
-      "Estrategias de enrutamiento dinámico para fichas de cursos optimizadas para SEO."
-],
-    "whatITeach": [
-      "Cómo estructurar el catálogo web de tu propia academia online sin pagar suscripciones mensuales.",
-      "Organización de mallas curriculares atractivas que facilitan la decisión de compra del estudiante.",
-      "Integración de pasarelas de pago y botones de inscripción automatizada.",
-      "Despliegue escalable en la nube con capacidad para soportar miles de cursos."
-],
-    "architecture": "Next.js / Static Export + Tailwind CSS + Edge Delivery",
-    "highlights": [
-      "Filtrado facetado multi-criterio",
-      "Arquitectura i18n preparada",
-      "Fichas de cursos de alta conversión"
-],
-    "simpleExplanation": "Es una biblioteca donde están organizados todos los cursos educativos disponibles. Además de mostrarlos, tiene un sistema interno que ayuda a traducir y adaptar el contenido a diferentes idiomas de forma eficiente.",
-    "howToApply": [
-      "Si tienes muchos tutoriales o videos, puedes usar esto para organizar tu propio Netflix educativo para tus clientes.",
-      "Puedes usar su sistema para ofrecer tus manuales o guías de servicios en múltiples idiomas y abrirte a mercados internacionales.",
-      "Te permite crear un repositorio corporativo de capacitaciones accesible para todos tus empleados."
-    ]
-  },
-  {
-    "id": "caja-fuerte",
-    "title": "DevVault Pro Suite — Bóveda Zero-Knowledge",
-    "description": "Bóveda de claves y centro de comando con criptografía Zero-Knowledge (AES-GCM 256 bits + PBKDF2 de 100,000 rondas) que opera 100% en el cliente.",
-    "category": "tools",
-    "subdomain": "cajapifuerte.vercel.app",
-    "liveUrl": "https://cajapifuerte.vercel.app/",
-    "githubUrl": "https://github.com/juanxaviercasa/caja-fuerte",
-    "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "JavaScript",
-      "Web Crypto API",
-      "AES-GCM",
-      "Zero-Knowledge",
-      "Vercel"
-    ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "cajapifuerte.vercel.app · Zero-Knowledge",
-    "about": "Bóveda digital de seguridad criptográfica orientada a la protección de contraseñas, claves API y secretos de desarrollo. Funciona bajo arquitectura Zero-Knowledge: el descifrado ocurre 100% en el dispositivo del usuario.",
-    "whatILearned": [
-      "Implementación de la Web Crypto API nativa del navegador con algoritmos PBKDF2 y AES-GCM (256-bit).",
-      "Diseño de arquitectura Zero-Knowledge donde ninguna clave en texto plano viaja por la red.",
-      "Exportación e importación cifrada de respaldos con derivación de llaves maestras seguras.",
-      "Auditoría de seguridad y mitigación de ataques XSS y fugas de memoria en JavaScript."
-],
-    "whatITeach": [
-      "Principios fundamentales de seguridad y privacidad en aplicaciones web modernas.",
-      "Cómo usar la Web Crypto API para cifrar datos sensibles sin comprar servicios de backend caros.",
-      "Por qué las arquitecturas descentralizadas en cliente son más seguras que los servidores compartidos.",
-      "Cómo generar aplicaciones de confianza empresarial usando Inteligencia Artificial para el código crítico."
-],
-    "architecture": "Web Crypto API (AES-GCM / PBKDF2) + TypeScript + Tailwind CSS",
-    "highlights": [
-      "Cifrado Zero-Knowledge en cliente",
-      "Gestión de API Keys y contraseñas",
-      "Exportación blindada"
-],
-    "simpleExplanation": "Es como una caja fuerte digital súper segura en tu navegador. Puedes guardar contraseñas o textos secretos y el sistema los bloquea con una llave tan compleja que nadie, ni siquiera el dueño de la página, puede ver qué guardaste.",
-    "howToApply": [
-      "Puedes usarlo para guardar notas personales o claves importantes sabiendo que no se filtrarán a internet.",
-      "Si trabajas con información confidencial de clientes, puedes ofrecerles esta bóveda para que te compartan datos sensibles de forma segura.",
-      "Sirve como ejemplo de que puedes construir aplicaciones web totalmente seguras sin depender de grandes empresas tecnológicas."
-    ]
-  },
-  {
-    "id": "potencia-colab",
-    "title": "Colab Atelier — Data Learning Lab",
-    "description": "Laboratorio de ingeniería de datos y aprendizaje con autenticación, sincronización de notebooks con Google Colab/Drive, almacenamiento y tests automatizados.",
-    "category": "tools",
-    "subdomain": "colab.sistemazenit.com",
-    "liveUrl": "https://colab.sistemazenit.com",
-    "githubUrl": "https://github.com/juanxaviercasa/potencia-colab",
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-    "tags": [
+      "Vite",
       "TypeScript",
-      "Google Colab",
-      "Data Engineering",
-      "Vitest",
-      "Seguridad"
+      "Tailwind CSS",
+      "Express",
+      "Drizzle",
+      "Wouter"
     ],
-    "featured": true,
+    "featured": false,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "colab.sistemazenit.com · Subdominio Oficial",
-    "about": "Laboratorio de aprendizaje práctico y entorno interactivo para estudiantes de ciencia de datos, Python y machine learning. Ofrece guías interactivas, playgrounds de código y visualizaciones de algoritmos.",
-    "whatILearned": [
-      "Integración de editores de código en el navegador (Monaco Editor / CodeMirror) con resaltado sintáctico.",
-      "Estructuración de sandboxes de ejecución y visualización de datasets con Web Workers.",
-      "Diseño de interfaz tipo IDE minimalista enfocado en productividad de aprendizaje.",
-      "Sincronización de notebooks con Google Colab y repositorios de GitHub."
-],
-    "whatITeach": [
-      "Cómo crear entornos interactivos de programación para estudiantes sin servidores dedicados.",
-      "Diseño de interfaces tipo editor de código para cursos de tecnología y ciencia de datos.",
-      "Automatización de generación de ejercicios de código y soluciones con IA.",
-      "Alojamiento de plataformas de documentación interactiva a costo cero."
-],
-    "architecture": "React + CodeMirror + Web Workers + Vercel Edge",
+    "year": 2026,
+    "about": "Explora cursos por áreas de aprendizaje en una biblioteca con búsqueda y navegación temática.",
     "highlights": [
-      "Playground interactivo de código",
-      "Guías paso a paso de ML",
-      "Integración directa con Google Colab"
-],
-    "simpleExplanation": "Es un laboratorio virtual para aprender a programar y analizar datos. Se conecta directamente con las herramientas de Google, permitiendo que los estudiantes practiquen con código sin tener que instalar programas complicados en sus computadoras.",
-    "howToApply": [
-      "Si eres consultor de datos, puedes compartir experimentos directamente con tus clientes para que los vean funcionar en vivo.",
-      "Te sirve para dictar talleres técnicos donde los alumnos solo necesitan un navegador para empezar a practicar.",
-      "Puedes crear reportes de análisis interactivos donde el usuario puede modificar variables y ver cómo cambian los resultados."
-    ]
-  },
-  {
-    "id": "mundos-simulados",
-    "title": "Mundos Simulados — Laboratorio de Computación Visual",
-    "description": "Plataforma interactiva de física computacional, gravedad n-cuerpos, termodinámica y simulación de sistemas dinámicos en Canvas y WebGL.",
-    "category": "culture",
-    "subdomain": "mundossimulados.online",
-    "liveUrl": "https://mundossimulados.online",
-    "githubUrl": "https://github.com/juanxaviercasa/mundos-simulados",
-    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "Three.js",
-      "WebGL",
-      "Física Computacional",
-      "Canvas API"
+      "Organizar un catálogo por categorías.",
+      "Construir una interfaz de exploración de contenidos."
     ],
-    "featured": true,
-    "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "mundossimulados.online · WebGL 60fps",
-    "about": "Entorno de experimentación con autómatas celulares, física de partículas, fractales y sistemas complejos. Permite a estudiantes modificar parámetros matemáticos y observar el comportamiento emergente en vivo.",
-    "whatILearned": [
-      "Optimización de bucles de simulación espacial con buffers de memoria tipada (Float32Array).",
-      "Implementación de algoritmos de física computacional (gravedad, colisiones, Conway Game of Life).",
-      "Controles en tiempo real con dat.GUI y paneles personalizados para ajustar variables físicas.",
-      "Técnicas de renderizado masivo en Canvas 2D minimizando la recolección de basura (Garbage Collector)."
-],
     "whatITeach": [
-      "Cómo ilustrar conceptos abstractos de física y matemática mediante simulación visual.",
-      "Uso de IA generativa para codificar complejas fórmulas físicas en bucles gráficos.",
-      "Creación de experiencias inmersivas que dejan boquiabiertos a alumnos y reclutadores.",
-      "Rendimiento extremo en el navegador web moderno aprovechando toda la potencia del hardware."
-],
-    "architecture": "HTML5 Canvas + Tipos de Memoria JavaScript + Tailwind UI",
-    "highlights": [
-      "Simulación de sistemas complejos",
-      "Autómatas celulares y partículas",
-      "Control de variables en tiempo real"
-],
-    "simpleExplanation": "Es un simulador visual donde puedes experimentar con reglas de la física. Por ejemplo, puedes poner planetas virtuales en la pantalla y ver cómo la gravedad hace que giren unos alrededor de otros como en la vida real.",
-    "howToApply": [
-      "Puedes usar esto como una forma muy llamativa y lúdica de enseñar física, física cuántica o astronomía a estudiantes.",
-      "Si eres creador de contenido, puedes grabar estas animaciones para explicar conceptos abstractos en tus videos.",
-      "Se puede adaptar para crear animaciones interactivas únicas en la página de inicio de tu sitio web que cautiven a tus visitantes."
-    ]
+      "Organizar un catálogo por categorías.",
+      "Construir una interfaz de exploración de contenidos."
+    ],
+    "architecture": "Tecnologías identificadas en package.json: React, Vite, TypeScript, Tailwind CSS, Express, Drizzle, Wouter.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-23T19:53:08Z",
+      "label": "23 oct. 2026",
+      "language": "TypeScript",
+      "archived": false,
+      "description": "Pipeline de subtitulado, traducción automatizada y procesamiento multimedia para contenidos formativos."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/catalogo-cursos",
+      "readmeUrl": "https://github.com/juanxaviercasa/catalogo-cursos/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/catalogo-cursos/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/catalogo-cursos/commit/6e883b7bc72501d1500cfe2f883a9288832c52f0",
+      "minimumCommits": 2,
+      "codeFileCount": 138
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://translate.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:41.537Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
   },
   {
     "id": "portafolio-juancabello",
-    "title": "Portafolio Juan Cabello — Two-Speed UX & WebGL",
-    "description": "Portafolio profesional de nueva generación con experiencia de usuario bifurcada: Modo Rendimiento accesible vs. Modo Inmersivo WebGL con Three.js.",
-    "category": "culture",
+    "summary": "Un portafolio que reúne educación matemática, visualización interactiva y desarrollo web.",
+    "developmentState": "completed",
+    "title": "Juan Cabello — Portafolio de educación y desarrollo",
+    "description": "Un portafolio que reúne educación matemática, visualización interactiva y desarrollo web.",
+    "category": "web",
+    "categories": [
+      "web",
+      "mobile"
+    ],
+    "subcategory": "Desarrollo Web · Portafolio Profesional",
     "subdomain": "juan.cabellosalirrosas.com",
     "liveUrl": "https://juan.cabellosalirrosas.com/",
     "githubUrl": "https://github.com/juanxaviercasa/portafolio_juancabello",
-    "image": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80",
+    "image": "/projects/captures/portafolio-juancabello.webp",
     "tags": [
+      "React",
+      "Vite",
       "TypeScript",
-      "WebGL",
-      "Three.js",
-      "Two-Speed UX",
-      "Vite"
+      "Tailwind CSS",
+      "Zustand",
+      "KaTeX",
+      "Three.js"
     ],
-    "featured": true,
+    "featured": false,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "juan.cabellosalirrosas.com · Two-Speed UX",
-    "about": "Portafolio profesional interactivo con arquitectura Two-Speed UX: modo exploración cinemático con fondos WebGL y modo lectura ultra-eficiente para reclutadores técnicos y clientes corporativos.",
-    "whatILearned": [
-      "Desarrollo de shaders GLSL y escenas Three.js ligeras que no degradan la batería del usuario.",
-      "Arquitectura Two-Speed UX: alternancia sin recarga entre modo visual inmersivo y modo texto accesible.",
-      "Micro-animaciones de desplazamiento basadas en scroll y transiciones de página suaves.",
-      "Auditoría Lighthouse con puntaje de 98+ a pesar de incluir efectos visuales avanzados."
-],
-    "whatITeach": [
-      "Cómo construir portafolios que se diferencian radicalmente del 99% de plantillas aburridas.",
-      "Equilibrio entre impacto visual y rendimiento técnico implacable para contratación.",
-      "Estrategias para presentar proyectos con narrativa y storytelling que vende servicios.",
-      "Despliegue automatizado con integración continua (CI/CD) desde GitHub a la nube."
-],
-    "architecture": "Three.js / WebGL + Tailwind CSS + Framer Motion + Cloudflare Pages",
+    "year": 2026,
+    "about": "Un portafolio que reúne educación matemática, visualización interactiva y desarrollo web.",
     "highlights": [
-      "Two-Speed UX (Exploración / Lectura)",
-      "Efectos WebGL optimizados",
-      "Lighthouse Score 98+"
-],
-    "simpleExplanation": "Es un currículum o portafolio personal moderno. Tiene un botón mágico que cambia la página entre una vista súper rápida solo con texto, o una vista en 3D espectacular tipo videojuego, dependiendo de lo que el visitante prefiera ver.",
-    "howToApply": [
-      "Puedes aplicar esta idea para que tu página web se adapte a clientes que quieren ir al grano y a los que quieren ver un diseño impresionante.",
-      "Si ofreces servicios premium, el modo 3D te ayuda a proyectar exclusividad y alto valor técnico.",
-      "Te sirve de modelo para crear experiencias digitales que destaquen frente a tus competidores que usan plantillas aburridas."
-    ]
+      "Organizar evidencia de proyectos.",
+      "Incorporar visualización 3D sin ocultar el contenido principal."
+    ],
+    "whatITeach": [
+      "Organizar evidencia de proyectos.",
+      "Incorporar visualización 3D sin ocultar el contenido principal."
+    ],
+    "architecture": "Tecnologías identificadas en package.json: React, Vite, TypeScript, Tailwind CSS, Zustand, KaTeX, Three.js.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-19T12:26:01Z",
+      "label": "19 oct. 2026",
+      "language": "TypeScript",
+      "archived": false,
+      "description": "Portafolio profesional Two-Speed UX: WebGL, Three.js y modo rendimiento para Computación Visual y Educación Matemática."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/portafolio_juancabello",
+      "readmeUrl": "https://github.com/juanxaviercasa/portafolio_juancabello/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/portafolio_juancabello/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/portafolio_juancabello/commit/42223a4e132c25fb1993a49fc2db751e0ab54640",
+      "minimumCommits": 2,
+      "codeFileCount": 38
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://juan.cabellosalirrosas.com/",
+      "capturedAt": "2026-10-24T03:43:41.547Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
   },
   {
-    "id": "portafolio-jessicacabello",
-    "title": "Portafolio Jessica Cabello — Recursos Psicopedagógicos",
-    "description": "Sitio web profesional y repositorio de recursos psicopedagógicos, ejercicios didácticos y actividades de estimulación y atención infantil.",
-    "category": "culture",
-    "subdomain": "jessica.cabellosalirrosas.com",
-    "liveUrl": "https://jessica.cabellosalirrosas.com",
-    "githubUrl": "https://github.com/juanxaviercasa/portafolio_jessicacabello",
-    "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80",
-    "tags": [
-      "HTML5",
-      "CSS3",
-      "Psicopedagogía",
-      "Educación Infantil"
+    "id": "hazlo-crecer",
+    "summary": "Una web para clínicas y empresas con evaluación de elegibilidad, simulador de WhatsApp y calculadora de oportunidad comercial.",
+    "developmentState": "completed",
+    "title": "Hazlo Crecer — Infraestructura digital y agentes de IA",
+    "description": "Una web para clínicas y empresas con evaluación de elegibilidad, simulador de WhatsApp y calculadora de oportunidad comercial.",
+    "category": "pymes",
+    "categories": [
+      "pymes",
+      "web",
+      "mobile"
     ],
-    "featured": true,
+    "subcategory": "Negocios · Aceleración Digital",
+    "subdomain": "hazlocrecer.com",
+    "liveUrl": "https://hazlocrecer.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/hazlo-crecer",
+    "image": "/projects/captures/hazlo-crecer-454277a.webp",
+    "tags": [
+      "React",
+      "Vite",
+      "React Router",
+      "Framer Motion",
+      "Zod"
+    ],
+    "featured": false,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "jessica.cabellosalirrosas.com · Subdominio Oficial",
-    "about": "Plataforma profesional para terapeuta y docente psicopedagógica. Incluye catálogo de recursos descargables, guías de estimulación cognitiva, sistema de agendamiento y artículos especializados para padres y maestros.",
-    "whatILearned": [
-      "Diseño de interfaz accesible con paletas cromáticas calmadas y tipografía legible para educadores.",
-      "Estructuración de biblioteca de recursos descargables categorizados por edades y necesidades.",
-      "Integración de calendario interactivo para reserva de consultas y sesiones de orientación.",
-      "Optimización de tiempos de carga en dispositivos móviles utilizados frecuentemente por madres y docentes."
-],
-    "whatITeach": [
-      "Cómo crear sitios web profesionales para terapeutas, psicólogos y docentes particulares.",
-      "Estrategias para ofrecer recursos descargables como imán de captación de consultas privadas.",
-      "Diseño empático que transmite calidez y confianza profesional sin parecer una plantilla corporativa fría.",
-      "Cómo monetizar asesorías y cursos especializados sin intermediarios de plataformas de cursos."
-],
-    "architecture": "HTML5 Semántico + Tailwind CSS + GitHub Pages",
+    "year": 2026,
+    "about": "Hazlo Crecer presenta una propuesta de infraestructura digital para clínicas y empresas de Lima. La nueva versión combina un recorrido de calificación de negocios, una demostración interactiva de atención y agendamiento por WhatsApp, una calculadora estimativa y comparativas de modelos de aplicación. El simulador representa una conversación de ejemplo; no acredita por sí mismo una integración real con WhatsApp o calendarios.",
     "highlights": [
-      "Biblioteca de recursos psicopedagógicos",
-      "Diseño empático y accesible",
-      "Agendamiento de consultas"
-],
-    "simpleExplanation": "Es el sitio web de una profesional en educación, diseñado para ser muy amigable y transmitir calma. Permite a los padres de familia descargar hojas de trabajo para sus hijos y agendar citas directamente desde la página.",
-    "howToApply": [
-      "Si eres psicólogo, terapeuta o asesor, puedes usar este modelo para mostrar tus servicios y atraer pacientes de manera automatizada.",
-      "Te permite crear una sección de recursos gratuitos que funciona como imán para conseguir el correo electrónico de clientes potenciales.",
-      "Puedes integrar el sistema de agendamiento para que las personas reserven y paguen por tus asesorías sin que tú tengas que chatear con ellos."
-    ]
+      "Evaluador de elegibilidad comercial por etapas",
+      "Simulador interactivo de conversación y elección de horarios",
+      "Calculadora de oportunidad comercial con supuestos configurados",
+      "Nueva portada, comparativas y modelos de aplicación"
+    ],
+    "whatITeach": [
+      "Construir flujos de calificación por etapas con estado de React.",
+      "Separar una demostración interactiva de una integración operativa real.",
+      "Explicar los supuestos de una calculadora y conectar la interfaz con una consulta comercial."
+    ],
+    "architecture": "Frontend React con Vite, React Router, Framer Motion y Zod. El código incorpora componentes QualificationTriage, WhatsAppSimulator y ROICalculator. La calculadora usa supuestos prefijados; sus cifras son estimaciones, no resultados comerciales comprobados.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-24T04:23:00Z",
+      "label": "23 oct. 2026",
+      "language": "Python",
+      "archived": false,
+      "description": "Plataforma de ecosistemas digitales, automatización de prospección y agentes de IA para conversión comercial predecible."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/hazlo-crecer",
+      "readmeUrl": "https://github.com/juanxaviercasa/hazlo-crecer/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/hazlo-crecer/blob/454277a13b10d22f65d1dd978e618efb131144a0/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/hazlo-crecer/commit/454277a13b10d22f65d1dd978e618efb131144a0",
+      "minimumCommits": 2,
+      "codeFileCount": 62
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://hazlocrecer.com/",
+      "capturedAt": "2026-10-24T04:28:55.741Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real de la nueva portada publicada. El simulador de WhatsApp y los cálculos son demostraciones y estimaciones; no se validaron resultados comerciales ni integraciones privadas."
+    }
   },
   {
-    "id": "mapa-de-vida",
-    "title": "Mapa de Vida — Cartografía Personal & Audio Ambiental",
-    "description": "Aplicación web interactiva de introspección personal, cálculo simbólico y cartografía visual con generación de paisaje sonoro ambiental procedural.",
-    "category": "culture",
-    "subdomain": "mapavida.sistemazenit.com",
-    "liveUrl": "https://mapavida.sistemazenit.com/",
-    "githubUrl": "https://github.com/juanxaviercasa/mapa-de-vida",
-    "image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80",
+    "id": "nube-para-pymes",
+    "summary": "Un portal editorial que conecta necesidades de pequeñas empresas con guías, comparativas y herramientas.",
+    "developmentState": "in_progress",
+    "title": "Nube para Pymes — Guías y herramientas",
+    "description": "Un portal editorial que conecta necesidades de pequeñas empresas con guías, comparativas y herramientas.",
+    "category": "pymes",
+    "categories": [
+      "pymes",
+      "web",
+      "tools",
+      "mobile"
+    ],
+    "subcategory": "Negocios · Suite Serverless & UI/UX",
+    "subdomain": "nubeparapymes.online",
+    "liveUrl": "https://nubeparapymes.online/",
+    "githubUrl": "https://github.com/juanxaviercasa/nube-para-pymes",
+    "image": "/projects/captures/nube-para-pymes.webp",
     "tags": [
+      "HTML",
       "JavaScript",
-      "HTML5",
-      "Canvas",
-      "Audio Procedural"
+      "CSS"
     ],
     "featured": true,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "mapavida.sistemazenit.com · Audio Ambiental",
-    "about": "Experiencia digital narrativa y cartografía interactiva que combina líneas de tiempo SVG, nodos biográficos y síntesis de audio ambiental inmersivo mediante la Web Audio API.",
-    "whatILearned": [
-      "Manipulación avanzada de curvas Bézier y trazado dinámico de líneas de tiempo en SVG.",
-      "Implementación de generadores de sonido ambiental con osciladores y nodos de ganancia en Web Audio API.",
-      "Navegación horizontal fluida con aceleración por GPU y snapping suave.",
-      "Storytelling digital interactivo integrando texto, audio y diseño espacial."
-],
-    "whatITeach": [
-      "Cómo incorporar audio ambiental y dinamismo sonoro en aplicaciones web para crear atmósfera.",
-      "Técnicas de infografía interactiva para cursos de historia, literatura o desarrollo personal.",
-      "Manejo de SVG interactivo para representar procesos evolutivos o líneas temporales.",
-      "Creación de activos digitales únicos con alta capacidad de viralización en redes sociales."
-],
-    "architecture": "Web Audio API + SVG Dinámico + JavaScript + Vercel",
+    "year": 2026,
+    "about": "Un portal editorial que conecta necesidades de pequeñas empresas con guías, comparativas y herramientas.",
     "highlights": [
-      "Línea de tiempo SVG interactiva",
-      "Audio ambiental en Web Audio API",
-      "Storytelling biográfico inmersivo"
-],
-    "simpleExplanation": "Es una página web artística que cuenta una historia personal como si fuera un viaje. A medida que bajas por la página, te va mostrando etapas de la vida acompañadas de sonidos y música relajante de fondo que se genera en el momento.",
-    "howToApply": [
-      "Puedes usar este formato inmersivo para contar la historia de cómo fundaste tu empresa, conectando emocionalmente con tus clientes.",
-      "Si eres artista o músico, puedes crear experiencias interactivas que acompañen el lanzamiento de tu nuevo trabajo.",
-      "Sirve de inspiración para transformar currículums tradicionales aburridos en narrativas visuales memorables."
-    ]
+      "Diseñar navegación por problemas.",
+      "Conectar contenidos con herramientas de uso práctico."
+    ],
+    "whatITeach": [
+      "Diseñar navegación por problemas.",
+      "Conectar contenidos con herramientas de uso práctico."
+    ],
+    "architecture": "Tecnologías identificadas en package.json: HTML, JavaScript, CSS.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-18T01:31:25Z",
+      "label": "17 oct. 2026",
+      "language": "HTML",
+      "archived": false,
+      "description": "Centro de software, guías de gestión y suite de utilidades web en el navegador para pequeñas y medianas empresas."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/nube-para-pymes",
+      "readmeUrl": "https://github.com/juanxaviercasa/nube-para-pymes/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/nube-para-pymes/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/nube-para-pymes/commit/429460ca97b4b455f8e21c1737236e5f1c1ad94c",
+      "minimumCommits": 2,
+      "codeFileCount": 722
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://nubeparapymes.online/",
+      "capturedAt": "2026-10-24T03:46:25.714Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "mundos-simulados",
+    "summary": "Un portal de escenarios y simulaciones para explorar ciencia y sistemas dinámicos.",
+    "developmentState": "in_progress",
+    "title": "Mundos Simulados — Laboratorio de simulación",
+    "description": "Un portal de escenarios y simulaciones para explorar ciencia y sistemas dinámicos.",
+    "category": "leisure",
+    "categories": [
+      "leisure",
+      "webapp",
+      "tools"
+    ],
+    "subcategory": "Pasatiempo & Ocio · Computación Visual",
+    "subdomain": "mundossimulados.online",
+    "liveUrl": "https://mundossimulados.online/",
+    "githubUrl": "https://github.com/juanxaviercasa/mundos-simulados",
+    "image": "/projects/captures/mundos-simulados.webp",
+    "tags": [
+      "HTML",
+      "JavaScript",
+      "CSS"
+    ],
+    "featured": false,
+    "status": "online",
+    "year": 2026,
+    "about": "Un portal de escenarios y simulaciones para explorar ciencia y sistemas dinámicos.",
+    "highlights": [
+      "Organizar simulaciones por temas.",
+      "Convertir modelos en experiencias visuales interactivas."
+    ],
+    "whatITeach": [
+      "Organizar simulaciones por temas.",
+      "Convertir modelos en experiencias visuales interactivas."
+    ],
+    "architecture": "Archivos de código comprobados en el repositorio: HTML, JavaScript, CSS.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-10-13T19:49:51Z",
+      "label": "13 oct. 2026",
+      "language": "HTML",
+      "archived": false,
+      "description": "Laboratorio de computación visual, simulación de sistemas dinámicos (n-cuerpos, fluidos, autómatas) y física en el navegador."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/mundos-simulados",
+      "readmeUrl": "https://github.com/juanxaviercasa/mundos-simulados/blob/main/README.md",
+      "manifestUrl": null,
+      "latestCommitUrl": "https://github.com/juanxaviercasa/mundos-simulados/commit/ee991082092179f9fd55463179dbfce40f287499",
+      "minimumCommits": 2,
+      "codeFileCount": 306
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://mundossimulados.online/",
+      "capturedAt": "2026-10-24T03:43:47.178Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
   },
   {
     "id": "psicologia-interactiva",
-    "title": "Psicología Interactiva — Divulgación Cognitiva",
-    "description": "Libro interactivo y plataforma web divulgativa de conceptos de psicología cognitiva, sesgos del comportamiento humano y simuladores de toma de decisiones.",
-    "category": "culture",
+    "summary": "Una biblioteca web de libros y contenidos interactivos de divulgación sobre psicología.",
+    "developmentState": "completed",
+    "title": "Libros Interactivos — Biblioteca de psicología",
+    "description": "Una biblioteca web de libros y contenidos interactivos de divulgación sobre psicología.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "leisure",
+      "web"
+    ],
+    "subcategory": "Lectura · Psicología del Comportamiento",
     "subdomain": "psicologiaoscura.sistemazenit.com",
     "liveUrl": "https://psicologiaoscura.sistemazenit.com/",
     "githubUrl": "https://github.com/juanxaviercasa/psicologia-interactiva",
-    "image": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+    "image": "/projects/captures/psicologia-interactiva.webp",
     "tags": [
+      "HTML",
       "JavaScript",
+      "CSS"
+    ],
+    "featured": false,
+    "status": "online",
+    "year": 2026,
+    "about": "Una biblioteca web de libros y contenidos interactivos de divulgación sobre psicología.",
+    "highlights": [
+      "Diseñar un catálogo de lectura.",
+      "Organizar capítulos, recursos y navegación."
+    ],
+    "whatITeach": [
+      "Diseñar un catálogo de lectura.",
+      "Organizar capítulos, recursos y navegación."
+    ],
+    "architecture": "Archivos de código comprobados en el repositorio: HTML, JavaScript, CSS.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-30T01:48:31Z",
+      "label": "29 set. 2026",
+      "language": "JavaScript",
+      "archived": false,
+      "description": "Libro web interactivo de divulgación sobre modelos cognitivos, sesgos del comportamiento humano y heurísticas."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/psicologia-interactiva",
+      "readmeUrl": "https://github.com/juanxaviercasa/psicologia-interactiva/blob/main/README.md",
+      "manifestUrl": null,
+      "latestCommitUrl": "https://github.com/juanxaviercasa/psicologia-interactiva/commit/fb21a9baf349b6bec1d29184d3954951a970a7cb",
+      "minimumCommits": 2,
+      "codeFileCount": 222
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://psicologiaoscura.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:47.180Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "rale-docentes",
+    "summary": "Un portal que reúne la convocatoria docente, información del programa y vías de consulta.",
+    "developmentState": "completed",
+    "title": "RALE Docentes — Convocatoria y formación",
+    "description": "Un portal que reúne la convocatoria docente, información del programa y vías de consulta.",
+    "category": "web",
+    "categories": [
+      "web",
+      "mobile",
+      "pymes"
+    ],
+    "subcategory": "Desarrollo Web · Recursos Humanos",
+    "subdomain": "raledocentes.sistemazenit.com",
+    "liveUrl": "https://raledocentes.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/rale-docentes",
+    "image": "/projects/captures/rale-docentes.webp",
+    "tags": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion"
+    ],
+    "featured": false,
+    "status": "online",
+    "year": 2026,
+    "about": "Un portal que reúne la convocatoria docente, información del programa y vías de consulta.",
+    "highlights": [
+      "Organizar requisitos y preguntas frecuentes.",
+      "Crear un sitio estático con Next.js."
+    ],
+    "whatITeach": [
+      "Organizar requisitos y preguntas frecuentes.",
+      "Crear un sitio estático con Next.js."
+    ],
+    "architecture": "Tecnologías identificadas en package.json: React, Next.js, TypeScript, Tailwind CSS, Framer Motion.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-29T03:39:32Z",
+      "label": "28 set. 2026",
+      "language": "TypeScript",
+      "archived": false,
+      "description": "Plataforma digital de evaluación diagnóstica, recursos pedagógicos y herramientas de gestión formativa para docentes."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/rale-docentes",
+      "readmeUrl": "https://github.com/juanxaviercasa/rale-docentes/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/rale-docentes/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/rale-docentes/commit/3c7ba8d2c0e826e3b3d911cfadddae5a34645d2d",
+      "minimumCommits": 2,
+      "codeFileCount": 14
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://raledocentes.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:47.192Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "rale-premilitar",
+    "summary": "Presenta escuelas, preparación y vías de consulta para futuros postulantes.",
+    "developmentState": "completed",
+    "title": "RALE Premilitar — Portal institucional",
+    "description": "Presenta escuelas, preparación y vías de consulta para futuros postulantes.",
+    "category": "web",
+    "categories": [
+      "web",
+      "mobile",
+      "edtech"
+    ],
+    "subcategory": "Desarrollo Web · Landing Page & UI/UX",
+    "subdomain": "rale.sistemazenit.com",
+    "liveUrl": "https://rale.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/academia-premilitar",
+    "image": "/projects/captures/rale-premilitar.webp",
+    "tags": [
+      "React",
+      "Astro",
+      "Tailwind CSS",
+      "Zustand"
+    ],
+    "featured": false,
+    "status": "online",
+    "year": 2026,
+    "about": "Presenta escuelas, preparación y vías de consulta para futuros postulantes.",
+    "highlights": [
+      "Integrar componentes React en Astro.",
+      "Ordenar una oferta educativa y sus llamadas a la acción."
+    ],
+    "whatITeach": [
+      "Integrar componentes React en Astro.",
+      "Ordenar una oferta educativa y sus llamadas a la acción."
+    ],
+    "architecture": "Tecnologías identificadas en frontend/package.json: React, Astro, Tailwind CSS, Zustand.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-28T01:06:53Z",
+      "label": "27 set. 2026",
+      "language": "TypeScript",
+      "archived": false,
+      "description": null
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/academia-premilitar",
+      "readmeUrl": "https://github.com/juanxaviercasa/academia-premilitar/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/academia-premilitar/blob/main/frontend/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/academia-premilitar/commit/21d1f88f09b3ac7d090dbae3126514186be9f112",
+      "minimumCommits": 2,
+      "codeFileCount": 35
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://rale.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:51.989Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "rale-test-vocacional",
+    "summary": "Una interfaz de orientación y preparación para explorar escuelas militares y policiales.",
+    "developmentState": "completed",
+    "title": "Test Vocacional Militar — Orientación y diagnóstico RALE",
+    "description": "Una interfaz de orientación y preparación para explorar escuelas militares y policiales.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "edtech",
+      "mobile"
+    ],
+    "subcategory": "Evaluación · Fuerzas Armadas & PNP",
+    "subdomain": "raletest.sistemazenit.com",
+    "liveUrl": "https://raletest.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/test-vocacional",
+    "image": "/projects/captures/rale-test-vocacional.webp",
+    "tags": [
+      "React",
       "Vite",
       "Tailwind CSS",
-      "Psicología Cognitiva"
+      "Zustand",
+      "KaTeX",
+      "jsPDF",
+      "Framer Motion"
     ],
     "featured": true,
     "status": "online",
-    "year": new Date().getFullYear(),
-    "metrics": "psicologiaoscura.sistemazenit.com",
-    "about": "Plataforma interactiva de divulgación científica en psicología y ciencias del comportamiento. Presenta experimentos clásicos interactivos (efecto Stroop, sesgos cognitivos, memoria de trabajo) con análisis en tiempo real.",
-    "whatILearned": [
-      "Medición precisa de tiempos de reacción (latencia en milisegundos) con performance.now().",
-      "Diseño de experimentos interactivos con recolección y comparación de métricas individuales vs. medias poblacionales.",
-      "Visualización interactiva de conceptos cognitivos abstractos mediante retos dinámicos.",
-      "Arquitectura ligera que permite correr experimentos en cualquier navegador escolar o móvil."
-],
-    "whatITeach": [
-      "Cómo transformar conceptos teóricos de ciencias sociales en dinámicas interactivas comprobables.",
-      "Medición de datos en cliente y cálculo de estadísticas descriptivas instantáneas.",
-      "Cómo los docentes pueden impartir clases prácticas donde los alumnos experimentan la teoría.",
-      "Creación de infoproductos educativos interactivos con un valor de mercado mucho más alto que un libro."
-],
-    "architecture": "JavaScript ES6+ + Tailwind CSS + High Precision Timers + Cloudflare Pages",
+    "year": 2026,
+    "about": "Una interfaz de orientación y preparación para explorar escuelas militares y policiales.",
     "highlights": [
-      "Experimentos cognitivos en tiempo real",
-      "Medición de tiempos de reacción",
-      "Visualización de sesgos psicológicos"
-],
-    "simpleExplanation": "Es una página que te hace pequeños trucos mentales o juegos para enseñarte cómo funciona tu cerebro. En lugar de solo leer sobre psicología, participas en mini-experimentos que miden qué tan rápido reaccionas a diferentes ilusiones.",
-    "howToApply": [
-      "Puedes utilizar esta dinámica de mini-juegos para enseñar conceptos teóricos complejos de tu industria de una forma divertida.",
-      "Si das charlas o talleres, puedes usar la página en vivo y pedirle a la audiencia que participe desde sus celulares.",
-      "Te sirve como modelo para convertir un libro o curso tradicional en un infoproducto interactivo que puedas vender mucho más caro."
-    ]
+      "Construir formularios por etapas.",
+      "Representar resultados sin sustituir la orientación profesional."
+    ],
+    "whatITeach": [
+      "Construir formularios por etapas.",
+      "Representar resultados sin sustituir la orientación profesional."
+    ],
+    "architecture": "Tecnologías identificadas en react_app/package.json: React, Vite, Tailwind CSS, Zustand, KaTeX, jsPDF, Framer Motion.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-28T00:37:47Z",
+      "label": "27 set. 2026",
+      "language": "JavaScript",
+      "archived": false,
+      "description": null
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/test-vocacional",
+      "readmeUrl": "https://github.com/juanxaviercasa/test-vocacional/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/test-vocacional/blob/main/react_app/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/test-vocacional/commit/c75f0dbfd9a6b6db81b7adf763496a90d899900e",
+      "minimumCommits": 2,
+      "codeFileCount": 126
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://raletest.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:28.560Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "mapas-planos",
+    "summary": "Una presentación interactiva de escalas y problemas de geometría para usar en clase.",
+    "developmentState": "in_progress",
+    "title": "Planos y Mapas a Escala — Geometría paso a paso",
+    "description": "Una presentación interactiva de escalas y problemas de geometría para usar en clase.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "edtech",
+      "mobile"
+    ],
+    "subcategory": "Matemáticas · Geometría",
+    "subdomain": "mapasplanos.sistemazenit.com",
+    "liveUrl": "https://mapasplanos.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/mapas-planos",
+    "image": "/projects/captures/mapas-planos.webp",
+    "tags": [
+      "HTML"
+    ],
+    "featured": false,
+    "status": "online",
+    "year": 2026,
+    "about": "Una presentación interactiva de escalas y problemas de geometría para usar en clase.",
+    "highlights": [
+      "Diseñar explicaciones por pasos.",
+      "Combinar diagramas y fórmulas legibles en una presentación web."
+    ],
+    "whatITeach": [
+      "Diseñar explicaciones por pasos.",
+      "Combinar diagramas y fórmulas legibles en una presentación web."
+    ],
+    "architecture": "Archivos de código comprobados en el repositorio: HTML.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-24T05:22:58Z",
+      "label": "24 set. 2026",
+      "language": "HTML",
+      "archived": false,
+      "description": "Aplicación interactiva de geometría aplicada: lectura, interpretación y resolución de problemas en mapas y planos a escala."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/mapas-planos",
+      "readmeUrl": "https://github.com/juanxaviercasa/mapas-planos/blob/main/README.md",
+      "manifestUrl": null,
+      "latestCommitUrl": "https://github.com/juanxaviercasa/mapas-planos/commit/d5801b57bb1bcfb45944625fbc2cf06fca1b78f7",
+      "minimumCommits": 2,
+      "codeFileCount": 18
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://mapasplanos.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:52.011Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "mapa-de-vida",
+    "summary": "Una experiencia web de introspección simbólica, cartografía personal y sonido ambiental.",
+    "developmentState": "in_progress",
+    "title": "Mapa de Vida — Exploración personal interactiva",
+    "description": "Una experiencia web de introspección simbólica, cartografía personal y sonido ambiental.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "leisure",
+      "mobile"
+    ],
+    "subcategory": "Pasatiempo & Ocio · Cartografía Personal",
+    "subdomain": "mapavida.sistemazenit.com",
+    "liveUrl": "https://mapavida.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/mapa-de-vida",
+    "image": "/projects/captures/mapa-de-vida.webp",
+    "tags": [
+      "HTML",
+      "JavaScript",
+      "CSS"
+    ],
+    "featured": false,
+    "status": "online",
+    "year": 2026,
+    "about": "Una experiencia web de introspección simbólica, cartografía personal y sonido ambiental.",
+    "highlights": [
+      "Combinar formularios, visualización y audio.",
+      "Explicar los límites de una experiencia simbólica."
+    ],
+    "whatITeach": [
+      "Combinar formularios, visualización y audio.",
+      "Explicar los límites de una experiencia simbólica."
+    ],
+    "architecture": "Tecnologías identificadas en package.json: HTML, JavaScript, CSS.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-22T05:40:05Z",
+      "label": "22 set. 2026",
+      "language": "JavaScript",
+      "archived": false,
+      "description": "Aplicación de cartografía cronológica personal, introspección simbólica y paisaje sonoro procedural."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/mapa-de-vida",
+      "readmeUrl": "https://github.com/juanxaviercasa/mapa-de-vida/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/mapa-de-vida/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/mapa-de-vida/commit/77aa8b84e0c919f20097f8996a411ebb7c1f7c0c",
+      "minimumCommits": 2,
+      "codeFileCount": 103
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://mapavida.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:57.144Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "portafolio-jessicacabello",
+    "summary": "Un sitio educativo con artículos, recursos y propuestas para enseñar Comunicación en primaria.",
+    "developmentState": "in_progress",
+    "title": "Jessica Cabello — Educación y recursos docentes",
+    "description": "Un sitio educativo con artículos, recursos y propuestas para enseñar Comunicación en primaria.",
+    "category": "web",
+    "categories": [
+      "web",
+      "mobile"
+    ],
+    "subcategory": "Desarrollo Web · Portafolio de Marca",
+    "subdomain": "jessica.cabellosalirrosas.com",
+    "liveUrl": "https://jessica.cabellosalirrosas.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/portafolio_jessicacabello",
+    "image": "/projects/captures/portafolio-jessicacabello.webp",
+    "tags": [
+      "HTML",
+      "JavaScript",
+      "CSS"
+    ],
+    "featured": false,
+    "status": "online",
+    "year": 2026,
+    "about": "Un sitio educativo con artículos, recursos y propuestas para enseñar Comunicación en primaria.",
+    "highlights": [
+      "Organizar recursos de una marca educativa.",
+      "Construir una experiencia editorial adaptable."
+    ],
+    "whatITeach": [
+      "Organizar recursos de una marca educativa.",
+      "Construir una experiencia editorial adaptable."
+    ],
+    "architecture": "Archivos de código comprobados en el repositorio: HTML, JavaScript, CSS.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-21T05:31:12Z",
+      "label": "21 set. 2026",
+      "language": "HTML",
+      "archived": false,
+      "description": "Sitio web profesional y repositorio de recursos psicopedagógicos y actividades de atención para niños."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/portafolio_jessicacabello",
+      "readmeUrl": "https://github.com/juanxaviercasa/portafolio_jessicacabello/blob/main/README.md",
+      "manifestUrl": null,
+      "latestCommitUrl": "https://github.com/juanxaviercasa/portafolio_jessicacabello/commit/f1967d0dc28bf6f3e9291c9f8c9bf940ee9096cc",
+      "minimumCommits": 2,
+      "codeFileCount": 334
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://jessica.cabellosalirrosas.com/",
+      "capturedAt": "2026-10-24T03:43:57.147Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "herramientas-pymes",
+    "summary": "Un portal de calculadoras y generadores para precios, cotizaciones, operaciones y productividad.",
+    "developmentState": "completed",
+    "title": "Herramientas Pymes — Utilidades para negocios",
+    "description": "Un portal de calculadoras y generadores para precios, cotizaciones, operaciones y productividad.",
+    "category": "pymes",
+    "categories": [
+      "pymes",
+      "webapp",
+      "mobile",
+      "tools"
+    ],
+    "subcategory": "Negocios & Pymes · Suite PWA",
+    "subdomain": "nubeparapymes.online/herramientas",
+    "liveUrl": "https://nubeparapymes.online/herramientas/",
+    "githubUrl": "https://github.com/juanxaviercasa/herramientas-pymes",
+    "image": "/projects/captures/herramientas-pymes.webp",
+    "tags": [
+      "HTML",
+      "JavaScript",
+      "CSS"
+    ],
+    "featured": true,
+    "status": "online",
+    "year": 2026,
+    "about": "Un portal de calculadoras y generadores para precios, cotizaciones, operaciones y productividad.",
+    "highlights": [
+      "Resolver una tarea concreta en el navegador.",
+      "Organizar una colección de herramientas."
+    ],
+    "whatITeach": [
+      "Resolver una tarea concreta en el navegador.",
+      "Organizar una colección de herramientas."
+    ],
+    "architecture": "Archivos de código comprobados en el repositorio: HTML, JavaScript, CSS.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-19T08:44:04Z",
+      "label": "19 set. 2026",
+      "language": "HTML",
+      "archived": false,
+      "description": "Suite 22-en-1 PWA offline de utilidades operativas y comerciales para pequeñas empresas sin dependencias externas."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/herramientas-pymes",
+      "readmeUrl": "https://github.com/juanxaviercasa/herramientas-pymes/blob/main/README.md",
+      "manifestUrl": null,
+      "latestCommitUrl": "https://github.com/juanxaviercasa/herramientas-pymes/commit/f1c5a75f716f6025275d18042d2e9b406c60bb18",
+      "minimumCommits": 2,
+      "codeFileCount": 69
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://nubeparapymes.online/herramientas/",
+      "capturedAt": "2026-10-24T03:48:00.061Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "rumbo-san-marcos",
+    "summary": "Presenta un recorrido de diagnóstico, práctica y revisión para postulantes a San Marcos.",
+    "developmentState": "completed",
+    "title": "Rumbo San Marcos — Diagnóstico y preparación UNMSM",
+    "description": "Presenta un recorrido de diagnóstico, práctica y revisión para postulantes a San Marcos.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "edtech",
+      "mobile"
+    ],
+    "subcategory": "Educación · Exámenes DECO",
+    "subdomain": "sanmarcos.sistemazenit.com",
+    "liveUrl": "https://sanmarcos.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/rumbo-san-marcos",
+    "image": "/projects/captures/rumbo-san-marcos.webp",
+    "tags": [
+      "React",
+      "Vite",
+      "TypeScript",
+      "Tailwind CSS",
+      "Zustand",
+      "Supabase",
+      "Framer Motion"
+    ],
+    "featured": false,
+    "status": "online",
+    "year": 2026,
+    "about": "Presenta un recorrido de diagnóstico, práctica y revisión para postulantes a San Marcos.",
+    "highlights": [
+      "Modelar preguntas y resultados.",
+      "Diseñar el recorrido de una evaluación web."
+    ],
+    "whatITeach": [
+      "Modelar preguntas y resultados.",
+      "Diseñar el recorrido de una evaluación web."
+    ],
+    "architecture": "Tecnologías identificadas en frontend/package.json: React, Vite, TypeScript, Tailwind CSS, Zustand, Supabase, Framer Motion.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-11T00:04:04Z",
+      "label": "10 set. 2026",
+      "language": "HTML",
+      "archived": false,
+      "description": "Plataforma de evaluación adaptativa y simulacros intensivos con temporizador DECO para postulantes a la UNMSM."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/rumbo-san-marcos",
+      "readmeUrl": "https://github.com/juanxaviercasa/rumbo-san-marcos/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/rumbo-san-marcos/blob/main/frontend/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/rumbo-san-marcos/commit/5e36117dc816ba240047fed20b48da45da18b291",
+      "minimumCommits": 2,
+      "codeFileCount": 49
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://sanmarcos.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:57.158Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "estudio-uni",
+    "summary": "Organiza sesiones, asignaturas y práctica de admisión desde un centro de estudio web.",
+    "developmentState": "completed",
+    "title": "NÚCLEO UNI — Preparación CEPRE-UNI",
+    "description": "Organiza sesiones, asignaturas y práctica de admisión desde un centro de estudio web.",
+    "category": "web",
+    "categories": [
+      "web",
+      "webapp",
+      "edtech"
+    ],
+    "subcategory": "Educación · Preparación UNI & UI/UX",
+    "subdomain": "cepreuni.sistemazenit.com",
+    "liveUrl": "https://cepreuni.sistemazenit.com/",
+    "githubUrl": "https://github.com/juanxaviercasa/estudio_uni",
+    "image": "/projects/captures/estudio-uni.webp",
+    "tags": [
+      "HTML",
+      "JavaScript"
+    ],
+    "featured": true,
+    "status": "online",
+    "year": 2026,
+    "about": "Organiza sesiones, asignaturas y práctica de admisión desde un centro de estudio web.",
+    "highlights": [
+      "Estructurar un temario grande y navegar por sesiones.",
+      "Organizar un panel de estudio."
+    ],
+    "whatITeach": [
+      "Estructurar un temario grande y navegar por sesiones.",
+      "Organizar un panel de estudio."
+    ],
+    "architecture": "Archivos de código comprobados en el repositorio: HTML, JavaScript.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-09-05T03:23:26Z",
+      "label": "4 set. 2026",
+      "language": "HTML",
+      "archived": false,
+      "description": "Entrenador intensivo de preparación y simulacros paso a paso de ciencias y matemáticas para postulantes a la UNI."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/estudio_uni",
+      "readmeUrl": "https://github.com/juanxaviercasa/estudio_uni/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/estudio_uni/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/estudio_uni/commit/b70a498a9afbf8a93f7d063fc581c1b7c737299c",
+      "minimumCommits": 2,
+      "codeFileCount": 512
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://cepreuni.sistemazenit.com/",
+      "capturedAt": "2026-10-24T03:43:34.896Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura real del sitio publicado."
+    }
+  },
+  {
+    "id": "caja-fuerte",
+    "summary": "Aplicación para gestionar claves y entornos. La captura muestra su pantalla pública de acceso.",
+    "developmentState": "completed",
+    "title": "DevVault — Caja fuerte de claves y entornos",
+    "description": "Aplicación para gestionar claves y entornos. La captura muestra su pantalla pública de acceso.",
+    "category": "webapp",
+    "categories": [
+      "webapp",
+      "ai",
+      "tools",
+      "mobile"
+    ],
+    "subcategory": "Ciberseguridad · Criptografía Zero-Knowledge",
+    "subdomain": "cajapifuerte.vercel.app",
+    "liveUrl": "https://cajapifuerte.vercel.app/",
+    "githubUrl": "https://github.com/juanxaviercasa/caja-fuerte",
+    "image": "/projects/captures/caja-fuerte.webp",
+    "tags": [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "Supabase",
+      "Clerk",
+      "Framer Motion"
+    ],
+    "featured": true,
+    "status": "online",
+    "year": 2026,
+    "about": "Aplicación para gestionar claves y entornos. La captura muestra su pantalla pública de acceso.",
+    "highlights": [
+      "Organizar la interfaz de una bóveda y sus entornos.",
+      "Distinguir la pantalla pública de las funciones autenticadas."
+    ],
+    "whatITeach": [
+      "Organizar la interfaz de una bóveda y sus entornos.",
+      "Distinguir la pantalla pública de las funciones autenticadas."
+    ],
+    "architecture": "Tecnologías identificadas en package.json: React, Vite, Tailwind CSS, Supabase, Clerk, Framer Motion.",
+    "repositoryReview": {
+      "verified": true,
+      "pushedAt": "2026-08-31T01:05:41Z",
+      "label": "30 ago. 2026",
+      "language": "JavaScript",
+      "archived": false,
+      "description": "Bóveda Zero-Knowledge del lado del cliente con cifrado AES-GCM (256-bit), PBKDF2 y asistente IA context-aware."
+    },
+    "evidence": {
+      "codeUrl": "https://github.com/juanxaviercasa/caja-fuerte",
+      "readmeUrl": "https://github.com/juanxaviercasa/caja-fuerte/blob/main/README.md",
+      "manifestUrl": "https://github.com/juanxaviercasa/caja-fuerte/blob/main/package.json",
+      "latestCommitUrl": "https://github.com/juanxaviercasa/caja-fuerte/commit/a3afbfd497ca0a292285e6f5367b1e6f2c4d28a1",
+      "minimumCommits": 2,
+      "codeFileCount": 56
+    },
+    "preview": {
+      "kind": "live",
+      "sourceUrl": "https://cajapifuerte.vercel.app/",
+      "capturedAt": "2026-10-24T03:43:34.904Z",
+      "dateLabel": "23 oct. 2026",
+      "note": "Captura de la pantalla pública de acceso; funciones privadas no comprobadas."
+    }
   }
 ];

@@ -1,130 +1,99 @@
-'use client';
-
-import React from 'react';
-import { ExternalLink, Github, Eye, Globe } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowUpRight, Github, Figma } from 'lucide-react';
 import { Project } from '@/types/project';
-import { Badge } from '@/components/ui/Badge';
-import { getDisplayUrl } from '@/lib/utils';
+import { getCategoryLabel, getAvailabilityLabel } from '@/lib/utils';
 
-interface ProjectDirectoryTableProps {
-  projects: Project[];
-  onPreviewClick?: (project: Project) => void;
-}
-
-/**
- * Vista de Directorio Compacto / Tabla de Archivo
- * Extraído y adaptado de las mejores prácticas de bchiang7/v4 (Brittany Chiang)
- */
-export function ProjectDirectoryTable({
-  projects,
-  onPreviewClick,
-}: ProjectDirectoryTableProps) {
-  if (projects.length === 0) {
-    return (
-      <div className="rounded-2xl border border-dashed border-zinc-800 p-12 text-center text-zinc-500">
-        No se encontraron proyectos en esta vista con los filtros seleccionados.
-      </div>
-    );
-  }
-
+export function ProjectDirectoryTable({ projects }: { projects: Project[] }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-white/[0.08] bg-[#0d0e11] shadow-bevel">
-      <table className="w-full text-left text-sm text-zinc-300">
-        <thead className="border-b border-white/[0.08] bg-[#121316] text-[11px] font-mono uppercase tracking-wider text-zinc-400">
+    <div className="overflow-x-auto rounded-2xl border border-[var(--line)] bg-[var(--soft)]/30 backdrop-blur-sm">
+      <table className="w-full text-left text-sm">
+        <caption className="sr-only">
+          Directorio de proyectos, tecnologías, repositorios y enlaces
+        </caption>
+        <thead className="border-b border-[var(--line)] bg-[var(--soft)]/80 text-[11px] font-bold uppercase tracking-wider text-[var(--muted)]">
           <tr>
-            <th scope="col" className="py-3.5 pl-6 pr-3 font-mono">Año</th>
-            <th scope="col" className="px-4 py-3.5">Aplicación / Subdominio</th>
-            <th scope="col" className="hidden sm:table-cell px-4 py-3.5">Categoría</th>
-            <th scope="col" className="hidden md:table-cell px-4 py-3.5">Stack Tecnológico</th>
-            <th scope="col" className="py-3.5 pl-3 pr-6 text-right">Lanzamiento</th>
+            <th scope="col" className="p-4">
+              Proyecto
+            </th>
+            <th scope="col" className="hidden p-4 md:table-cell">
+              Categoría
+            </th>
+            <th scope="col" className="hidden p-4 lg:table-cell">
+              Stack Principal
+            </th>
+            <th scope="col" className="p-4 text-right">
+              Acciones
+            </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-white/[0.04] font-normal">
+        <tbody className="divide-y divide-[var(--line)]/60">
           {projects.map((project) => {
-            const isCustomDomain = !project.liveUrl.includes('github.com');
-            const displayUrl = isCustomDomain
-              ? getDisplayUrl(project.liveUrl)
-              : `github.com/juanxaviercasa/${project.id}`;
-
             return (
               <tr
                 key={project.id}
-                onClick={() => window.open(`/proyectos/${project.id}`, '_blank')}
-                className="group cursor-pointer transition-colors hover:bg-white/[0.03]"
+                className="transition-colors hover:bg-purple-500/[0.04]"
               >
-                {/* Year */}
-                <td className="whitespace-nowrap py-3.5 pl-6 pr-3 font-mono text-xs text-zinc-500 tabular-nums">
-                  {project.year ?? '—'}
-                </td>
-
-                {/* Title & Subdomain (Opens dedicated project page in new tab) */}
-                <td className="px-4 py-3.5">
-                  <a
+                <th scope="row" className="p-4 font-semibold">
+                  <Link
                     href={`/proyectos/${project.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="font-semibold text-[#f7f8f8] group-hover:text-emerald-400 transition-colors block text-sm"
-                    title={`Ver ficha completa de ${project.title}`}
+                    className="font-serif text-base text-[var(--text)] hover:text-amber-500 transition-colors"
                   >
-                    {project.title}
-                  </a>
-                  <div
-                    className="inline-flex items-center gap-1.5 text-[11px] font-mono mt-0.5 text-zinc-400 group-hover:text-emerald-400/90 transition-colors"
-                  >
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
-                    </span>
-                    <span>{displayUrl}</span>
-                  </div>
-                </td>
-
-                {/* Category */}
-                <td className="hidden sm:table-cell px-4 py-3.5">
-                  <span className="inline-block rounded border border-white/[0.06] bg-white/[0.03] px-2 py-0.5 text-[11px] font-mono text-zinc-300">
-                    {project.category}
+                    {project.title.split(' — ')[0]}
+                  </Link>
+                  <span className="mt-1 block text-xs font-normal text-[var(--muted)] line-clamp-1">
+                    {project.subdomain}
                   </span>
+                </th>
+                <td className="hidden p-4 text-xs font-medium text-[var(--muted)] md:table-cell">
+                  {getCategoryLabel(project.category)}
                 </td>
-
-                {/* Tech Badges */}
-                <td className="hidden md:table-cell px-4 py-3.5">
-                  <div className="flex flex-wrap gap-1 max-w-sm">
-                    {project.tags.map((tag) => (
+                <td className="hidden p-4 lg:table-cell">
+                  <div className="flex flex-wrap gap-1">
+                    {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="rounded border border-white/[0.05] bg-white/[0.02] px-1.5 py-0.5 font-mono text-[10px] text-zinc-400"
+                        className="rounded-md border border-[var(--line)] bg-[var(--surface)] px-2 py-0.5 text-[10px] font-medium text-[var(--muted)]"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                 </td>
-
-                {/* Action Links */}
-                <td className="whitespace-nowrap py-3.5 pl-3 pr-6 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <a
-                      href={`/proyectos/${project.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="rounded-lg border border-white/[0.08] bg-white/[0.02] p-1.5 text-zinc-400 shadow-bevel hover:border-emerald-500/40 hover:bg-white/[0.06] hover:text-[#f7f8f8] transition-colors"
-                      title="Ver ficha técnica completa"
-                    >
-                      <Eye className="h-3.5 w-3.5" />
-                    </a>
-
+                <td className="p-4 text-right">
+                  <div className="inline-flex items-center justify-end gap-2">
+                    {project.figmaUrl && (
+                      <a
+                        href={project.figmaUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded-lg border border-purple-500/35 bg-purple-500/10 px-2.5 py-1.5 text-xs font-bold text-purple-600 dark:text-purple-300 hover:bg-purple-500/20 transition-colors"
+                        aria-label={`Diseño en Figma de ${project.title}`}
+                        title="Ver Diseño UI/UX en Figma"
+                      >
+                        <Figma size={13} aria-hidden="true" />
+                        <span className="hidden sm:inline">Figma</span>
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded-lg border border-[var(--line)] bg-[var(--surface)] px-2.5 py-1.5 text-xs font-semibold text-[var(--muted)] hover:border-purple-500/40 hover:text-[var(--text)] transition-colors"
+                        aria-label={`Código fuente de ${project.title}`}
+                      >
+                        <Github size={13} aria-hidden="true" />
+                        <span className="hidden sm:inline">Código</span>
+                      </a>
+                    )}
                     <a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-bold text-[#08090a] hover:bg-emerald-400 transition-all shadow-bevel active:scale-95"
-                      title={`Lanzar aplicación ${project.title}`}
+                      className="inline-flex items-center gap-1 rounded-lg border border-amber-500/35 bg-amber-500/10 px-2.5 py-1.5 text-xs font-bold text-amber-600 dark:text-amber-300 hover:bg-amber-500/20 transition-colors"
+                      aria-label={`${getAvailabilityLabel(project)}: ${project.title}`}
                     >
-                      <span>Ver Web App</span>
-                      <ExternalLink className="h-3 w-3 stroke-[2.5]" />
+                      {project.preview?.kind === 'live' ? 'Visitar' : 'Código'} <ArrowUpRight size={13} aria-hidden="true" />
                     </a>
                   </div>
                 </td>

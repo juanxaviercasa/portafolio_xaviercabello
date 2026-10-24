@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgTaller" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#180a2a"/>
+      <stop offset="50%" stop-color="#090314"/>
+      <stop offset="100%" stop-color="#240c38"/>
+    </linearGradient>
+    <linearGradient id="fireFenix" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="50%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bgTaller)"/>
+  
+  <!-- Play button icon / Video VSL interface -->
+  <circle cx="400" cy="190" r="55" fill="url(#fireFenix)" opacity="0.9"/>
+  <polygon points="390,170 425,190 390,210" fill="#ffffff"/>
+
+  <!-- Delayed Pitch Indicator -->
+  <rect x="260" y="270" width="280" height="28" rx="14" fill="#1e0f38" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="400" y="289" text-anchor="middle" fill="#fbbf24" font-family="monospace" font-size="12" font-weight="bold">
+    PITCH DINÁMICO &amp; OFERTA VSL REACT 19
+  </text>
+
+  <text x="400" y="90" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="24" font-weight="900" letter-spacing="1">
+    FÉNIX · TALLER WEB ASISTIDO CON IA
+  </text>
+  <text x="400" y="120" text-anchor="middle" fill="#c084fc" font-family="system-ui, sans-serif" font-size="14">
+    De la idea a la nube sin programar · Coste $0/mes en servidores
+  </text>
+
+  <text x="400" y="415" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="14" font-weight="bold">
+    TAILWIND CSS V4 · FRAMER MOTION · VSL CONVERSION ENGINE
+  </text>
+</svg>

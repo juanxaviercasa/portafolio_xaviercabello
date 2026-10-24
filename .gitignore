@@ -9,6 +9,7 @@
 
 # next.js
 /.next/
+/.next-dev/
 /out/
 
 # production
@@ -38,3 +39,13 @@ next-env.d.ts
 scratch*
 check_*
 *.log
+
+# Local previews and review artifacts
+/artifacts/
+/src/data/local-only-projects.ts
+/public/projects/captures/mejor-version.webp
+/public/projects/mejor-version.*
+__pycache__/
+*.pyc
+.wrangler/
+

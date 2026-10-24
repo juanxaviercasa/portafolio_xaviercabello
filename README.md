@@ -1,123 +1,65 @@
-# Portafolio Showcase & Directorio Web (40+ Proyectos)
+## Estado actual · 23 de octubre de 2026
 
-> **Arquitectura de Alto Impacto para Exhibición de Sitios Web Desplegados en Subdominios Independientes.**  
-> Diseñado para Xavier Cabello combinando las mejores prácticas de 7 proyectos líderes de código abierto.
+La vitrina muestra 23 proyectos con código, historial comprobado y captura real de su sitio publicado. Incluye Sólidos Geométricos y la nueva versión de Hazlo Crecer del commit 454277a. Los proyectos sin demo verificable y Mejor Versión quedan fuera del catálogo y de las rutas públicas.
 
----
+La identidad conserva el fénix con fondos luminosos en lavanda y azul y acentos púrpura y naranja. El tema luminoso evita recuperar una preferencia oscura antigua del navegador. No se añaden ilustraciones generadas para representar proyectos.
 
-## 🏛️ Síntesis Arquitectónica de los Repositorios de Referencia
+Las capturas activas están en public/projects/captures/. Su procedencia y las visitas históricas están en docs/capturas-verificadas.json; ese archivo conserva también registros anteriores que ya no forman parte de la vitrina. Las fechas documentan una visita, no garantizan disponibilidad continua ni certifican resultados comerciales.
 
-| Repositorio Referencia | Característica Extraída e Implementada | Archivo en este Proyecto |
-| :--- | :--- | :--- |
-| **A. `timlrx/tailwind-nextjs-starter-blog`** | Proporción visual 16:9 (`aspect-video`), layout de tarjetas, espaciado limpio y tipografía de alto contraste. | `src/components/ProjectCard.tsx` |
-| **B. `codewithsadee/vcard-personal-portfolio`** | Sistema de filtrado reactivo por categorías con badge de conteo y transiciones fluidas de pestaña activa. | `src/components/FilterBar.tsx` |
-| **C. `bchiang7/v4` (Brittany Chiang)** | Separación estricta entre datos y vistas + Vista alternativa de Directorio/Tabla de archivo para 40+ proyectos. | `src/components/ProjectDirectoryTable.tsx` |
-| **D. `chronark/chronark.com`** | Microinteracciones modernas: efecto Spotlight radial con seguimiento de cursor del mouse y estética dark minimalista. | `src/components/ui/SpotlightCard.tsx` |
-| **E. `rammcodes/Dopefolio`** | Enfoque 100% orientado a proyectos: botones directos "Visitar Sitio ↗" sin rodeos biográficos ni fricción. | `src/components/ProjectCard.tsx` |
-| **F. `steven-tey/precedent`** | Modal de inspección rápida con vista previa de capturas en alta resolución y sandbox interactivo embebible. | `src/components/ProjectPreviewModal.tsx` |
-| **G. `arifszn/gitprofile`** | Archivo de configuración centralizado (`portfolio.config.ts`) y esquema de datos único (`projects.ts`). | `src/data/portfolio.config.ts`, `projects.ts` |
+npm run capture:screenshots guarda capturas nuevas en artifacts/site-captures para revisión, sin sobrescribir las publicadas. Requiere Playwright: puede indicarse una carpeta de módulos existente con PORTFOLIO_CAPTURE_MODULES y el ejecutable de Chrome con PORTFOLIO_CHROME. Los temporales y las referencias exclusivamente locales no se versionan.
 
 ---
+# Xavier Cabello · Portafolio profesional
 
-## 🚀 Inicio Rápido
+Portafolio en español con Next.js 14, TypeScript y Tailwind CSS. Exportación estática para el alojamiento existente en Cloudflare Pages; no necesita backend para navegar ni filtrar proyectos.
 
-### Requisitos
-- Node.js 18.x o superior (Probado en Node.js v24)
-- npm, pnpm o bun
+## Estructura
 
-### Instalación y Ejecución
+1. Presentación y acceso a contacto.
+2. Tres proyectos destacados con casos de estudio.
+3. Servicios: educación, aplicaciones web y presencia digital.
+4. Sobre Xavier y proceso de trabajo.
+5. Catálogo completo con búsqueda, categorías, estados, tarjetas y directorio.
+6. Formación: Taller Fénix.
+7. Contacto por correo, GitHub y LinkedIn.
 
-```bash
-# 1. Instalar dependencias
-npm install
+## Desarrollo y verificación
 
-# 2. Ejecutar en entorno de desarrollo local
-npm run dev
+- `npm install`
+- `npm run dev`: servidor de desarrollo.
+- `npm run build`: genera `out/` sin descargar fuentes externas.
+- `npm run check:portfolio`: comprueba datos, estados, referencias, imágenes y salida estática después del build.
+- `npm start`: vista previa estática de `out/` en http://127.0.0.1:3000.
 
-# 3. Abrir en tu navegador
-# http://localhost:3000
-```
+El servidor de desarrollo usa `.next-dev/` y la compilación de producción `.next/` para evitar que una compilación sobrescriba la caché de una sesión de desarrollo abierta.
 
-### Compilación para Producción
+## Contenido
 
-```bash
-npm run build
-npm run start
-```
+- `src/data/portfolio.config.ts`: identidad, contacto, categorías y tamaño de página.
+- `src/data/projects.ts`: catálogo. Los conteos de la interfaz se derivan de estos datos.
+- `src/data/case-studies.ts`: casos destacados, aportación, decisiones y limitaciones.
+- `src/components/PortfolioSections.tsx`: las secciones de presentación, servicios, trayectoria, formación y contacto.
+- `src/app/globals.css`: sistema visual y ajustes responsive.
 
----
+Cada proyecto requiere `developmentState: 'completed' | 'in_progress'`, independiente de `status: 'online' | 'beta' | 'maintenance'`. La migración inicial conserva la clasificación del catálogo anterior: los proyectos con progreso quedan en desarrollo y los demás en versión publicada. Revisa este dato editorial al actualizar cada proyecto; no equivale a verificar su calidad o disponibilidad.
 
-## 📂 Estructura de Carpetas
+Añade categorías usadas al arreglo `CATEGORIES`. Las categorías sin proyectos se ocultan automáticamente. `progress` sirve para documentar una etapa; no se muestra como una métrica de calidad. Los estados son datos editoriales, no monitorización de uptime.
 
-```text
-portafolio_xaviercabello/
-├── public/
-│   └── placeholders/
-│       └── project-mockup.svg    # Mockup SVG de respaldo en caso de fallo de imagen
-├── src/
-│   ├── app/
-│   │   ├── globals.css           # Estilos base Tailwind y variables de tema oscuro
-│   │   ├── layout.tsx            # Metadata SEO, OpenGraph y estructura raíz
-│   │   └── page.tsx              # Página principal (Server Component directo)
-│   ├── components/
-│   │   ├── ui/
-│   │   │   ├── Badge.tsx         # Badges de tags, tecnologías y categorías
-│   │   │   └── SpotlightCard.tsx # Tarjeta con efecto glow radial según el cursor
-│   │   ├── FilterBar.tsx         # Barra de búsqueda, categorías y toggle de vistas
-│   │   ├── Header.tsx            # Header minimalista con contador y redes
-│   │   ├── ProjectCard.tsx       # Tarjeta visual con captura, enlace externo y status
-│   │   ├── ProjectDirectoryTable.tsx # Vista alternativa compacta tipo Brittany Chiang
-│   │   ├── ProjectPreviewModal.tsx   # Modal de vista rápida / sandbox interactivo
-│   │   ├── ShowcaseGrid.tsx      # Orquestador del catálogo, filtros y paginación
-│   │   └── StatsSummary.tsx      # Franja de métricas e impacto (40+ subdominios)
-│   ├── data/
-│   │   ├── portfolio.config.ts   # Configuración de autor, categorías y preferencias
-│   │   └── projects.ts           # Catálogo centralizado de 40+ proyectos (Data-Driven)
-│   ├── lib/
-│   │   └── utils.ts              # Funciones helper (cn, formateo de subdominios)
-│   └── types/
-│       └── project.ts            # Tipado estricto TypeScript (Project, Category, Config)
-├── next.config.mjs               # Configuración de imágenes remotas y formatos WebP/AVIF
-├── tailwind.config.ts            # Tokens de diseño y colores
-├── tsconfig.json                 # Alias de rutas (@/*) y configuración de TypeScript
-└── package.json
-```
+La búsqueda ignora tildes y mayúsculas. La URL conserva `q`, `categoria`, `estado` y `vista`; puedes compartir una colección filtrada. El catálogo comienza con seis proyectos y permite cargar los demás. La vista de directorio muestra todos los resultados.
 
----
+Los archivos WebP son derivados de las capturas PNG originales, que se conservan. Los SVG son ilustraciones de proyecto, no capturas; reemplázalos por capturas reales cuando estén disponibles. La imagen social general está en `public/og-image.png`.
 
-## 📝 Guía para Agregar o Remover Proyectos
+## Contacto y publicación
 
-Gracias a la **Arquitectura Data-Driven**, **NO necesitas tocar ningún componente React ni archivo HTML/JSX**. Toda la interfaz se actualiza automáticamente modificando únicamente `src/data/projects.ts`.
+Los botones de proyectos abren WhatsApp al +51 925 475 034 con un mensaje preparado. No se envía automáticamente. El correo permanece visible como alternativa.
 
-### Paso 1: Abrir `src/data/projects.ts`
+La foto de portada y de la sección Sobre mí es una copia WebP optimizada de `taller_web_cero/Xavier Cabello.jpeg`; el original no se modifica.
 
-Inserta un nuevo objeto dentro del array `PROJECTS_DATA`:
+El botón de formación abre `/taller-fenix/`: una copia compilada del proyecto vecino `taller_web_cero`, con sus recursos y tres variantes A/B bajo la misma ruta. No requiere mantener un segundo servidor local abierto. Para actualizarla, compila primero el taller en su propio repositorio y ejecuta `npm run import:workshop` aquí antes de `npm run build`. El importador solo escribe en este portafolio; no modifica el proyecto de origen. Puedes indicar otra carpeta dist: `node scripts/import-workshop.cjs C:/ruta/al/dist`.
 
-```typescript
-{
-  id: 'mi-nuevo-proyecto',
-  title: 'Mi Nuevo Proyecto SaaS',
-  description: 'Descripción concisa de 1 a 2 oraciones explicando el valor y características clave.',
-  category: 'saas', // 'saas' | 'ecommerce' | 'dashboards' | 'landing' | 'tools' | 'creative'
-  subdomain: 'app.xaviercabello.dev',
-  liveUrl: 'https://app.xaviercabello.dev',
-  githubUrl: 'https://github.com/xaviercabello/mi-nuevo-proyecto', // Opcional
-  image: 'https://images.unsplash.com/...', // o ruta local '/projects/preview.webp'
-  tags: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
-  featured: true, // true para destacar con estrella dorada
-  status: 'online', // 'online' | 'beta' | 'maintenance'
-  year: 2024,
-  metrics: 'Lighthouse 100 · 99.9% Uptime' // Opcional
-}
-```
+La dirección pública del taller está pendiente. Se propone `https://fenix.cabellosalirrosas.com` para mantenerlo como proyecto independiente. `https://cabellosalirrosas.com/taller-fenix` también es posible, pero requiere desplegar o enrutar el taller en el sitio raíz de ese dominio; no queda activada por estos cambios locales.
 
-### Paso 2: Verificar Categorías Válidas
-Las categorías admitidas están tipadas en `src/types/project.ts`:
-- `'saas'`: Aplicaciones web con autenticación o servicios cloud.
-- `'ecommerce'`: Tiendas virtuales, carritos y pasarelas de pago.
-- `'dashboards'`: Paneles administrativos, telemetría y gráficos.
-- `'landing'`: Sitios de conversión y páginas corporativas.
-- `'tools'`: Herramientas de productividad, editores y generadores.
-- `'creative'`: Experiencias interactivas, 3D, WebGL y sonido.
+La exportación puede servirse desde `out/` en Cloudflare Pages. `next.config.mjs` conserva soporte de `basePath` para GitHub Pages. Las pruebas locales no verifican la disponibilidad de todos los enlaces externos, la entrega del correo ni los resultados comerciales de los proyectos.
 
-Al guardar el archivo, los contadores, el motor de búsqueda en tiempo real, el grid y la tabla se sincronizan al instante.
+Antes de publicar, revisa el copy y el alcance de los casos de estudio con la persona autora. No se añaden testimonios, clientes, métricas de impacto ni disponibilidad laboral sin confirmación factual.
+

@@ -11,12 +11,12 @@ interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * Tarjeta interactiva con efecto de iluminación radial dinámico (Spotlight)
- * Extraído y adaptado de las mejores prácticas de chronark.com
+ * Adaptado a la paleta mística Ave Fénix / Amatista Cósmica
  */
 export function SpotlightCard({
   children,
   className,
-  spotlightColor = 'rgba(34, 197, 94, 0.12)', // Subtle Emerald glow
+  spotlightColor = 'rgba(168, 85, 247, 0.16)', // Subtle Amethyst/Fire glow
   ...props
 }: SpotlightCardProps) {
   const divRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ export function SpotlightCard({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#121316] shadow-bevel transition-all duration-200 hover:border-white/[0.18] hover:bg-[#15161a] hover:shadow-bevel-elevated',
+        'relative overflow-hidden rounded-2xl border border-purple-200/60 dark:border-purple-900/40 bg-white/90 dark:bg-[#150c2e] text-slate-800 dark:text-purple-100 shadow-bevel transition-all duration-200 hover:border-purple-400 dark:hover:border-purple-600/60 hover:shadow-bevel-elevated',
         className
       )}
       {...props}
