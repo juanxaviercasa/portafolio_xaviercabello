@@ -365,6 +365,7 @@ export const PROJECTS_DATA: Project[] = [
     "category": "tools",
     "categories": [
       "webapp",
+      "development",
       "tools"
     ],
     "subdomain": "files.sistemazenit.com",
@@ -489,7 +490,8 @@ export const PROJECTS_DATA: Project[] = [
     "category": "web",
     "categories": [
       "web",
-      "mobile"
+      "mobile",
+      "edtech"
     ],
     "subcategory": "Desarrollo Web · Portafolio Profesional",
     "subdomain": "juan.cabellosalirrosas.com",
@@ -1093,7 +1095,8 @@ export const PROJECTS_DATA: Project[] = [
     "category": "web",
     "categories": [
       "web",
-      "mobile"
+      "mobile",
+      "edtech"
     ],
     "subcategory": "Desarrollo Web · Portafolio de Marca",
     "subdomain": "jessica.cabellosalirrosas.com",

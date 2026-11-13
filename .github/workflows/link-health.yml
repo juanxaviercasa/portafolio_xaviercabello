@@ -1,0 +1,33 @@
+name: Revisión mensual de enlaces de demos
+
+on:
+  schedule:
+    - cron: '23 12 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: link-health-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  inspect-demos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Check project demo links
+        run: npm run check:links

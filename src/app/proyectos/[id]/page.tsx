@@ -18,22 +18,22 @@ import { PROJECTS_DATA } from '@/data/projects';
 import { CASE_STUDIES } from '@/data/case-studies';
 import { portfolioConfig } from '@/data/portfolio.config';
 import {
-  assetPath,
   getCategoryLabel,
   getAvailabilityLabel,
   getHostingLabel,
 } from '@/lib/utils';
 
 interface ProjectPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export function generateStaticParams() {
   return PROJECTS_DATA.map((project) => ({ id: project.id }));
 }
 
-export function generateMetadata({ params }: ProjectPageProps): Metadata {
-  const project = PROJECTS_DATA.find((p) => p.id === params.id);
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const project = PROJECTS_DATA.find((p) => p.id === id);
   if (!project) return { title: 'Proyecto no encontrado', robots: { index: false } };
   const projectUrl = `${portfolioConfig.owner.siteUrl}/proyectos/${project.id}`;
   const imageUrl = project.image || null;
@@ -57,8 +57,9 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
   };
 }
 
-export default function ProjectDetailPage({ params }: ProjectPageProps) {
-  const index = PROJECTS_DATA.findIndex((p) => p.id === params.id);
+export default async function ProjectDetailPage({ params }: ProjectPageProps) {
+  const { id } = await params;
+  const index = PROJECTS_DATA.findIndex((p) => p.id === id);
   if (index < 0) notFound();
   const project = PROJECTS_DATA[index];
   const study = CASE_STUDIES.find((s) => s.projectId === project.id);
@@ -71,7 +72,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Inicio', item: site },
-      { '@type': 'ListItem', position: 2, name: 'Proyectos', item: `${site}/#catalogo` },
+      { '@type': 'ListItem', position: 2, name: 'Proyectos', item: `${site}/proyectos` },
       {
         '@type': 'ListItem',
         position: 3,
@@ -101,7 +102,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
       {/* Navegación superior */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <Link
-          href="/#catalogo"
+          href="/proyectos"
           className="inline-flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface)] px-4 py-2 text-xs font-bold text-[var(--text)] hover:border-amber-500/40 hover:text-amber-500 transition-colors"
         >
           <ArrowLeft size={15} aria-hidden="true" />
@@ -364,9 +365,9 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
               ))}
             </ul>
             <div className="mt-5">
-              <Link href="/#formacion" className="text-link">
+              <a href="/taller-fenix/" className="text-link">
                 Conocer Taller Fénix <ArrowRight size={16} aria-hidden="true" />
-              </Link>
+              </a>
             </div>
           </details>
         )}
@@ -379,7 +380,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
           Conversemos sobre tu proyecto.
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm sm:text-base text-[var(--muted)]">
-          ¿Necesitas una plataforma como esta para tu negocio o tu comunidad? Cuéntame quién la usará y qué debe permitirle hacer. Podemos definirla y construirla juntos.
+          ¿Necesitas una plataforma como esta para tu negocio o tu comunidad? Cuéntame quién la usará y qué debe permitirle hacer. Podemos conversar sobre el proyecto y definir cómo construirlo.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3.5">
           <a
@@ -388,9 +389,9 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
             rel="noopener noreferrer"
             className="button-primary"
           >
-            Hablemos por WhatsApp <ArrowUpRight size={17} aria-hidden="true" />
+            Cuéntame tu proyecto por WhatsApp <ArrowUpRight size={17} aria-hidden="true" />
           </a>
-          <Link href="/#catalogo" className="button-secondary">
+          <Link href="/proyectos" className="button-secondary">
             Ver todos los proyectos
           </Link>
         </div>

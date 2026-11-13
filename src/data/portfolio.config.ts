@@ -16,7 +16,10 @@ export const portfolioConfig: PortfolioConfig = {
       tiktok: 'https://www.tiktok.com/@sistemazenit',
       whatsapp:
         'https://wa.me/51925475034?text=' +
-        encodeURIComponent('Hola Xavier, quiero aprender a crear aplicaciones con IA. Me interesa conocer tu taller.'),
+        encodeURIComponent('Hola Xavier, quiero conversar sobre un proyecto de desarrollo. Tengo una idea y me gustaría contarte qué necesito.'),
+      whatsappTraining:
+        'https://wa.me/51925475034?text=' +
+        encodeURIComponent('Hola Xavier, quiero aprender a crear aplicaciones con IA. Me interesa conocer el Taller Fénix.'),
     },
   },
   showcase: {
@@ -39,4 +42,5 @@ export const CATEGORIES: ProjectCategory[] = [
   { id: 'tools', label: 'Herramientas', description: 'Utilidades técnicas y de productividad' },
   { id: 'templates', label: 'Diseño UI', description: 'Interfaces y prototipos en Figma' },
   { id: 'leisure', label: 'Personales', description: 'Proyectos personales y de bienestar' },
+  { id: 'development', label: 'Desarrollo', description: 'Herramientas, APIs y recursos para crear software' },
 ];

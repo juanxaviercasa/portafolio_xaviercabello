@@ -10,7 +10,8 @@ export type ProjectCategoryId =
   | 'leisure'
   | 'automation'
   | 'culture'
-  | 'templates';
+  | 'templates'
+  | 'development';
 
 export interface ProjectCategory {
   id: ProjectCategoryId;
@@ -80,6 +81,7 @@ export interface PortfolioConfig {
       twitter?: string;
       tiktok?: string;
       whatsapp: string;
+      whatsappTraining?: string;
     };
   };
   showcase: {

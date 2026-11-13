@@ -1,55 +1,106 @@
-name: Deploy Next.js to GitHub Pages
+name: Build and deploy to Cloudflare Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: cloudflare-pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
+    name: Quality gate and static export
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '22'
           cache: npm
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
+      - name: Install locked dependencies
+        run: npm ci
 
-      - name: Install dependencies
-        run: npm install
+      - name: Lint
+        run: npm run lint
 
-      - name: Build with Next.js
+      - name: Audit dependencies
+        run: npm audit
+
+      - name: Export static site
         run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ''
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Check routes and portfolio content
+        run: npm run check:portfolio
+
+      - name: Save Cloudflare Pages artifact
+        uses: actions/upload-artifact@v4
         with:
-          path: ./out
+          name: cloudflare-pages-out
+          path: out/
+          if-no-files-found: error
+          retention-days: 2
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+    name: Deploy Cloudflare Pages production
     needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Check Cloudflare deployment secrets
+        id: credentials
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+            echo "Cloudflare credentials are available." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "Cloudflare deploy skipped: add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repository Actions secrets." >> "$GITHUB_STEP_SUMMARY"
+            echo "Required Cloudflare Actions secrets are not configured; build passed but production was not changed."
+          fi
+
+      - name: Checkout
+        if: steps.credentials.outputs.ready == 'true'
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        if: steps.credentials.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install locked Wrangler
+        if: steps.credentials.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Download site artifact
+        if: steps.credentials.outputs.ready == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: cloudflare-pages-out
+          path: out/
+
+      - name: Publish static site to Cloudflare Pages
+        if: steps.credentials.outputs.ready == 'true'
+        run: npx wrangler pages deploy ./out --project-name=portafolio-xaviercabello --branch=main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

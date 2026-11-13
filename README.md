@@ -1,65 +1,53 @@
-## Estado actual · 23 de octubre de 2026
+# Portafolio de Xavier Cabello
 
-La vitrina muestra 23 proyectos con código, historial comprobado y captura real de su sitio publicado. Incluye Sólidos Geométricos y la nueva versión de Hazlo Crecer del commit 454277a. Los proyectos sin demo verificable y Mejor Versión quedan fuera del catálogo y de las rutas públicas.
+Portafolio en español construido con Next.js, React y TypeScript. Se exporta como sitio estático; no necesita backend para recorrer los casos ni combinar filtros. Mantiene los colores lavanda, índigo y ámbar de Fénix 357, la marca gráfica existente y capturas reales de proyectos.
 
-La identidad conserva el fénix con fondos luminosos en lavanda y azul y acentos púrpura y naranja. El tema luminoso evita recuperar una preferencia oscura antigua del navegador. No se añaden ilustraciones generadas para representar proyectos.
+## Arquitectura de navegación
 
-Las capturas activas están en public/projects/captures/. Su procedencia y las visitas históricas están en docs/capturas-verificadas.json; ese archivo conserva también registros anteriores que ya no forman parte de la vitrina. Las fechas documentan una visita, no garantizan disponibilidad continua ni certifican resultados comerciales.
+| Ruta | Propósito |
+| --- | --- |
+| `/` | Presentación, proyectos destacados, Taller Fénix y accesos por intención. |
+| `/proyectos` | Catálogo filtrable por **tipo de producto** y **área de aplicación**, con búsqueda y vista de lista/tarjetas. |
+| `/proyectos/:id` | Ficha de caso, evidencia, alcance y CTA de desarrollo. |
+| `/servicios` | Oferta para negocios y equipos, con CTA de proyecto. |
+| `/sobre-mi` | Perfil, método y evidencia seleccionada de repositorios. |
+| `/contacto` | Consulta de proyecto por WhatsApp y correo. |
+| `/taller-fenix/` | Micrositio estático de formación, importado del repositorio del taller. |
 
-npm run capture:screenshots guarda capturas nuevas en artifacts/site-captures para revisión, sin sobrescribir las publicadas. Requiere Playwright: puede indicarse una carpeta de módulos existente con PORTFOLIO_CAPTURE_MODULES y el ejecutable de Chrome con PORTFOLIO_CHROME. Los temporales y las referencias exclusivamente locales no se versionan.
+El catálogo usa los parámetros `formato`, `area`, `q` y `vista`, por lo que se pueden compartir colecciones combinadas. Los enlaces antiguos que usan `categoria` se leen y se traducen a la faceta correspondiente. La página inicial no contiene el catálogo completo: sirve como índice y presenta accesos directos a las áreas.
 
----
-# Xavier Cabello · Portafolio profesional
+## Desarrollo y controles
 
-Portafolio en español con Next.js 14, TypeScript y Tailwind CSS. Exportación estática para el alojamiento existente en Cloudflare Pages; no necesita backend para navegar ni filtrar proyectos.
+Usa Node.js 20.9+; el workflow de CI se ejecuta con Node.js 22.
 
-## Estructura
+```sh
+npm ci
+npm run dev
+npm run lint
+npm audit
+npm run build
+npm run check:portfolio
+npm run start
+```
 
-1. Presentación y acceso a contacto.
-2. Tres proyectos destacados con casos de estudio.
-3. Servicios: educación, aplicaciones web y presencia digital.
-4. Sobre Xavier y proceso de trabajo.
-5. Catálogo completo con búsqueda, categorías, estados, tarjetas y directorio.
-6. Formación: Taller Fénix.
-7. Contacto por correo, GitHub y LinkedIn.
+`npm run build` genera `out/` sin descargar fuentes externas; el verificador `check:portfolio` se ejecuta después del build y valida rutas, metadatos, datos, CTA, inventario de facetas, recursos estáticos y carga voluntaria del video. `npm audit` forma parte del control de CI. `npm run check:links` consulta hasta cinco demos a la vez con timeouts; 401, 403, 429, errores de red o interrupciones se registran como indeterminados y no bloquean el build.
 
-## Desarrollo y verificación
+El workflow `Revisión mensual de enlaces de demos` ejecuta esa comprobación desde GitHub Actions el día 1 de cada mes o manualmente. El reporte se incluye en el resumen del workflow; no afirma uptime ni valida el contenido de las páginas de terceros.
 
-- `npm install`
-- `npm run dev`: servidor de desarrollo.
-- `npm run build`: genera `out/` sin descargar fuentes externas.
-- `npm run check:portfolio`: comprueba datos, estados, referencias, imágenes y salida estática después del build.
-- `npm start`: vista previa estática de `out/` en http://127.0.0.1:3000.
+## Contenido y recursos
 
-El servidor de desarrollo usa `.next-dev/` y la compilación de producción `.next/` para evitar que una compilación sobrescriba la caché de una sesión de desarrollo abierta.
+`src/data/portfolio.config.ts` declara identidad, categorías y contacto; `src/data/project-facets.ts` distribuye las categorías entre formato y área; `src/data/projects.ts` contiene el catálogo y `src/data/case-studies.ts`, los casos destacados. Cada proyecto debe tener al menos una faceta de formato y otra de área. Los estados son editoriales, no monitorización en tiempo real.
 
-## Contenido
+`src/app` define las rutas, `src/lib/page-metadata.ts` genera metadatos propios por página y `src/app/sitemap.ts` conserva fechas fijas y verificables para las rutas de contenido compartido; las fichas omiten `lastModified` si no se conoce cuándo se actualizó su contenido. `public/manus-routes.json` registra las rutas de Next y del micrositio independiente.
 
-- `src/data/portfolio.config.ts`: identidad, contacto, categorías y tamaño de página.
-- `src/data/projects.ts`: catálogo. Los conteos de la interfaz se derivan de estos datos.
-- `src/data/case-studies.ts`: casos destacados, aportación, decisiones y limitaciones.
-- `src/components/PortfolioSections.tsx`: las secciones de presentación, servicios, trayectoria, formación y contacto.
-- `src/app/globals.css`: sistema visual y ajustes responsive.
+Las capturas activas están en `public/projects/captures/`; sus fuentes y fechas de visita están en `docs/capturas-verificadas.json`. Una captura documenta una consulta y no garantiza que el sitio siga disponible. No se atribuyen resultados comerciales ni disponibilidad laboral no confirmados.
 
-Cada proyecto requiere `developmentState: 'completed' | 'in_progress'`, independiente de `status: 'online' | 'beta' | 'maintenance'`. La migración inicial conserva la clasificación del catálogo anterior: los proyectos con progreso quedan en desarrollo y los demás en versión publicada. Revisa este dato editorial al actualizar cada proyecto; no equivale a verificar su calidad o disponibilidad.
+`public/taller-fenix/` contiene una exportación del proyecto vecino `taller_web_cero` y sus variantes. Para actualizarla, compila el taller en su propio repositorio y luego ejecuta `npm run import:workshop` antes de `npm run build`. El importador escribe únicamente en este repositorio. No modifica el proyecto de origen.
 
-Añade categorías usadas al arreglo `CATEGORIES`. Las categorías sin proyectos se ocultan automáticamente. `progress` sirve para documentar una etapa; no se muestra como una métrica de calidad. Los estados son datos editoriales, no monitorización de uptime.
+## Publicación en Cloudflare Pages
 
-La búsqueda ignora tildes y mayúsculas. La URL conserva `q`, `categoria`, `estado` y `vista`; puedes compartir una colección filtrada. El catálogo comienza con seis proyectos y permite cargar los demás. La vista de directorio muestra todos los resultados.
+Cloudflare Pages es el único destino de producción elegido. La compilación produce `out/` con `basePath` vacío; el nombre previsto del proyecto Pages es `portafolio-xaviercabello` y la rama prevista es `main`. La auditoría de solo lectura del 13 nov. 2026 no encontró ese Pages project ni la zona `cabellosalirrosas.com` en la cuenta Cloudflare conectada; por tanto, el proyecto aún debe crearse y el dominio/custom domain debe resolverse antes de publicar. El sitio productivo actual no se modificó. El workflow verifica las pull requests y, al llegar un cambio a `main`, publica `out/` con Wrangler solo si están configurados los secretos de Actions `CLOUDFLARE_API_TOKEN` y `CLOUDFLARE_ACCOUNT_ID`; si falta alguno, el despliegue se omite. El token debe tener permisos de despliegue de Cloudflare Pages; no se guarda en Git.
 
-Los archivos WebP son derivados de las capturas PNG originales, que se conservan. Los SVG son ilustraciones de proyecto, no capturas; reemplázalos por capturas reales cuando estén disponibles. La imagen social general está en `public/og-image.png`.
+Para evitar compilaciones duplicadas, usa este workflow de GitHub como mecanismo de publicación y desactiva el auto-deploy de un eventual vínculo Git independiente que tenga el proyecto Pages. El comando local `npm run deploy:pages` publica en la rama reconocida por Wrangler y requiere una sesión Cloudflare válida. GitHub Pages queda desactivado.
 
-## Contacto y publicación
-
-Los botones de proyectos abren WhatsApp al +51 925 475 034 con un mensaje preparado. No se envía automáticamente. El correo permanece visible como alternativa.
-
-La foto de portada y de la sección Sobre mí es una copia WebP optimizada de `taller_web_cero/Xavier Cabello.jpeg`; el original no se modifica.
-
-El botón de formación abre `/taller-fenix/`: una copia compilada del proyecto vecino `taller_web_cero`, con sus recursos y tres variantes A/B bajo la misma ruta. No requiere mantener un segundo servidor local abierto. Para actualizarla, compila primero el taller en su propio repositorio y ejecuta `npm run import:workshop` aquí antes de `npm run build`. El importador solo escribe en este portafolio; no modifica el proyecto de origen. Puedes indicar otra carpeta dist: `node scripts/import-workshop.cjs C:/ruta/al/dist`.
-
-La dirección pública del taller está pendiente. Se propone `https://fenix.cabellosalirrosas.com` para mantenerlo como proyecto independiente. `https://cabellosalirrosas.com/taller-fenix` también es posible, pero requiere desplegar o enrutar el taller en el sitio raíz de ese dominio; no queda activada por estos cambios locales.
-
-La exportación puede servirse desde `out/` en Cloudflare Pages. `next.config.mjs` conserva soporte de `basePath` para GitHub Pages. Las pruebas locales no verifican la disponibilidad de todos los enlaces externos, la entrega del correo ni los resultados comerciales de los proyectos.
-
-Antes de publicar, revisa el copy y el alcance de los casos de estudio con la persona autora. No se añaden testimonios, clientes, métricas de impacto ni disponibilidad laboral sin confirmación factual.
-
+El lanzamiento productivo queda sujeto a confirmación final, creación del Pages project y definición de cómo asociar `xavier.cabellosalirrosas.com` sin interrumpir el sitio actual.
