@@ -1,0 +1,14 @@
+{
+  "routes": [
+    { "path": "/", "title": "Inicio" },
+    { "path": "/proyectos", "title": "Catálogo de proyectos" },
+    { "path": "/proyectos/:id", "title": "Detalle de proyecto" },
+    { "path": "/servicios", "title": "Servicios" },
+    { "path": "/sobre-mi", "title": "Sobre Xavier Cabello" },
+    { "path": "/contacto", "title": "Contacto" },
+    { "path": "/taller-fenix/", "title": "Taller Fénix" },
+    { "path": "/taller-fenix/webcero/", "title": "Taller Fénix · Web Cero" },
+    { "path": "/taller-fenix/bycoding/", "title": "Taller Fénix · Bycoding" },
+    { "path": "/taller-fenix/agencia/", "title": "Taller Fénix · Agencia" }
+  ]
+}

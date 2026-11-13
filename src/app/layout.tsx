@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Link from 'next/link';
 import './globals.css';
 import { portfolioConfig } from '@/data/portfolio.config';
 import { PROJECTS_DATA } from '@/data/projects';
@@ -8,7 +9,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 const { owner } = portfolioConfig;
 const siteUrl = owner.siteUrl.replace(/\/$/, '');
 const title = `${owner.name} | Desarrollador Web Full Stack`;
-const description = `Xavier Cabello: desarrollo web, experiencia docente e IA aplicada. Explora ${PROJECTS_DATA.length} proyectos de educación, negocios y diseño, y conversemos sobre el tuyo.`;
+const description = `Soy Xavier Cabello, desarrollador y docente de matemática. Explora ${PROJECTS_DATA.length} proyectos de educación, producto digital e IA aplicada, o cuéntame tu idea.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -17,20 +18,12 @@ export const metadata: Metadata = {
   keywords: [
     'Xavier Cabello',
     'Fénix 357',
-    'Software Engineer',
-    'Full-Stack Developer',
-    'Ingeniero de Software',
-    'Next.js',
-    'React',
-    'TypeScript',
-    'Python',
-    'EdTech',
-    'Inteligencia Artificial',
-    'Simuladores Matemáticos',
-    'Vaca Púrpura',
-    'Arquitectura Cloud 0 costo',
-    'Cloudflare Pages',
-    'Lima Perú',
+    'desarrollo web',
+    'educación matemática',
+    'inteligencia artificial',
+    'plataformas educativas',
+    'simuladores matemáticos',
+    'Lima, Perú',
   ],
   authors: [{ name: owner.name, url: siteUrl }],
   creator: owner.name,
@@ -56,14 +49,6 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: `${owner.name} (${owner.alias}) · Software Engineer & Creador`,
-      },
-    ],
-    videos: [
-      {
-        url: `${siteUrl}/videos/phoenix-hero.mp4`,
-        width: 1920,
-        height: 1080,
-        type: 'video/mp4',
       },
     ],
   },
@@ -114,47 +99,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         description,
         publisher: { '@id': `${siteUrl}/#person` },
       },
-      {
-        '@type': 'VideoObject',
-        '@id': `${siteUrl}/#video-phoenix-flight`,
-        name: 'Ave Fénix 357 en Vuelo Cósmico 3D — Xavier Cabello',
-        description:
-          'Simulación cinematográfica en 3D del Ave Fénix volando en el cosmos con fuego fluido y partículas estelares, representando la identidad de Xavier Cabello (Fénix 357).',
-        thumbnailUrl: [
-          `${siteUrl}/images/phoenix-hero-poster.jpg`,
-          `${siteUrl}/images/og-phoenix.jpg`,
-        ],
-        uploadDate: '2026-10-17T00:00:00Z',
-        contentUrl: `${siteUrl}/videos/phoenix-hero.mp4`,
-        embedUrl: siteUrl,
-        duration: 'PT10S',
-      },
-      {
-        '@type': 'VideoObject',
-        '@id': `${siteUrl}/#video-phoenix-rising`,
-        name: 'Ave Fénix 357 Resurgiendo de las Cenizas en 3D — Xavier Cabello',
-        description:
-          'Obra visual en 3D del Ave Fénix emergiendo de brasas incandescentes con plumaje áureo hacia el cosmos, simbolizando la resiliencia y el renacimiento técnico de Xavier Cabello.',
-        thumbnailUrl: [
-          `${siteUrl}/images/phoenix-rising-poster.jpg`,
-          `${siteUrl}/images/og-phoenix.jpg`,
-        ],
-        uploadDate: '2026-10-17T00:00:00Z',
-        contentUrl: `${siteUrl}/videos/phoenix-rising.mp4`,
-        embedUrl: siteUrl,
-        duration: 'PT10S',
-      },
-      {
-        '@type': 'ItemList',
-        name: 'Ecosistema de Proyectos de Xavier Cabello',
-        numberOfItems: PROJECTS_DATA.length,
-        itemListElement: PROJECTS_DATA.map((p, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          name: p.title,
-          url: `${siteUrl}/proyectos/${p.id}`,
-        })),
-      },
     ],
   };
 
@@ -187,21 +131,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 aria-label="Enlaces del pie de página"
                 className="flex flex-wrap items-center gap-4 text-xs font-semibold text-[var(--muted)]"
               >
-                <a href="/#catalogo" className="hover:text-[var(--text)] transition-colors">
-                  Proyectos
-                </a>
-                <a href="/#servicios" className="hover:text-[var(--text)] transition-colors">
+                <Link href="/proyectos" className="hover:text-[var(--text)] transition-colors">
+                  Proyectos ({PROJECTS_DATA.length})
+                </Link>
+                <Link href="/servicios" className="hover:text-[var(--text)] transition-colors">
                   Servicios
+                </Link>
+                <a href="/taller-fenix/" className="hover:text-[var(--text)] transition-colors">
+                  Taller Fénix
                 </a>
-                <a href="/#proyectos" className="hover:text-[var(--text)] transition-colors">
-                  Catálogo ({PROJECTS_DATA.length})
-                </a>
-                <a href="/#sobre-mi" className="hover:text-[var(--text)] transition-colors">
+                <Link href="/sobre-mi" className="hover:text-[var(--text)] transition-colors">
                   Sobre mí
-                </a>
-                <a href="/#contacto" className="text-amber-500 hover:underline">
+                </Link>
+                <Link href="/contacto" className="text-amber-500 hover:underline">
                   Contacto ↗
-                </a>
+                </Link>
                 <a
                   href={owner.socials.github}
                   target="_blank"

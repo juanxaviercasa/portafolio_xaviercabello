@@ -1,63 +1,70 @@
-import { GitHubActivitySection } from '@/components/GitHubActivitySection';
+import Link from 'next/link';
+import { ArrowRight, BriefcaseBusiness, UserRound } from 'lucide-react';
 import { PROJECTS_DATA } from '@/data/projects';
-import { CATEGORIES } from '@/data/portfolio.config';
 import { StatsSummary } from '@/components/StatsSummary';
-import { ShowcaseGrid } from '@/components/ShowcaseGrid';
-import {
-  FeaturedProjects,
-  Services,
-  About,
-  Training,
-  Contact,
-  SectionHeading,
-} from '@/components/PortfolioSections';
+import { FeaturedProjects, Training } from '@/components/PortfolioSections';
 
-/**
- * Arquitectura UX optimizada y verificada:
- * 1. Propuesta de valor & identidad (inicio: StatsSummary + 3D Phoenix + Métricas)
- * 2. Proyectos destacados (destacados: 3 casos de estudio de alta complejidad)
- * 3. Servicios y soluciones para clientes/empresas (servicios)
- * 4. Trayectoria, mentalidad pedagógica y stack tecnológico (sobre-mi)
- * 5. Catálogo completo de proyectos (catalogo: ShowcaseGrid interactivo)
- * 6. Taller Fénix (formacion)
- * 7. Contacto directo y canales de comunicación (contacto)
- */
+const DESTINATIONS = [
+  {
+    href: '/servicios',
+    icon: BriefcaseBusiness,
+    eyebrow: 'Para negocios y equipos',
+    title: 'Construir una solución',
+    text: 'Aplicaciones, procesos digitales e IA aplicada a una necesidad concreta.',
+  },
+  {
+    href: '/sobre-mi',
+    icon: UserRound,
+    eyebrow: 'Para conocer el enfoque',
+    title: 'Ver quién está detrás',
+    text: 'Matemática, docencia y desarrollo de productos digitales.',
+  },
+];
+
 export default function HomePage() {
   return (
-    <main id="contenido" className="page-width my-6 space-y-12 sm:my-10 sm:space-y-16">
-      <StatsSummary totalProjects={PROJECTS_DATA.length} totalCategories={CATEGORIES.length - 1} />
-
+    <main id="contenido" className="page-width my-6 space-y-8 sm:my-10 sm:space-y-12">
+      <StatsSummary totalProjects={PROJECTS_DATA.length} />
       <FeaturedProjects />
-
       <Training />
 
-      <GitHubActivitySection />
-
-      <Services />
-
-      <About />
-
-      {/* Catálogo integral de sistemas en producción */}
       <section
-        id="catalogo"
-        aria-labelledby="catalog-title"
-        className="relative overflow-hidden rounded-[2rem] border-2 border-orange-300/80 bg-gradient-to-br from-white via-indigo-50/50 to-violet-50/60 p-6 shadow-bevel-elevated dark:border-orange-400/45 dark:from-[#2c1654] dark:via-[#381c68] dark:to-[#491e56] sm:p-10 lg:p-12"
+        aria-labelledby="next-step-title"
+        className="rounded-[2rem] border border-[var(--line)] bg-[var(--surface)] p-6 shadow-bevel sm:p-8"
       >
-        <SectionHeading
-          id="catalog-title"
-          eyebrow="Explora mi trabajo"
-          title={
-            <>
-              {PROJECTS_DATA.length} proyectos en el catálogo{' '}
-              <span className="text-phoenix-gradient">de la educación a los negocios</span>
-            </>
-          }
-          intro={`Explora casos para aprender a construir con IA: simuladores, aplicaciones y herramientas para negocios. Solo se incluyen proyectos con código, historial comprobado y captura real de su sitio publicado.`}
-        />
-        <ShowcaseGrid initialProjects={PROJECTS_DATA} />
-      </section>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="font-mono text-xs font-extrabold uppercase tracking-wider text-orange-600 dark:text-amber-300">
+              Explora por lo que necesitas
+            </p>
+            <h2 id="next-step-title" className="mt-1 text-2xl font-black text-[var(--text)] sm:text-3xl">
+              ¿Qué te gustaría hacer?
+            </h2>
+          </div>
+          <Link href="/proyectos" className="text-link shrink-0">
+            Ver los {PROJECTS_DATA.length} proyectos <ArrowRight size={15} aria-hidden="true" />
+          </Link>
+        </div>
 
-      <Contact />
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          {DESTINATIONS.map(({ href, icon: Icon, eyebrow, title, text }) => (
+            <Link
+              key={href}
+              href={href}
+              className="group rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 transition-colors hover:border-amber-500/60 hover:bg-amber-500/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+            >
+              <Icon size={20} className="text-amber-600 dark:text-amber-300" aria-hidden="true" />
+              <p className="mt-4 font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--muted)]">
+                {eyebrow}
+              </p>
+              <h3 className="mt-1 font-black text-[var(--text)] group-hover:text-amber-700 dark:group-hover:text-amber-300">
+                {title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">{text}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

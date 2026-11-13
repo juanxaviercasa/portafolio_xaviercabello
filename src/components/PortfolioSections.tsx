@@ -82,9 +82,9 @@ export function FeaturedProjects() {
         }
         intro="Tres puntos de partida para aprender: construir una interacción, organizar datos y presentar una identidad. Explora el problema, las decisiones y los límites de cada caso."
         action={
-          <a href="#catalogo" className="text-link shrink-0">
+          <Link href="/proyectos" className="text-link shrink-0">
             Ver los {PROJECTS_DATA.length} proyectos <ArrowRight size={15} aria-hidden="true" />
-          </a>
+          </Link>
         }
       />
 
@@ -361,9 +361,19 @@ export function Training() {
         </p>
       </div>
       <figure className="w-full max-w-md shrink-0 lg:w-56"><Image src={assetPath('/projects/captures/taller-web-cero.webp')} alt="Captura real del sitio del Taller Fénix" width={1440} height={1000} className="aspect-video w-full rounded-xl object-cover object-top" /><figcaption className="mt-1 text-[10px] text-slate-600 dark:text-amber-100">Captura real del taller publicado</figcaption></figure>
-      <a href={trainingUrl} className="button-primary shrink-0">
-        Conocer el Taller Fénix <ArrowUpRight size={17} aria-hidden="true" />
-      </a>
+      <div className="flex shrink-0 flex-wrap gap-3">
+        <a href={trainingUrl} className="button-primary">
+          Conocer el Taller Fénix <ArrowUpRight size={17} aria-hidden="true" />
+        </a>
+        <a
+          href={owner.socials.whatsappTraining}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="button-secondary"
+        >
+          Consultar sobre aprendizaje <ArrowUpRight size={16} aria-hidden="true" />
+        </a>
+      </div>
     </section>
   );
 }
@@ -394,9 +404,9 @@ export function Contact() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#200c3b]/90 via-transparent to-transparent" />
               <div className="absolute inset-x-5 bottom-5 flex flex-col gap-1">
-                <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-emerald-400/50 bg-emerald-500/20 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-300 backdrop-blur-md">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  Disponible para nuevos proyectos
+                <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-amber-300/45 bg-black/35 px-2.5 py-0.5 text-[10px] font-mono font-bold text-amber-100 backdrop-blur-md">
+                  <span className="h-1.5 w-1.5 rounded-full bg-amber-300" />
+                  Desarrollo · educación · IA
                 </span>
                 <p className="text-xl font-black leading-tight text-white mt-1">Xavier Cabello</p>
                 <p className="font-mono text-xs font-semibold text-amber-300">Desarrollador Web Full Stack</p>
@@ -456,4 +466,3 @@ export function Contact() {
     </section>
   );
 }
-

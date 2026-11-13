@@ -1,8 +1,18 @@
 'use client';
+
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowDown } from 'lucide-react';
 import { Project, ProjectCategoryId } from '@/types/project';
 import { portfolioConfig, CATEGORIES } from '@/data/portfolio.config';
+import {
+  isAreaCategory,
+  isFormatCategory,
+  isProjectArea,
+  isProjectFormat,
+  projectHasCategory,
+  ProjectAreaFilter,
+  ProjectFormatFilter,
+} from '@/data/project-facets';
 import { FilterBar } from '@/components/FilterBar';
 import { ProjectCard } from '@/components/ProjectCard';
 import { ProjectDirectoryTable } from '@/components/ProjectDirectoryTable';
@@ -12,54 +22,72 @@ const PAGE_SIZE = portfolioConfig.showcase.itemsPerPage;
 const DEFAULT_VIEW = portfolioConfig.showcase.defaultView;
 
 export function ShowcaseGrid({ initialProjects }: { initialProjects: Project[] }) {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategoryId>('all');
+  const [activeFormat, setActiveFormat] = useState<ProjectFormatFilter>('all');
+  const [activeArea, setActiveArea] = useState<ProjectAreaFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>(DEFAULT_VIEW);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [ready, setReady] = useState(false);
 
-  // Restaura filtros desde la URL (enlaces compartibles y botón atrás).
+  // Restaura enlaces compartidos; `categoria` mantiene compatibilidad con enlaces antiguos.
   useEffect(() => {
     const restore = () => {
       const params = new URLSearchParams(window.location.search);
-      const category = params.get('categoria');
-      setActiveCategory(
-        CATEGORIES.some((c) => c.id === category) ? (category as ProjectCategoryId) : 'all',
+      const legacyCategory = params.get('categoria');
+      const format = params.get('formato');
+      const area = params.get('area');
+
+      setActiveFormat(
+        isProjectFormat(format)
+          ? format
+          : isFormatCategory(legacyCategory)
+            ? legacyCategory
+            : 'all',
+      );
+      setActiveArea(
+        isProjectArea(area)
+          ? area
+          : isAreaCategory(legacyCategory)
+            ? legacyCategory
+            : 'all',
       );
       setSearchQuery(params.get('q') || '');
       setViewMode(params.get('vista') === 'table' ? 'table' : DEFAULT_VIEW);
       setVisibleCount(PAGE_SIZE);
       setReady(true);
     };
+
     restore();
     window.addEventListener('popstate', restore);
     return () => window.removeEventListener('popstate', restore);
   }, []);
 
-  // Sincroniza filtros con la URL.
+  // Sincroniza filtros con URL sin añadir entradas artificiales al historial.
   useEffect(() => {
     if (!ready) return;
     const url = new URL(window.location.href);
     const values = {
       q: searchQuery,
-      categoria: activeCategory === 'all' ? '' : activeCategory,
+      formato: activeFormat === 'all' ? '' : activeFormat,
+      area: activeArea === 'all' ? '' : activeArea,
       vista: viewMode === DEFAULT_VIEW ? '' : viewMode,
     };
     Object.entries(values).forEach(([key, value]) =>
       value ? url.searchParams.set(key, value) : url.searchParams.delete(key),
     );
-    url.searchParams.delete('estado'); // filtro retirado; limpia enlaces antiguos
+    url.searchParams.delete('categoria');
+    url.searchParams.delete('estado');
     window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
-  }, [ready, searchQuery, activeCategory, viewMode]);
+  }, [ready, searchQuery, activeFormat, activeArea, viewMode]);
 
   const categoryCounts = useMemo(
     () =>
       Object.fromEntries(
-        CATEGORIES.map((c) => [
-          c.id,
-          c.id === 'all'
+        CATEGORIES.map((category) => [
+          category.id,
+          category.id === 'all'
             ? initialProjects.length
-            : initialProjects.filter((p) => p.category === c.id || p.categories?.includes(c.id)).length,
+            : initialProjects.filter((project) => projectHasCategory(project, category.id)).length,
         ]),
       ) as Record<ProjectCategoryId, number>,
     [initialProjects],
@@ -68,26 +96,27 @@ export function ShowcaseGrid({ initialProjects }: { initialProjects: Project[] }
   const filteredProjects = useMemo(() => {
     const query = normalizeSearch(searchQuery);
     return initialProjects.filter((project) => {
-      if (
-        activeCategory !== 'all' &&
-        project.category !== activeCategory &&
-        !project.categories?.includes(activeCategory)
-      )
-        return false;
+      if (activeFormat !== 'all' && !projectHasCategory(project, activeFormat)) return false;
+      if (activeArea !== 'all' && !projectHasCategory(project, activeArea)) return false;
       return (
         !query ||
-        [project.title, project.description, project.subdomain, project.subcategory || '', ...project.tags].some(
-          (text) => normalizeSearch(text).includes(query),
-        )
+        [
+          project.title,
+          project.description,
+          project.subdomain,
+          project.subcategory || '',
+          ...project.tags,
+        ].some((text) => normalizeSearch(text).includes(query))
       );
     });
-  }, [initialProjects, activeCategory, searchQuery]);
+  }, [initialProjects, activeFormat, activeArea, searchQuery]);
 
   const displayed = filteredProjects.slice(0, visibleCount);
   const remaining = filteredProjects.length - visibleCount;
 
   const reset = () => {
-    setActiveCategory('all');
+    setActiveFormat('all');
+    setActiveArea('all');
     setSearchQuery('');
     setVisibleCount(PAGE_SIZE);
   };
@@ -95,9 +124,14 @@ export function ShowcaseGrid({ initialProjects }: { initialProjects: Project[] }
   return (
     <div>
       <FilterBar
-        activeCategory={activeCategory}
-        onCategoryChange={(category) => {
-          setActiveCategory(category);
+        activeFormat={activeFormat}
+        onFormatChange={(format) => {
+          setActiveFormat(format);
+          setVisibleCount(PAGE_SIZE);
+        }}
+        activeArea={activeArea}
+        onAreaChange={(area) => {
+          setActiveArea(area);
           setVisibleCount(PAGE_SIZE);
         }}
         searchQuery={searchQuery}
@@ -109,13 +143,16 @@ export function ShowcaseGrid({ initialProjects }: { initialProjects: Project[] }
         onViewModeChange={setViewMode}
         categoryCounts={categoryCounts}
         totalResults={filteredProjects.length}
+        onReset={reset}
       />
 
       <div id="project-results" aria-label="Resultados del catálogo">
         {filteredProjects.length === 0 ? (
           <div className="rounded-2xl border border-[var(--line)] bg-[var(--soft)]/40 p-10 text-center">
-            <h3 className="text-xl font-bold text-[var(--text)]">Sin resultados</h3>
-            <p className="mt-2 text-sm text-[var(--muted)]">Prueba con otra palabra, como «React», «IA» o «PWA».</p>
+            <h2 className="text-xl font-bold text-[var(--text)]">Sin resultados</h2>
+            <p className="mt-2 text-sm text-[var(--muted)]">
+              Prueba con otra palabra, como «React», «IA» o «PWA».
+            </p>
             <button type="button" onClick={reset} className="button-secondary mt-5">
               Ver todos los proyectos
             </button>
@@ -124,7 +161,7 @@ export function ShowcaseGrid({ initialProjects }: { initialProjects: Project[] }
           <ProjectDirectoryTable projects={filteredProjects} />
         ) : (
           <>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {displayed.map((project) => (
                 <ProjectCard key={project.id} project={project} />
               ))}

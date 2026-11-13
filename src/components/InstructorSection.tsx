@@ -1,6 +1,6 @@
-import React from 'react';
 import Image from 'next/image';
-import { Sparkles, Compass, Cpu, Cloud, Mail, ArrowRight, Flame } from 'lucide-react';
+import Link from 'next/link';
+import { Sparkles, Compass, Cpu, Mail, ArrowRight, Flame } from 'lucide-react';
 import { portfolioConfig } from '@/data/portfolio.config';
 import { PROJECTS_DATA } from '@/data/projects';
 
@@ -57,13 +57,13 @@ export function InstructorSection() {
                 <span>Escríbeme una consulta</span>
               </a>
             )}
-            <a
-              href="#catalogo"
+            <Link
+              href="/proyectos"
               className="inline-flex items-center gap-2 rounded-2xl border border-purple-200/80 dark:border-purple-800/40 bg-white/90 dark:bg-purple-950/30 px-5 py-3 text-sm sm:text-base font-bold text-purple-950 dark:text-purple-200 shadow-bevel transition-all hover:border-purple-400 hover:text-purple-950 dark:hover:text-white"
             >
               <span>Ver las {PROJECTS_DATA.length} aplicaciones</span>
               <ArrowRight className="h-4.5 w-4.5 text-amber-500" />
-            </a>
+            </Link>
           </div>
         </div>
 
